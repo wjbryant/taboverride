@@ -1,4 +1,4 @@
-// Tab Override jQuery Plugin v1.1.1 | wjbryant.com/projects/tab-override/
+// Tab Override jQuery Plugin v1.1.2 | wjbryant.com/projects/tab-override/
 // Copyright (c) 2012 Bill Bryant | opensource.org/licenses/mit
 
 /*jslint browser: true, sloppy: true */
@@ -7,7 +7,7 @@
 /**
  * @fileOverview Tab Override jQuery Plugin
  * @author       Bill Bryant
- * @version      1.1.1
+ * @version      1.1.2
  */
 
 /**
@@ -69,7 +69,8 @@ jQuery.fn.tabOverride = (function ($) {
             startTab, // if a tab was removed from the start of the first line
             preTab, // if a tab was removed before the start of the selection
             whitespace, // the whitespace at the beginning of the first selected line
-            whitespaceLen; // the length of the whitespace at the beginning of the first selected line
+            whitespaceLen, // the length of the whitespace at the beginning of the first selected line
+            CHARACTER = 'character'; // string constant used for the Range.move methods
 
         // don't do any unnecessary work
         if ((key !== 9 && (key !== 13 || !tabOverride.autoIndent)) || e.ctrlKey || e.altKey) {
@@ -182,8 +183,8 @@ jQuery.fn.tabOverride = (function ($) {
                     if (range) { // IE
                         // setting end first makes calculations easier
                         range.collapse();
-                        range.moveEnd('character', selEnd - startTab - (numTabs * tabLen) - selNewlines - preNewlines);
-                        range.moveStart('character', selStart - preTab - preNewlines);
+                        range.moveEnd(CHARACTER, selEnd - startTab - (numTabs * tabLen) - selNewlines - preNewlines);
+                        range.moveStart(CHARACTER, selStart - preTab - preNewlines);
                         range.select();
                     } else {
                         // set start first for Opera
@@ -203,8 +204,8 @@ jQuery.fn.tabOverride = (function ($) {
                     // set start and end points
                     if (range) { // IE
                         range.collapse();
-                        range.moveEnd('character', selEnd + (numTabs * tabLen) - selNewlines - preNewlines);
-                        range.moveStart('character', selStart + tabLen - preNewlines);
+                        range.moveEnd(CHARACTER, selEnd + (numTabs * tabLen) - selNewlines - preNewlines);
+                        range.moveStart(CHARACTER, selStart + tabLen - preNewlines);
                         range.select();
                     } else {
                         // the selection start is always moved by 1 character
@@ -224,7 +225,7 @@ jQuery.fn.tabOverride = (function ($) {
                         // set start and end points
                         if (range) { // IE
                             // collapses range and moves it by -1 tab
-                            range.move('character', selStart - tabLen - preNewlines);
+                            range.move(CHARACTER, selStart - tabLen - preNewlines);
                             range.select();
                         } else {
                             this.selectionEnd = this.selectionStart = selStart - tabLen;

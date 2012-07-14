@@ -1,5 +1,8 @@
 # Tab Override Changelog
 
+## 1.1.2 (7/14/12)
+* Minor optimization
+
 ## 1.1.1 (6/14/12)
 * Added tabOverride.tabSize() function to get and set tab size
 
