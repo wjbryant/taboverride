@@ -1,4 +1,4 @@
-// Tab Override jQuery Plugin v1.1.2 | wjbryant.com/projects/tab-override/
+// Tab Override jQuery Plugin v1.1.3pre | wjbryant.com/projects/tab-override/
 // Copyright (c) 2012 Bill Bryant | opensource.org/licenses/mit
 
 /*jslint browser: true, sloppy: true */
@@ -7,18 +7,18 @@
 /**
  * @fileOverview Tab Override jQuery Plugin
  * @author       Bill Bryant
- * @version      1.1.2
+ * @version      1.1.3pre
  */
 
 /**
- * The global jQuery object
+ * the global jQuery object
  *
  * @name jQuery
  * @namespace
  */
 
 /**
- * The jQuery function "namespace"
+ * the jQuery function "namespace"
  *
  * @name fn
  * @namespace
@@ -26,10 +26,10 @@
  */
 
 /**
- * The tabOverride method. Tabs will be overridden if enable is true (default).
+ * the tabOverride method - Tabs will be overridden if enable is true.
  *
- * @param  {Boolean} enable Whether Tab Override should be enabled for the element(s) (default = true)
- * @return {Object}         The jQuery object
+ * @param  {Boolean} [enable=true]  whether Tab Override should be enabled for the element(s)
+ * @return {Object}                 the jQuery object
  *
  * @function
  * @namespace
@@ -45,7 +45,7 @@ jQuery.fn.tabOverride = (function ($) {
     /**
      * Inserts / removes tabs and newlines on the keyDown event for the tab or enter key.
      *
-     * @param {Event} e The event object
+     * @param {Event} e  the event object
      *
      * @memberOf jQuery.fn.tabOverride
      * @private
@@ -299,7 +299,7 @@ jQuery.fn.tabOverride = (function ($) {
      * enter key is pressed. Opera requires that the default action be prevented
      * on this event or the textarea will lose focus.
      *
-     * @param {Event} e The event object
+     * @param {Event} e  the event object
      *
      * @memberOf jQuery.fn.tabOverride
      * @private
@@ -312,7 +312,7 @@ jQuery.fn.tabOverride = (function ($) {
     }
 
     /**
-     * The function assigned to jQuery.fn.tabOverride.
+     * the function assigned to jQuery.fn.tabOverride
      *
      * @ignore
      */
@@ -337,7 +337,7 @@ jQuery.fn.tabOverride = (function ($) {
     /**
      * Returns the current tab size. 0 represents the tab character.
      *
-     * @return {Number} The size (length) of the tab string or 0 for the tab character
+     * @return {Number}  the size (length) of the tab string or 0 for the tab character
      *
      * @name getTabSize
      * @function
@@ -349,9 +349,9 @@ jQuery.fn.tabOverride = (function ($) {
 
     /**
      * Sets the tab size for all elements that have Tab Override enabled.
-     * 0 represents the tab character.
+     * 0 represents the tab character. The initial value is 0.
      *
-     * @param {Number} size The tab size (default = 0)
+     * @param {Number} size  the tab size
      *
      * @name setTabSize
      * @function
@@ -365,7 +365,7 @@ jQuery.fn.tabOverride = (function ($) {
      * Gets or sets the tab size for all elements that have Tab Override enabled.
      * 0 represents the tab character.
      *
-     * @param {Number} size (optional) The tab size
+     * @param {Number} [size]  the tab size
      *
      * @name tabSize
      * @function
@@ -388,7 +388,7 @@ jQuery.fn.tabOverride = (function ($) {
     };
 
     /**
-     * Whether each line should be auto indented (default = false).
+     * whether each line should be automatically indented (default = false)
      *
      * @name autoIndent
      * @memberOf jQuery.fn.tabOverride
