@@ -1,4 +1,4 @@
-// Tab Override jQuery Plugin v1.1.3pre | wjbryant.com/projects/tab-override/
+// Tab Override jQuery Plugin v1.1.3 | wjbryant.com/projects/tab-override/
 // Copyright (c) 2012 Bill Bryant | opensource.org/licenses/mit
 
 /*jslint browser: true, sloppy: true */
@@ -7,7 +7,7 @@
 /**
  * @fileOverview Tab Override jQuery Plugin
  * @author       Bill Bryant
- * @version      1.1.3pre
+ * @version      1.1.3
  */
 
 /**
@@ -109,7 +109,7 @@ jQuery.fn.tabOverride = (function ($) {
             } else {
                 preNewlines = selNewlines = 0;
             }
-        } else if (typeof this.selectionStart !== 'undefined') {
+        } else if (typeof this.selectionStart === 'number') {
             selStart = this.selectionStart;
             selEnd = this.selectionEnd;
             sel = text.slice(selStart, selEnd);
