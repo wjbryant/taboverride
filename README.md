@@ -23,8 +23,8 @@ Documentation is available at
 ### Setup
 
 The Tab Override jQuery plugin requires jQuery version 1.7 or newer. You can
-include either the production version (`jquery.taboverride.min.js`) or the
-development version (`jquery.taboverride.js`) of the plugin in the page.
+include either the production version (`jquery.taboverride-x.x.min.js`) or the
+development version (`jquery.taboverride-x.x.js`) of the plugin in the page.
 
 ### Usage
 
@@ -85,7 +85,7 @@ difference is that event handler registration will not be done automatically.
 ### Setup
 
 First, you must include the standalone version of Tab Override in the page
-(`taboverride.js` or `taboverride.min.js`). This will create a global object
+(`taboverride-x.x.js` or `taboverride-x.x.min.js`). This will create a global object
 named `TABOVERRIDE`.
 
 ### Usage
