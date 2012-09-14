@@ -1,11 +1,14 @@
 # Tab Override
 
-Tab Override is a lightweight jQuery plugin that allows tabs to be entered in textarea elements.
+Tab Override is a lightweight script that allows tabs to be entered in
+`textarea` elements. It is available as both a jQuery plugin and a standalone
+script.
 
-See a live example at
+See a live demo at
 [wjbryant.com/projects/tab-override/](http://wjbryant.com/projects/tab-override/ "Tab Override Demo").
 
-Documentation is available at [wjbryant.com/projects/tab-override/docs/](http://wjbryant.com/projects/tab-override/docs/symbols/jQuery.fn.tabOverride.html "Tab Override Documentation").
+Documentation is available at
+[wjbryant.github.com/tab-override/](http://wjbryant.github.com/tab-override/ "Tab Override Documentation").
 
 ## Features
 
@@ -15,9 +18,17 @@ Documentation is available at [wjbryant.com/projects/tab-override/docs/](http://
 * Adjustable tab size
 * Auto indent
 
-## Usage
+## jQuery Plugin
 
-### Enable Tab Override
+### Setup
+
+The Tab Override jQuery plugin requires jQuery version 1.7 or newer. You can
+include either the production version (`jquery.taboverride.min.js`) or the
+development version (`jquery.taboverride.js`) of the plugin in the page.
+
+### Usage
+
+#### Enable Tab Override
 
 ```javascript
 // no arguments
@@ -27,14 +38,14 @@ $('textarea').tabOverride();
 $('textarea').tabOverride(true);
 ```
 
-### Disable Tab Override
+#### Disable Tab Override
 
 ```javascript
 // any falsy argument
 $('textarea').tabOverride(false);
 ```
 
-### Get/Set Tab Size
+#### Get/Set Tab Size
 
 ```javascript
 // get the current tab size (0 represents the tab character)
@@ -47,14 +58,66 @@ $.fn.tabOverride.tabSize(0);
 $.fn.tabOverride.tabSize(4);
 ```
 
-### Enable/Disable Auto Indent
+#### Enable/Disable Auto Indent
 
 ```javascript
 // enable auto indent
-$.fn.tabOverride.autoIndent = true;
+$.fn.tabOverride.autoIndent(true);
 
 // disable auto indent (default)
-$.fn.tabOverride.autoIndent = false;
+$.fn.tabOverride.autoIndent(false);
+```
+
+#### Additional Notes
+
+Calls to the settings functions can be chained together.
+
+```javascript
+// set up Tab Override
+$.fn.tabOverride.tabSize(4).autoIndent(true);
+```
+
+## Using Tab Override Without jQuery
+
+You can still use Tab Override even if you are not using jQuery. The only
+difference is that event handler registration will not be done automatically.
+
+### Setup
+
+First, you must include the standalone version of Tab Override in the page
+(`taboverride.js` or `taboverride.min.js`). This will create a global object
+named `TABOVERRIDE`.
+
+### Usage
+
+The `TABOVERRIDE` global object exposes two functions, `overrideKeyDown` and
+`overrideKeyPress`, that need to be registered on the `textarea` element for the
+`keydown` and `keypress` events respectively.
+
+Here is an example using the DOM Level 0 API:
+
+```html
+<textarea id="txt"></textarea>
+```
+
+```javascript
+// get a reference to the textarea element
+var textarea = document.getElementById('txt');
+
+// set up Tab Override
+TABOVERRIDE.tabSize(4).autoIndent(true);
+
+// register event handlers
+textarea.onkeydown = TABOVERRIDE.overrideKeyDown;
+textarea.onkeypress = TABOVERRIDE.overrideKeyPress;
+```
+
+To disable Tab Override for the `textarea`, you would simply remove the event
+handlers:
+
+```javascript
+textarea.onkeydown = null;
+textarea.onkeypress = null;
 ```
 
 ## Browser Support

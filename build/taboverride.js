@@ -1,56 +1,42 @@
-// Tab Override jQuery Plugin v1.1.3 | wjbryant.com/projects/tab-override/
-// Copyright (c) 2012 Bill Bryant | opensource.org/licenses/mit
-
-/*jslint browser: true, sloppy: true */
-/*global jQuery */
+/*! Tab Override v2.0 | https://github.com/wjbryant/tab-override
+Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
 
 /**
- * @fileOverview Tab Override jQuery Plugin
+ * @fileOverview Tab Override
  * @author       Bill Bryant
- * @version      1.1.3
+ * @version      2.0
  */
 
-/**
- * the global jQuery object
- *
- * @name jQuery
- * @namespace
- */
+/*jslint browser: true */
 
 /**
- * the jQuery function "namespace"
+ * the TABOVERRIDE "namespace" global object
  *
- * @name fn
  * @namespace
- * @memberOf jQuery
  */
+var TABOVERRIDE;
+if (typeof TABOVERRIDE !== 'object') {
+    TABOVERRIDE = {};
+}
 
-/**
- * the tabOverride method - Tabs will be overridden if enable is true.
- *
- * @param  {Boolean} [enable=true]  whether Tab Override should be enabled for the element(s)
- * @return {Object}                 the jQuery object
- *
- * @function
- * @namespace
- */
-jQuery.fn.tabOverride = (function ($) {
+(function (TABOVERRIDE) {
+    'use strict';
+
     var aTab = '\t', // the string representing a tab
+        autoIndent = false, // whether each line should be automatically indented
         inWhitespace = false, // whether the start of the selection is in the leading whitespace on enter
         ta = document.createElement('textarea'), // temp textarea element to get newline character(s)
         newline, // the newline character sequence (\n or \r\n)
-        newlineLen, // the number of characters used for a newline (1 or 2)
-        tabOverride; // the function that will be returned
+        newlineLen; // the number of characters used for a newline (1 or 2)
 
     /**
-     * Inserts / removes tabs and newlines on the keyDown event for the tab or enter key.
+     * Inserts or removes tabs and newlines on the keyDown event for the tab or enter key.
      *
      * @param {Event} e  the event object
-     *
-     * @memberOf jQuery.fn.tabOverride
-     * @private
      */
-    function overrideKeyDown(e) {
+    TABOVERRIDE.overrideKeyDown = function (e) {
+        e = e || event;
+
         var key = e.keyCode, // the key code for the key that was pressed
             tab, // the string representing a tab
             tabLen, // the length of a tab
@@ -73,7 +59,7 @@ jQuery.fn.tabOverride = (function ($) {
             CHARACTER = 'character'; // string constant used for the Range.move methods
 
         // don't do any unnecessary work
-        if ((key !== 9 && (key !== 13 || !tabOverride.autoIndent)) || e.ctrlKey || e.altKey) {
+        if ((key !== 9 && (key !== 13 || !autoIndent)) || e.ctrlKey || e.altKey) {
             return;
         }
 
@@ -243,7 +229,7 @@ jQuery.fn.tabOverride = (function ($) {
                     }
                 }
             }
-        } else if (tabOverride.autoIndent) { // Enter key
+        } else if (autoIndent) { // Enter key
             // insert a newline and copy the whitespace from the beginning of the line
 
             // find the start of the first selected line
@@ -290,90 +276,54 @@ jQuery.fn.tabOverride = (function ($) {
             }
         }
 
-        e.preventDefault();
-    }
+        if (e.preventDefault) {
+            e.preventDefault();
+        } else {
+            e.returnValue = false;
+            return false;
+        }
+    };
 
     /**
-     * Prevents the default action for the keyPress event when tab or enter are
+     * Prevents the default action for the keyPress event when tab or enter is
      * pressed. Opera (and Firefox) also fire a keypress event when the tab or
      * enter key is pressed. Opera requires that the default action be prevented
      * on this event or the textarea will lose focus.
      *
      * @param {Event} e  the event object
      *
-     * @memberOf jQuery.fn.tabOverride
-     * @private
+     * @memberOf TABOVERRIDE
      */
-    function overrideKeyPress(e) {
+    TABOVERRIDE.overrideKeyPress = function (e) {
+        e = e || event;
+
         var key = e.keyCode;
-        if ((key === 9 || (key === 13 && tabOverride.autoIndent && !inWhitespace)) && !e.ctrlKey && !e.altKey) {
-            e.preventDefault();
+
+        if ((key === 9 || (key === 13 && autoIndent && !inWhitespace)) && !e.ctrlKey && !e.altKey) {
+            if (e.preventDefault) {
+                e.preventDefault();
+            } else {
+                e.returnValue = false;
+                return false;
+            }
         }
-    }
-
-    /**
-     * the function assigned to jQuery.fn.tabOverride
-     *
-     * @ignore
-     */
-    tabOverride = function (enable) {
-        // unbind the tab override functions so they are not bound more than once
-        this.each(function () {
-            $(this).unbind('.tabOverride');
-        });
-
-        // only bind the tab override functions if the enable argument is not specified or truthy
-        if (!arguments.length || enable) {
-            this.each(function () {
-                if (this.nodeName && this.nodeName.toLowerCase() === 'textarea') {
-                    $(this).bind('keydown.tabOverride', overrideKeyDown).bind('keypress.tabOverride', overrideKeyPress);
-                }
-            });
-        }
-
-        return this; // always return the jQuery object
-    };
-
-    /**
-     * Returns the current tab size. 0 represents the tab character.
-     *
-     * @return {Number}  the size (length) of the tab string or 0 for the tab character
-     *
-     * @name getTabSize
-     * @function
-     * @memberOf jQuery.fn.tabOverride
-     */
-    tabOverride.getTabSize = function () {
-        return tabOverride.tabSize();
-    };
-
-    /**
-     * Sets the tab size for all elements that have Tab Override enabled.
-     * 0 represents the tab character. The initial value is 0.
-     *
-     * @param {Number} size  the tab size
-     *
-     * @name setTabSize
-     * @function
-     * @memberOf jQuery.fn.tabOverride
-     */
-    tabOverride.setTabSize = function (size) {
-        tabOverride.tabSize(size);
     };
 
     /**
      * Gets or sets the tab size for all elements that have Tab Override enabled.
      * 0 represents the tab character.
      *
-     * @param {Number} [size]  the tab size
+     * @param  {Number}        [size]  the tab size
+     * @return {Number|Object}         the tab size or the TABOVERRIDE object
      *
      * @name tabSize
      * @function
-     * @memberOf jQuery.fn.tabOverride
+     * @memberOf TABOVERRIDE
      */
-    tabOverride.tabSize = function (size) {
+    TABOVERRIDE.tabSize = function (size) {
+        var i;
+
         if (arguments.length) {
-            var i;
             if (!size) { // size is 0 (or falsy)
                 aTab = '\t';
             } else if (typeof size === 'number' && size > 0) {
@@ -382,24 +332,36 @@ jQuery.fn.tabOverride = (function ($) {
                     aTab += ' ';
                 }
             }
-        } else {
-            return (aTab === '\t') ? 0 : aTab.length;
+            return this;
         }
+
+        return (aTab === '\t') ? 0 : aTab.length;
     };
 
     /**
-     * whether each line should be automatically indented (default = false)
+     * Gets or sets the auto indent setting. True if each line should be
+     * automatically indented (default = false).
+     *
+     * @param  {Boolean}        [enable]  whether auto indent should be enabled
+     * @return {Boolean|Object}           whether auto indent is enabled or the
+     *                                    TABOVERRIDE object
      *
      * @name autoIndent
-     * @memberOf jQuery.fn.tabOverride
+     * @function
+     * @memberOf TABOVERRIDE
      */
-    tabOverride.autoIndent = false;
+    TABOVERRIDE.autoIndent = function (enable) {
+        if (arguments.length) {
+            autoIndent = enable ? true : false;
+            return this;
+        }
+
+        return autoIndent;
+    };
 
     // get the characters used for a newline
     ta.value = '\n';
     newline = ta.value;
     newlineLen = newline.length;
     ta = null;
-
-    return tabOverride;
-}(jQuery));
+}(TABOVERRIDE));
