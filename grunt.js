@@ -1,37 +1,47 @@
 module.exports = function (grunt) {
     grunt.initConfig({
-        pkg: '<json:taboverride.jquery.json>',
+        pkg: '<json:package.json>',
         meta: {
-            banner: '/*! <%= pkg.title %> v<%= pkg.version %> | <%= pkg.homepage %>\r\n' +
-                'Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %> | ' +
-                '<%= pkg.licenses[0].url %> */',
-            fileOverview: '/**\r\n * @fileOverview <%= pkg.title %>\r\n' +
-                ' * @author       <%= pkg.author.name %>\r\n * @version      <%= pkg.version %>\r\n */'
+            banner: '/*! <%= pkg.name %> v<%= pkg.version %> | <%= pkg.homepage %>\r\n' +
+                'Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %> | <%= pkg.licenses[0].url %> */',
+            fileOverview: '/**\r\n' +
+                ' * @fileOverview <%= pkg.name %>\r\n' +
+                ' * @author       <%= pkg.author.name %>\r\n' +
+                ' * @version      <%= pkg.version %>\r\n' +
+                ' */',
+            empty: '<% %>',
+            component: '{\r\n' +
+                '    "name": "<%= pkg.name %>",\r\n' +
+                '    "version": "<%= pkg.version %>",\r\n' +
+                '    "main": "./build/taboverride.js"\r\n' +
+                '}'
         },
         lint: {
-            all: ['src/taboverride.js', 'src/taboverride-jquery-wrapper.js']
+            all: 'src/taboverride.js'
         },
         concat: {
-            core: {
+            dist: {
                 src: ['<banner>', '<banner:meta.fileOverview>', 'src/taboverride.js'],
                 dest: 'build/taboverride.js'
             },
-            jquery: {
-                src: ['build/taboverride.js', 'src/taboverride-jquery-wrapper.js'],
-                dest: 'build/jquery.taboverride.js'
+            newline: {
+                src: ['build/taboverride.min.js', '<banner:meta.empty>'],
+                dest: 'build/taboverride.min.js',
+                separator: ''
+            },
+            component: {
+                src: '<banner:meta.component>',
+                dest: 'component.json',
+                separator: ''
             }
         },
         min: {
-            core: {
+            all: {
                 src: ['<banner>', 'build/taboverride.js'],
                 dest: 'build/taboverride.min.js'
-            },
-            jquery: {
-                src: ['<banner>', 'build/jquery.taboverride.js'],
-                dest: 'build/jquery.taboverride.min.js'
             }
         }
         // need to a create custom task for jsdoc-toolkit documentation
     });
-    grunt.registerTask('default', 'lint concat min');
+    grunt.registerTask('default', 'lint concat:dist min concat:newline concat:component');
 };

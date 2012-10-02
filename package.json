@@ -1,0 +1,25 @@
+{
+    "name": "taboverride",
+    "version": "2.1.0",
+    "author": {
+        "name": "Bill Bryant",
+        "url": "http://wjbryant.com/"
+    },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "http://opensource.org/licenses/mit"
+        }
+    ],
+    "description": "Tab Override is a lightweight script that allows tabs to be entered in textarea elements",
+    "keywords": [
+        "indent",
+        "insert",
+        "key",
+        "override",
+        "tab",
+        "tabs",
+        "textarea"
+    ],
+    "homepage": "https://github.com/wjbryant/taboverride"
+}

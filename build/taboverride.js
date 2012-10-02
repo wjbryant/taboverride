@@ -1,28 +1,46 @@
-/*! Tab Override v2.0 | https://github.com/wjbryant/tab-override
+/*! taboverride v2.1.0 | https://github.com/wjbryant/taboverride
 Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
 
 /**
- * @fileOverview Tab Override
+ * @fileOverview taboverride
  * @author       Bill Bryant
- * @version      2.0
+ * @version      2.1.0
  */
 
 /*jslint browser: true */
+/*global define */
 
 /**
  * the TABOVERRIDE "namespace" global object
  *
+ * @name TABOVERRIDE
  * @namespace
  */
-var TABOVERRIDE;
-if (typeof TABOVERRIDE !== 'object') {
-    TABOVERRIDE = {};
-}
 
-(function (TABOVERRIDE) {
+// use AMD if available
+(function (factory) {
     'use strict';
 
-    var aTab = '\t', // the string representing a tab
+    // assign the module created by factory() to a global variable and return it
+    function factoryWrapper() {
+        return (window.TABOVERRIDE = factory());
+    }
+
+    if (typeof define === 'function' && define.amd) {
+        // AMD - register as a named module,
+        // but still create a global variable
+        // Using a named module allows for non-AMD-aware concatenation
+        define('taboverride', [], factoryWrapper);
+    } else {
+        // no AMD - just create the global variable
+        factoryWrapper();
+    }
+}(function () {
+    'use strict';
+
+    var TABOVERRIDE = {},
+        document = window.document,
+        aTab = '\t', // the string representing a tab
         autoIndent = false, // whether each line should be automatically indented
         inWhitespace = false, // whether the start of the selection is in the leading whitespace on enter
         ta = document.createElement('textarea'), // temp textarea element to get newline character(s)
@@ -364,4 +382,6 @@ if (typeof TABOVERRIDE !== 'object') {
     newline = ta.value;
     newlineLen = newline.length;
     ta = null;
-}(TABOVERRIDE));
+
+    return TABOVERRIDE;
+}));

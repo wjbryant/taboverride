@@ -1,14 +1,13 @@
 # Tab Override
 
 Tab Override is a lightweight script that allows tabs to be entered in
-`textarea` elements. It is available as both a jQuery plugin and a standalone
-script.
+`textarea` elements. It is also available as a
+[jQuery plugin](https://github.com/wjbryant/jquery.taboverride "Tab Override jQuery plugin").
+Code documentation is available at
+[wjbryant.github.com/taboverride/](http://wjbryant.github.com/taboverride/ "Tab Override Documentation").
 
-See a live demo at
+Try out the Tab Override demo at
 [wjbryant.com/projects/tab-override/](http://wjbryant.com/projects/tab-override/ "Tab Override Demo").
-
-Documentation is available at
-[wjbryant.github.com/tab-override/](http://wjbryant.github.com/tab-override/ "Tab Override Documentation").
 
 ## Features
 
@@ -18,77 +17,34 @@ Documentation is available at
 * Adjustable tab size
 * Auto indent
 
-## jQuery Plugin
+## Setup
 
-### Setup
+Include either `taboverride-x.x.x.js` or `taboverride-x.x.x.min.js` in the page.
+See the [Downloads page](downloads) or the [build directory](tree/master/build).
 
-The Tab Override jQuery plugin requires jQuery version 1.7 or newer. You can
-include either the production version (`jquery.taboverride-x.x.min.js`) or the
-development version (`jquery.taboverride-x.x.js`) of the plugin in the page.
+### Bower
 
-### Usage
+This script is registered as `taboverride` in the global [Bower](http://twitter.github.com/bower/)
+registry. Install Bower via NPM and then run this command from the root directory
+of your project to install Tab Override:
 
-#### Enable Tab Override
-
-```javascript
-// no arguments
-$('textarea').tabOverride();
-
-// or any truthy argument
-$('textarea').tabOverride(true);
+```
+bower install taboverride
 ```
 
-#### Disable Tab Override
+This will download Tab Override into a `components` directory in your project.
 
-```javascript
-// any falsy argument
-$('textarea').tabOverride(false);
-```
+### AMD
 
-#### Get/Set Tab Size
+This script is AMD compatible and can be loaded using a script loader such as
+[RequireJS](http://requirejs.org/). It is defined as a module named `taboverride`.
 
-```javascript
-// get the current tab size (0 represents the tab character)
-$.fn.tabOverride.tabSize();
+## Usage
 
-// set the tab size to the tab character (default)
-$.fn.tabOverride.tabSize(0);
+This script creates a single global variable named `TABOVERRIDE`. The API
+consists of methods attached to this object.
 
-// set the tab size to 4 spaces
-$.fn.tabOverride.tabSize(4);
-```
-
-#### Enable/Disable Auto Indent
-
-```javascript
-// enable auto indent
-$.fn.tabOverride.autoIndent(true);
-
-// disable auto indent (default)
-$.fn.tabOverride.autoIndent(false);
-```
-
-#### Additional Notes
-
-Calls to the settings functions can be chained together.
-
-```javascript
-// set up Tab Override
-$.fn.tabOverride.tabSize(4).autoIndent(true);
-```
-
-## Using Tab Override Without jQuery
-
-You can still use Tab Override even if you are not using jQuery. The only
-difference is that event handler registration will not be done automatically.
-
-### Setup
-
-First, you must include the standalone version of Tab Override in the page
-(`taboverride-x.x.js` or `taboverride-x.x.min.js`). This will create a global object
-named `TABOVERRIDE`.
-
-### Usage
+### Enable/Disable Tab Override
 
 The `TABOVERRIDE` global object exposes two functions, `overrideKeyDown` and
 `overrideKeyPress`, that need to be registered on the `textarea` element for the
@@ -104,9 +60,6 @@ Here is an example using the DOM Level 0 API:
 // get a reference to the textarea element
 var textarea = document.getElementById('txt');
 
-// set up Tab Override
-TABOVERRIDE.tabSize(4).autoIndent(true);
-
 // register event handlers
 textarea.onkeydown = TABOVERRIDE.overrideKeyDown;
 textarea.onkeypress = TABOVERRIDE.overrideKeyPress;
@@ -118,6 +71,42 @@ handlers:
 ```javascript
 textarea.onkeydown = null;
 textarea.onkeypress = null;
+```
+
+### Get/Set Tab Size
+
+```javascript
+// get the current tab size (0 represents the tab character)
+var tabSize = TABOVERRIDE.tabSize();
+```
+
+```javascript
+// set the tab size to the tab character (default)
+TABOVERRIDE.tabSize(0);
+
+// set the tab size to 4 spaces
+TABOVERRIDE.tabSize(4);
+```
+
+### Enable/Disable Auto Indent
+
+```javascript
+// enable auto indent
+TABOVERRIDE.autoIndent(true);
+```
+
+```javascript
+// disable auto indent (default)
+TABOVERRIDE.autoIndent(false);
+```
+
+### Additional Notes
+
+Calls to the settings methods can be chained together:
+
+```javascript
+// set up Tab Override
+TABOVERRIDE.tabSize(4).autoIndent(true);
 ```
 
 ## Browser Support

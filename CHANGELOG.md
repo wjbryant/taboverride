@@ -1,5 +1,10 @@
 # Tab Override Changelog
 
+## 2.1.0 (2012-10-02)
+* Added AMD support
+* Added component.json for Bower support (registered as `taboverride`)
+* Separated core and jQuery plugin into individual projects
+
 ## 2.0 (2012-09-14)
 * Separated the Tab Override core and jQuery code - 
   this allows easier integration with other JS libraries
