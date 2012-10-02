@@ -20,7 +20,8 @@ Try out the Tab Override demo at
 ## Setup
 
 Include either `taboverride-x.x.x.js` or `taboverride-x.x.x.min.js` in the page.
-See the [Downloads page](taboverride/downloads) or the [build directory](taboverride/tree/master/build).
+See the [Downloads page](https://github.com/wjbryant/taboverride/downloads) or
+the [build directory](https://github.com/wjbryant/taboverride/tree/master/build).
 
 ### Bower
 
