@@ -1,12 +1,12 @@
 # Tab Override
 
 Tab Override is a lightweight script that allows tabs to be entered in
-`textarea` elements. It is also available as a
-[jQuery plugin](https://github.com/wjbryant/jquery.taboverride "Tab Override jQuery plugin").
-Code documentation is available at
-[wjbryant.github.com/taboverride/](http://wjbryant.github.com/taboverride/ "Tab Override Documentation").
+`textarea` elements. A
+[jQuery plugin](https://github.com/wjbryant/jquery.taboverride "Tab Override jQuery plugin")
+is also available to adapt the API to jQuery. Code documentation is available at
+[wjbryant.github.com/taboverride/](http://wjbryant.github.com/taboverride/ "Tab Override Code Documentation").
 
-Try out the Tab Override demo at
+Try out the demo at
 [wjbryant.com/projects/tab-override/](http://wjbryant.com/projects/tab-override/ "Tab Override Demo").
 
 ## Features
@@ -23,11 +23,19 @@ Include either `taboverride-x.x.x.js` or `taboverride-x.x.x.min.js` in the page.
 See the [Downloads page](https://github.com/wjbryant/taboverride/downloads) or
 the [build directory](https://github.com/wjbryant/taboverride/tree/master/build).
 
+### Library Adapters
+
+If you are using jQuery, you can also include the
+[Tab Override jQuery plugin](https://github.com/wjbryant/jquery.taboverride)
+in your project to gain access to the Tab Override API through jQuery. See the
+[jQuery plugin repository](https://github.com/wjbryant/jquery.taboverride)
+for more details.
+
 ### Bower
 
 This script is registered as `taboverride` in the global [Bower](http://twitter.github.com/bower/)
-registry. Install Bower via NPM and then run this command from the root directory
-of your project to install Tab Override:
+registry. Install Bower via [npm](https://npmjs.org/doc/README.html) and then
+run this command from the root directory of your project to install Tab Override:
 
 ```
 bower install taboverride
@@ -37,8 +45,9 @@ This will download Tab Override into a `components` directory in your project.
 
 ### AMD
 
-This script is AMD compatible and can be loaded using a script loader such as
-[RequireJS](http://requirejs.org/). It is defined as a module named `taboverride`.
+This script is [AMD](https://github.com/amdjs/amdjs-api/wiki/AMD) compatible and
+can be loaded using a script loader such as [RequireJS](http://requirejs.org/).
+It is defined as a module named `taboverride`.
 
 ## Usage
 
@@ -47,11 +56,8 @@ consists of methods attached to this object.
 
 ### Enable/Disable Tab Override
 
-The `TABOVERRIDE` global object exposes two functions, `overrideKeyDown` and
-`overrideKeyPress`, that need to be registered on the `textarea` element for the
-`keydown` and `keypress` events respectively.
-
-Here is an example using the DOM Level 0 API:
+Enable Tab Override using the `set()` method of the `TABOVERRIDE` object. It
+accepts an element or an array (or array-like object) of elements.
 
 ```html
 <textarea id="txt"></textarea>
@@ -61,17 +67,20 @@ Here is an example using the DOM Level 0 API:
 // get a reference to the textarea element
 var textarea = document.getElementById('txt');
 
-// register event handlers
-textarea.onkeydown = TABOVERRIDE.overrideKeyDown;
-textarea.onkeypress = TABOVERRIDE.overrideKeyPress;
+// enable Tab Override for the textarea
+TABOVERRIDE.set(textarea);
 ```
 
-To disable Tab Override for the `textarea`, you would simply remove the event
-handlers:
+The `set()` method also accepts an optional second parameter. If this
+parameter is any truthy value, Tab Override will be enabled, otherwise it will
+be disabled for the specified element(s). The default value is `true`.
+
+To disable Tab Override for the `textarea`, pass a falsy value as the second
+parameter to `TABOVERRIDE.set()`:
 
 ```javascript
-textarea.onkeydown = null;
-textarea.onkeypress = null;
+// disable Tab Override for the textarea
+TABOVERRIDE.set(textarea, false);
 ```
 
 ### Get/Set Tab Size
@@ -89,25 +98,29 @@ TABOVERRIDE.tabSize(0);
 TABOVERRIDE.tabSize(4);
 ```
 
-### Enable/Disable Auto Indent
+### Get/Set Auto Indent
+
+```javascript
+// get the current auto indent setting
+var autoIndentEnabled = TABOVERRIDE.autoIndent();
+```
 
 ```javascript
 // enable auto indent
 TABOVERRIDE.autoIndent(true);
-```
 
-```javascript
 // disable auto indent (default)
 TABOVERRIDE.autoIndent(false);
 ```
 
 ### Additional Notes
 
-Calls to the settings methods can be chained together:
+All methods (unless used as getters) return the `TABOVERRIDE` object, in order
+to support method chaining:
 
 ```javascript
 // set up Tab Override
-TABOVERRIDE.tabSize(4).autoIndent(true);
+TABOVERRIDE.tabSize(4).autoIndent(true).set(textarea);
 ```
 
 ## Browser Support

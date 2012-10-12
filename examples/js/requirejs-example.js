@@ -24,14 +24,9 @@ require(['taboverride'], function (TABOVERRIDE) {
         inputTabSize = document.getElementById('tab_override_tab_size'),
         checkboxAutoIndent = document.getElementById('tab_override_auto_indent');
 
-    // add or remove the event listeners when the checkbox value changes
+    // enable/disable Tab Override when the checkbox value changes
     checkboxEnableTabOverride.onchange = function () {
-        if (this.checked) {
-            textarea.onkeydown = TABOVERRIDE.overrideKeyDown;
-            textarea.onkeypress = TABOVERRIDE.overrideKeyPress;
-        } else {
-            textarea.onkeydown = textarea.onkeypress = null;
-        }
+        TABOVERRIDE.set(textarea, this.checked);
     };
     checkboxEnableTabOverride.onchange(); // initialize
 

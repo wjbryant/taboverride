@@ -14,13 +14,13 @@
 
     // assign the module created by factory() to a global variable and return it
     function factoryWrapper() {
-        return (window.TABOVERRIDE = factory());
+        var mod = window.TABOVERRIDE = factory();
+        return mod;
     }
 
     if (typeof define === 'function' && define.amd) {
-        // AMD - register as a named module,
-        // but still create a global variable
-        // Using a named module allows for non-AMD-aware concatenation
+        // AMD - register as a named module, but still create a global variable
+        // using a named module allows for non-AMD-aware concatenation
         define('taboverride', [], factoryWrapper);
     } else {
         // no AMD - just create the global variable
@@ -31,6 +31,10 @@
 
     var TABOVERRIDE = {},
         document = window.document,
+        addHandlers,
+        removeHandlers,
+        overrideKeyDown,
+        overrideKeyPress,
         aTab = '\t', // the string representing a tab
         autoIndent = false, // whether each line should be automatically indented
         inWhitespace = false, // whether the start of the selection is in the leading whitespace on enter
@@ -42,8 +46,10 @@
      * Inserts or removes tabs and newlines on the keyDown event for the tab or enter key.
      *
      * @param {Event} e  the event object
+     *
+     * @private
      */
-    TABOVERRIDE.overrideKeyDown = function (e) {
+    overrideKeyDown = function (e) {
         e = e || event;
 
         var key = e.keyCode, // the key code for the key that was pressed
@@ -301,9 +307,9 @@
      *
      * @param {Event} e  the event object
      *
-     * @memberOf TABOVERRIDE
+     * @private
      */
-    TABOVERRIDE.overrideKeyPress = function (e) {
+    overrideKeyPress = function (e) {
         e = e || event;
 
         var key = e.keyCode;
@@ -316,6 +322,105 @@
                 return false;
             }
         }
+    };
+
+    // use the standard event handler registration method when available
+    if (document.addEventListener) {
+        /**
+         * Adds the Tab Override event handlers to the specified element.
+         *
+         * @param {Element} elem  the element to which the handlers will be added
+         *
+         * @private
+         */
+        addHandlers = function (elem) {
+            // remove handlers before adding them to make sure they are not
+            // added more than once
+            removeHandlers(elem);
+
+            elem.addEventListener('keydown', overrideKeyDown, false);
+            elem.addEventListener('keypress', overrideKeyPress, false);
+        };
+
+        /**
+         * Removes the Tab Override event handlers from the specified element.
+         *
+         * @param {Element} elem  the element from which the handlers will be removed
+         *
+         * @private
+         */
+        removeHandlers = function (elem) {
+            elem.removeEventListener('keydown', overrideKeyDown, false);
+            elem.removeEventListener('keypress', overrideKeyPress, false);
+        };
+
+    // support IE 6,7,8 
+    } else if (document.attachEvent) {
+        /** @ignore */
+        addHandlers = function (elem) {
+            // remove handlers before adding them to make sure they are not
+            // added more than once
+            removeHandlers(elem);
+
+            elem.attachEvent('onkeydown', overrideKeyDown);
+            elem.attachEvent('onkeypress', overrideKeyPress);
+        };
+
+        /** @ignore */
+        removeHandlers = function (elem) {
+            elem.detachEvent('onkeydown', overrideKeyDown);
+            elem.detachEvent('onkeypress', overrideKeyPress);
+        };
+
+    // browser not supported
+    } else {
+        /** @ignore */
+        addHandlers = /** @ignore */ removeHandlers = function () {};
+    }
+
+    /**
+     * Enables or disables Tab Override for the specified textarea element(s).
+     *
+     * @param  {Element|Element[]} elems          the textarea element(s) for
+     *                                            which to enable or disable
+     *                                            Tab Override
+     * @param  {Boolean}           [enable=true]  whether Tab Override should be
+     *                                            enabled for the element(s)
+     * @return {Object}                           the TABOVERRIDE object
+     *
+     * @name set
+     * @function
+     * @memberOf TABOVERRIDE
+     */
+    TABOVERRIDE.set = function (elems, enable) {
+        var func,
+            i,
+            len,
+            elemsArr,
+            elem;
+
+        if (elems) {
+            func = arguments.length < 2 || enable ?
+                    addHandlers : removeHandlers;
+
+            // don't manipulate param when referencing arguments object
+            elemsArr = elems;
+            len = elemsArr.length;
+
+            if (typeof len !== 'number') {
+                elemsArr = [elemsArr];
+                len = 1;
+            }
+
+            for (i = 0; i < len; i += 1) {
+                elem = elemsArr[i];
+                if (elem && elem.nodeName && elem.nodeName.toLowerCase() === 'textarea') {
+                    func(elem);
+                }
+            }
+        }
+
+        return this;
     };
 
     /**
