@@ -52,7 +52,10 @@
     overrideKeyDown = function (e) {
         e = e || event;
 
-        var key = e.keyCode, // the key code for the key that was pressed
+        // textarea elements can only contain text nodes which don't receive
+        // keydown events, so the event target will always be the textarea element
+        var target = e.target || e.srcElement, // don't use the "this" keyword (doesn't work in old IE)
+            key = e.keyCode, // the key code for the key that was pressed
             tab, // the string representing a tab
             tabLen, // the length of a tab
             text, // initial text in the textarea
@@ -80,13 +83,13 @@
 
         // initialize variables used for tab and enter keys
         inWhitespace = false; // this will be set to true if enter is pressed in the leading whitespace
-        text = this.value;
+        text = target.value;
 
         // this is really just for Firefox, but will be used by all browsers that support
         // selectionStart and selectionEnd - whenever the textarea value property is reset,
         // Firefox scrolls back to the top - this is used to set it back to the original value
         // scrollTop is nonstandard, but supported by all modern browsers
-        initScrollTop = this.scrollTop;
+        initScrollTop = target.scrollTop;
 
         // get the text selection
         // prefer the nonstandard document.selection way since it allows for
@@ -95,7 +98,7 @@
             range = document.selection.createRange();
             sel = range.text;
             tempRange = range.duplicate();
-            tempRange.moveToElementText(this);
+            tempRange.moveToElementText(target);
             tempRange.setEndPoint('EndToEnd', range);
             selEnd = tempRange.text.length;
             selStart = selEnd - sel.length;
@@ -110,9 +113,9 @@
             } else {
                 preNewlines = selNewlines = 0;
             }
-        } else if (typeof this.selectionStart === 'number') {
-            selStart = this.selectionStart;
-            selEnd = this.selectionEnd;
+        } else if (typeof target.selectionStart === 'number') {
+            selStart = target.selectionStart;
+            selEnd = target.selectionEnd;
             sel = text.slice(selStart, selEnd);
         } else {
             return; // cannot access textarea selection - do nothing
@@ -174,7 +177,7 @@
                         startTab = tabLen;
                     }
 
-                    this.value = text.slice(0, startLine) + text.slice(startLine + preTab, selStart) +
+                    target.value = text.slice(0, startLine) + text.slice(startLine + preTab, selStart) +
                         sel.replace(new RegExp('\n' + tab, 'g'), function () {
                             numTabs += 1;
                             return '\n';
@@ -189,14 +192,14 @@
                         range.select();
                     } else {
                         // set start first for Opera
-                        this.selectionStart = selStart - preTab; // preTab is 0 or tabLen
+                        target.selectionStart = selStart - preTab; // preTab is 0 or tabLen
                         // move the selection end over by the total number of tabs removed
-                        this.selectionEnd = selEnd - startTab - (numTabs * tabLen);
+                        target.selectionEnd = selEnd - startTab - (numTabs * tabLen);
                     }
                 } else { // no shift key
                     numTabs = 1; // for the first tab
                     // insert tabs at the beginning of each line of the selection
-                    this.value = text.slice(0, startLine) + tab + text.slice(startLine, selStart) +
+                    target.value = text.slice(0, startLine) + tab + text.slice(startLine, selStart) +
                         sel.replace(/\n/g, function () {
                             numTabs += 1;
                             return '\n' + tab;
@@ -210,10 +213,10 @@
                         range.select();
                     } else {
                         // the selection start is always moved by 1 character
-                        this.selectionStart = selStart + tabLen;
+                        target.selectionStart = selStart + tabLen;
                         // move the selection end over by the total number of tabs inserted
-                        this.selectionEnd = selEnd + (numTabs * tabLen);
-                        this.scrollTop = initScrollTop;
+                        target.selectionEnd = selEnd + (numTabs * tabLen);
+                        target.scrollTop = initScrollTop;
                     }
                 }
             } else { // single line selection
@@ -221,7 +224,7 @@
                 if (e.shiftKey) {
                     // if the character before the selection is a tab, remove it
                     if (text.slice(selStart - tabLen).indexOf(tab) === 0) {
-                        this.value = text.slice(0, selStart - tabLen) + text.slice(selStart);
+                        target.value = text.slice(0, selStart - tabLen) + text.slice(selStart);
 
                         // set start and end points
                         if (range) { // IE
@@ -229,8 +232,8 @@
                             range.move(CHARACTER, selStart - tabLen - preNewlines);
                             range.select();
                         } else {
-                            this.selectionEnd = this.selectionStart = selStart - tabLen;
-                            this.scrollTop = initScrollTop;
+                            target.selectionEnd = target.selectionStart = selStart - tabLen;
+                            target.scrollTop = initScrollTop;
                         }
                     }
                 } else { // no shift key - insert a tab
@@ -238,9 +241,9 @@
                         range.text = tab;
                         range.select();
                     } else {
-                        this.value = text.slice(0, selStart) + tab + text.slice(selEnd);
-                        this.selectionEnd = this.selectionStart = selStart + tabLen;
-                        this.scrollTop = initScrollTop;
+                        target.value = text.slice(0, selStart) + tab + text.slice(selEnd);
+                        target.selectionEnd = target.selectionStart = selStart + tabLen;
+                        target.scrollTop = initScrollTop;
                     }
                 }
             }
@@ -283,11 +286,11 @@
                 range.select();
             } else {
                 // insert the newline and whitespace
-                this.value = text.slice(0, selStart) + '\n' + whitespace + text.slice(selEnd);
+                target.value = text.slice(0, selStart) + '\n' + whitespace + text.slice(selEnd);
                 // Opera uses \r\n for a newline, instead of \n,
                 // so use newlineLen instead of a hard-coded value
-                this.selectionEnd = this.selectionStart = selStart + newlineLen + whitespaceLen;
-                this.scrollTop = initScrollTop;
+                target.selectionEnd = target.selectionStart = selStart + newlineLen + whitespaceLen;
+                target.scrollTop = initScrollTop;
             }
         }
 
