@@ -92,9 +92,12 @@
         initScrollTop = target.scrollTop;
 
         // get the text selection
-        // prefer the nonstandard document.selection way since it allows for
-        // automatic scrolling to the cursor via the range.select() method
-        if (document.selection) { // IE
+        if (typeof target.selectionStart === 'number') {
+            selStart = target.selectionStart;
+            selEnd = target.selectionEnd;
+            sel = text.slice(selStart, selEnd);
+
+        } else if (document.selection) { // IE
             range = document.selection.createRange();
             sel = range.text;
             tempRange = range.duplicate();
@@ -113,10 +116,6 @@
             } else {
                 preNewlines = selNewlines = 0;
             }
-        } else if (typeof target.selectionStart === 'number') {
-            selStart = target.selectionStart;
-            selEnd = target.selectionEnd;
-            sel = text.slice(selStart, selEnd);
         } else {
             return; // cannot access textarea selection - do nothing
         }

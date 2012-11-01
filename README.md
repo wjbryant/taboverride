@@ -21,7 +21,8 @@ Try out the demo at
 
 Include either `taboverride-x.x.x.js` or `taboverride-x.x.x.min.js` in the page.
 See the [Downloads page](https://github.com/wjbryant/taboverride/downloads) or
-the [build directory](https://github.com/wjbryant/taboverride/tree/master/build).
+the [build directory](https://github.com/wjbryant/taboverride/tree/master/build)
+for the appropriate files.
 
 ### Library Adapters
 

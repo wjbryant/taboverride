@@ -1,10 +1,10 @@
-/*! taboverride v3.0.1 | https://github.com/wjbryant/taboverride
+/*! taboverride v3.0.2 | https://github.com/wjbryant/taboverride
 Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
 
 /**
  * @fileOverview taboverride
  * @author       Bill Bryant
- * @version      3.0.1
+ * @version      3.0.2
  */
 
 /*jslint browser: true */
@@ -101,9 +101,12 @@ Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
         initScrollTop = target.scrollTop;
 
         // get the text selection
-        // prefer the nonstandard document.selection way since it allows for
-        // automatic scrolling to the cursor via the range.select() method
-        if (document.selection) { // IE
+        if (typeof target.selectionStart === 'number') {
+            selStart = target.selectionStart;
+            selEnd = target.selectionEnd;
+            sel = text.slice(selStart, selEnd);
+
+        } else if (document.selection) { // IE
             range = document.selection.createRange();
             sel = range.text;
             tempRange = range.duplicate();
@@ -122,10 +125,6 @@ Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
             } else {
                 preNewlines = selNewlines = 0;
             }
-        } else if (typeof target.selectionStart === 'number') {
-            selStart = target.selectionStart;
-            selEnd = target.selectionEnd;
-            sel = text.slice(selStart, selEnd);
         } else {
             return; // cannot access textarea selection - do nothing
         }

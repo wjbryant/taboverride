@@ -1,7 +1,10 @@
 # Tab Override Changelog
 
+## 3.0.2 (2012-11-01)
+* IE 10 compatibility (use standard selection methods)
+
 ## 3.0.1 (2012-10-23)
-* Fixed bug for IE 6-8
+* Fixed event registration bug for IE 6-8
 
 ## 3.0.0 (2012-10-12)
 * Removed `overrideKeyDown()` and `overrideKeyPress()`
