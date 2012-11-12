@@ -1,5 +1,8 @@
 # Tab Override Changelog
 
+## 3.1.0 (2012-11-12)
+* Re-exposed `overrideKeyDown()` and `overrideKeyPress()` event handlers
+
 ## 3.0.2 (2012-11-01)
 * IE 10 compatibility (use standard selection methods)
 

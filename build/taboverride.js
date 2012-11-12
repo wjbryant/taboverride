@@ -1,10 +1,10 @@
-/*! taboverride v3.0.2 | https://github.com/wjbryant/taboverride
+/*! taboverride v3.1.0 | https://github.com/wjbryant/taboverride
 Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
 
 /**
  * @fileOverview taboverride
  * @author       Bill Bryant
- * @version      3.0.2
+ * @version      3.1.0
  */
 
 /*jslint browser: true */
@@ -42,8 +42,6 @@ Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
         document = window.document,
         addHandlers,
         removeHandlers,
-        overrideKeyDown,
-        overrideKeyPress,
         aTab = '\t', // the string representing a tab
         autoIndent = false, // whether each line should be automatically indented
         inWhitespace = false, // whether the start of the selection is in the leading whitespace on enter
@@ -52,18 +50,19 @@ Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
         newlineLen; // the number of characters used for a newline (1 or 2)
 
     /**
-     * Inserts or removes tabs and newlines on the keyDown event for the tab or enter key.
+     * Event handler to insert or remove tabs and newlines on the keyDown event
+     * for the tab or enter key.
      *
      * @param {Event} e  the event object
-     *
-     * @private
      */
-    overrideKeyDown = function (e) {
+    TABOVERRIDE.overrideKeyDown = function (e) {
         e = e || event;
 
         // textarea elements can only contain text nodes which don't receive
-        // keydown events, so the event target will always be the textarea element
-        var target = e.target || e.srcElement, // don't use the "this" keyword (doesn't work in old IE)
+        // keydown events, so the event target/srcElement will always be the
+        // textarea element, however, prefer currentTarget in order to support
+        // delegated events in compliant browsers
+        var target = e.currentTarget || e.srcElement, // don't use the "this" keyword (doesn't work in old IE)
             key = e.keyCode, // the key code for the key that was pressed
             tab, // the string representing a tab
             tabLen, // the length of a tab
@@ -86,7 +85,8 @@ Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
             CHARACTER = 'character'; // string constant used for the Range.move methods
 
         // don't do any unnecessary work
-        if ((key !== 9 && (key !== 13 || !autoIndent)) || e.ctrlKey || e.altKey) {
+        if ((target.nodeName && target.nodeName.toLowerCase() !== 'textarea') ||
+                (key !== 9 && (key !== 13 || !autoIndent)) || e.ctrlKey || e.altKey) {
             return;
         }
 
@@ -311,16 +311,14 @@ Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
     };
 
     /**
-     * Prevents the default action for the keyPress event when tab or enter is
-     * pressed. Opera (and Firefox) also fire a keypress event when the tab or
-     * enter key is pressed. Opera requires that the default action be prevented
-     * on this event or the textarea will lose focus.
+     * Event handler to prevent the default action for the keyPress event when
+     * tab or enter is pressed. Opera (and Firefox) also fire a keypress event
+     * when the tab or enter key is pressed. Opera requires that the default
+     * action be prevented on this event or the textarea will lose focus.
      *
      * @param {Event} e  the event object
-     *
-     * @private
      */
-    overrideKeyPress = function (e) {
+    TABOVERRIDE.overrideKeyPress = function (e) {
         e = e || event;
 
         var key = e.keyCode;
@@ -349,8 +347,8 @@ Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
             // added more than once
             removeHandlers(elem);
 
-            elem.addEventListener('keydown', overrideKeyDown, false);
-            elem.addEventListener('keypress', overrideKeyPress, false);
+            elem.addEventListener('keydown', TABOVERRIDE.overrideKeyDown, false);
+            elem.addEventListener('keypress', TABOVERRIDE.overrideKeyPress, false);
         };
 
         /**
@@ -361,8 +359,8 @@ Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
          * @private
          */
         removeHandlers = function (elem) {
-            elem.removeEventListener('keydown', overrideKeyDown, false);
-            elem.removeEventListener('keypress', overrideKeyPress, false);
+            elem.removeEventListener('keydown', TABOVERRIDE.overrideKeyDown, false);
+            elem.removeEventListener('keypress', TABOVERRIDE.overrideKeyPress, false);
         };
 
     // support IE 6,7,8 
@@ -373,14 +371,14 @@ Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
             // added more than once
             removeHandlers(elem);
 
-            elem.attachEvent('onkeydown', overrideKeyDown);
-            elem.attachEvent('onkeypress', overrideKeyPress);
+            elem.attachEvent('onkeydown', TABOVERRIDE.overrideKeyDown);
+            elem.attachEvent('onkeypress', TABOVERRIDE.overrideKeyPress);
         };
 
         /** @ignore */
         removeHandlers = function (elem) {
-            elem.detachEvent('onkeydown', overrideKeyDown);
-            elem.detachEvent('onkeypress', overrideKeyPress);
+            elem.detachEvent('onkeydown', TABOVERRIDE.overrideKeyDown);
+            elem.detachEvent('onkeypress', TABOVERRIDE.overrideKeyPress);
         };
 
     // browser not supported

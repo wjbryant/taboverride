@@ -116,6 +116,8 @@ TABOVERRIDE.autoIndent(false);
 
 ### Additional Notes
 
+#### Method Chaining
+
 All methods (unless used as getters) return the `TABOVERRIDE` object, in order
 to support method chaining:
 
@@ -123,6 +125,27 @@ to support method chaining:
 // set up Tab Override
 TABOVERRIDE.tabSize(4).autoIndent(true).set(textarea);
 ```
+
+#### Custom Event Registration
+
+The event handler functions can also be accessed directly, if you wish to use
+a different method of event registration.
+
+There are two event handler functions that need to be registered.
+`TABOVERRIDE.overrideKeyDown` should be registered for the `keydown` event and
+`TABOVERRIDE.overrideKeyPress` should be registered for the `keypress` event.
+
+For example, to use jQuery event registration instead of the `TABOVERRIDE.set()`
+method, you could do the following:
+
+```javascript
+$('textarea')
+    .on('keydown', TABOVERRIDE.overrideKeyDown)
+    .on('keypress', TABOVERRIDE.overrideKeyPress);
+```
+
+*Note: The [jQuery plugin](https://github.com/wjbryant/jquery.taboverride)
+may already provide the functionality you need.*
 
 ## Browser Support
 
