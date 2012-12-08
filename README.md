@@ -72,6 +72,14 @@ var textarea = document.getElementById('txt');
 TABOVERRIDE.set(textarea);
 ```
 
+```javascript
+// get all the textarea elements on the page
+var textareas = document.getElementsByTagName('textarea');
+
+// enable Tab Override for all textareas
+TABOVERRIDE.set(textareas);
+```
+
 The `set()` method also accepts an optional second parameter. If this
 parameter is any truthy value, Tab Override will be enabled, otherwise it will
 be disabled for the specified element(s). The default value is `true`.
