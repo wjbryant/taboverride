@@ -34,6 +34,10 @@
         addHandlers,
         removeHandlers,
         aTab = '\t', // the string representing a tab
+        tabKey = 9,
+        untabKey = 9,
+        tabModifierKey = '',
+        untabModifierKey = 'shiftKey',
         autoIndent = false, // whether each line should be automatically indented
         inWhitespace = false, // whether the start of the selection is in the leading whitespace on enter
         ta = document.createElement('textarea'), // temp textarea element to get newline character(s)
@@ -77,7 +81,7 @@
 
         // don't do any unnecessary work
         if ((target.nodeName && target.nodeName.toLowerCase() !== 'textarea') ||
-                (key !== 9 && (key !== 13 || !autoIndent)) || e.ctrlKey || e.altKey) {
+                (key !== tabKey && key !== untabKey && (key !== 13 || !autoIndent))) {
             return;
         }
 
@@ -120,8 +124,8 @@
             return; // cannot access textarea selection - do nothing
         }
 
-        // tab key - insert / remove tab
-        if (key === 9) {
+        // tab/untab key - insert / remove tab
+        if (key === tabKey || key === untabKey) {
 
             // initialize tab variables
             tab = aTab;
@@ -162,8 +166,9 @@
                     }
                 }
 
-                // if the shift key was pressed, remove tabs instead of inserting them
-                if (e.shiftKey) {
+                // if the untab key combo was pressed, remove tabs instead of inserting them
+                if (key === untabKey && (!untabModifierKey || e[untabModifierKey])) {
+
                     if (text.slice(startLine).indexOf(tab) === 0) {
                         // is this tab part of the selection?
                         if (startLine === selStart) {
@@ -195,7 +200,8 @@
                         // move the selection end over by the total number of tabs removed
                         target.selectionEnd = selEnd - startTab - (numTabs * tabLen);
                     }
-                } else { // no shift key
+                } else if (key === tabKey && (!tabModifierKey || e[tabModifierKey])) {
+
                     numTabs = 1; // for the first tab
                     // insert tabs at the beginning of each line of the selection
                     target.value = text.slice(0, startLine) + tab + text.slice(startLine, selStart) +
@@ -219,8 +225,9 @@
                     }
                 }
             } else { // single line selection
-                // if the shift key was pressed, remove a tab instead of inserting one
-                if (e.shiftKey) {
+                // if the untab key combo was pressed, remove a tab instead of inserting one
+                if (key === untabKey && (!untabModifierKey || e[untabModifierKey])) {
+
                     // if the character before the selection is a tab, remove it
                     if (text.slice(selStart - tabLen).indexOf(tab) === 0) {
                         target.value = text.slice(0, selStart - tabLen) + text.slice(selStart);
@@ -235,7 +242,8 @@
                             target.scrollTop = initScrollTop;
                         }
                     }
-                } else { // no shift key - insert a tab
+                } else if (key === tabKey && (!tabModifierKey || e[tabModifierKey])) {
+
                     if (range) { // IE
                         range.text = tab;
                         range.select();
@@ -471,6 +479,28 @@
         }
 
         return autoIndent;
+    };
+
+    // [modifierKeyName] alt, ctrl, meta, shift
+    TABOVERRIDE.tabKey = function (keyCode, modifierKeyName) {
+        if (arguments.length) {
+            tabKey = keyCode;
+            tabModifierKey = modifierKeyName ? modifierKeyName + 'Key' : '';
+            return this;
+        }
+
+        return (tabModifierKey ? tabModifierKey.slice(0, -3) + '+' : '') + tabKey;
+    };
+
+    
+    TABOVERRIDE.untabKey = function (keyCode, modifierKeyName) {
+        if (arguments.length) {
+            untabKey = keyCode;
+            untabModifierKey = modifierKeyName ? modifierKeyName + 'Key' : '';
+            return this;
+        }
+
+        return (untabModifierKey ? untabModifierKey.slice(0, -3) + '+' : '') + untabKey;
     };
 
     // get the characters used for a newline
