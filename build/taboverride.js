@@ -1,10 +1,10 @@
-/*! taboverride v3.1.0 | https://github.com/wjbryant/taboverride
+/*! taboverride v3.2.0pre | https://github.com/wjbryant/taboverride
 Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
 
 /**
  * @fileOverview taboverride
  * @author       Bill Bryant
- * @version      3.1.0
+ * @version      3.2.0pre
  */
 
 /*jslint browser: true */
@@ -43,6 +43,10 @@ Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
         addHandlers,
         removeHandlers,
         aTab = '\t', // the string representing a tab
+        tabKey = 9,
+        untabKey = 9,
+        tabModifierKey = '',
+        untabModifierKey = 'shiftKey',
         autoIndent = false, // whether each line should be automatically indented
         inWhitespace = false, // whether the start of the selection is in the leading whitespace on enter
         ta = document.createElement('textarea'), // temp textarea element to get newline character(s)
@@ -50,10 +54,67 @@ Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
         newlineLen; // the number of characters used for a newline (1 or 2)
 
     /**
+     * Determines whether the specified modifier key was the only one pressed.
+     *
+     * @param  {String}  modifierKey  the modifier key - ex: 'shiftKey'
+     * @param  {Object}  e            the event object for the keydown event
+     * @return {Boolean}              whether modifierKey is unique for the event
+     *
+     * @private
+     */
+    function isUniqueModifierKey(modifierKey, e) {
+        var modifierKeyNames = ['alt', 'ctrl', 'meta', 'shift'],
+            i,
+            currModifierKey,
+            isUnique = true;
+
+        for (i = 0; i < modifierKeyNames.length; i += 1) {
+            currModifierKey = modifierKeyNames[i] + 'Key';
+
+            if (currModifierKey !== modifierKey && e[currModifierKey]) {
+                isUnique = false;
+                break;
+            }
+        }
+
+        return isUnique;
+    }
+
+    /**
+     * Determines whether the tab key combination was pressed.
+     *
+     * @param  {Number}  keyCode  the key code of the key that was pressed
+     * @param  {Object}  e        the event object for the key event
+     * @return {Boolean}          whether the tab key combo was pressed
+     *
+     * @private
+     */
+    function tabKeyComboPressed(keyCode, e) {
+        return keyCode === tabKey && (!tabModifierKey || e[tabModifierKey]);
+    }
+
+    /**
+     * Determines whether the untab key combination was pressed.
+     *
+     * @param  {Number}  keyCode  the key code of the key that was pressed
+     * @param  {Object}  e        the event object for the key event
+     * @return {Boolean}          whether the untab key combo was pressed
+     *
+     * @private
+     */
+    function untabKeyComboPressed(keyCode, e) {
+        return keyCode === untabKey && (!untabModifierKey || e[untabModifierKey]);
+    }
+
+    /**
      * Event handler to insert or remove tabs and newlines on the keyDown event
      * for the tab or enter key.
      *
      * @param {Event} e  the event object
+     *
+     * @name overrideKeyDown
+     * @function
+     * @memberOf TABOVERRIDE
      */
     TABOVERRIDE.overrideKeyDown = function (e) {
         e = e || event;
@@ -86,7 +147,7 @@ Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
 
         // don't do any unnecessary work
         if ((target.nodeName && target.nodeName.toLowerCase() !== 'textarea') ||
-                (key !== 9 && (key !== 13 || !autoIndent)) || e.ctrlKey || e.altKey) {
+                (key !== tabKey && key !== untabKey && (key !== 13 || !autoIndent))) {
             return;
         }
 
@@ -129,8 +190,8 @@ Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
             return; // cannot access textarea selection - do nothing
         }
 
-        // tab key - insert / remove tab
-        if (key === 9) {
+        // tab/untab key - insert / remove tab
+        if (key === tabKey || key === untabKey) {
 
             // initialize tab variables
             tab = aTab;
@@ -171,8 +232,13 @@ Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
                     }
                 }
 
-                // if the shift key was pressed, remove tabs instead of inserting them
-                if (e.shiftKey) {
+                // if the untab key combo was pressed, remove tabs instead of inserting them
+                if (untabKeyComboPressed(key, e)) {
+
+                    if (!isUniqueModifierKey(untabModifierKey, e)) {
+                        return;
+                    }
+
                     if (text.slice(startLine).indexOf(tab) === 0) {
                         // is this tab part of the selection?
                         if (startLine === selStart) {
@@ -204,8 +270,14 @@ Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
                         // move the selection end over by the total number of tabs removed
                         target.selectionEnd = selEnd - startTab - (numTabs * tabLen);
                     }
-                } else { // no shift key
+                } else if (tabKeyComboPressed(key, e)) {
+
+                    if (!isUniqueModifierKey(tabModifierKey, e)) {
+                        return;
+                    }
+
                     numTabs = 1; // for the first tab
+
                     // insert tabs at the beginning of each line of the selection
                     target.value = text.slice(0, startLine) + tab + text.slice(startLine, selStart) +
                         sel.replace(/\n/g, function () {
@@ -228,8 +300,13 @@ Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
                     }
                 }
             } else { // single line selection
-                // if the shift key was pressed, remove a tab instead of inserting one
-                if (e.shiftKey) {
+                // if the untab key combo was pressed, remove a tab instead of inserting one
+                if (untabKeyComboPressed(key, e)) {
+
+                    if (!isUniqueModifierKey(untabModifierKey, e)) {
+                        return;
+                    }
+
                     // if the character before the selection is a tab, remove it
                     if (text.slice(selStart - tabLen).indexOf(tab) === 0) {
                         target.value = text.slice(0, selStart - tabLen) + text.slice(selStart);
@@ -244,7 +321,12 @@ Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
                             target.scrollTop = initScrollTop;
                         }
                     }
-                } else { // no shift key - insert a tab
+                } else if (tabKeyComboPressed(key, e)) {
+
+                    if (!isUniqueModifierKey(tabModifierKey, e)) {
+                        return;
+                    }
+
                     if (range) { // IE
                         range.text = tab;
                         range.select();
@@ -317,13 +399,20 @@ Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
      * action be prevented on this event or the textarea will lose focus.
      *
      * @param {Event} e  the event object
+     *
+     * @name overrideKeyPress
+     * @function
+     * @memberOf TABOVERRIDE
      */
     TABOVERRIDE.overrideKeyPress = function (e) {
         e = e || event;
 
         var key = e.keyCode;
 
-        if ((key === 9 || (key === 13 && autoIndent && !inWhitespace)) && !e.ctrlKey && !e.altKey) {
+        if (((tabKeyComboPressed(key, e) && isUniqueModifierKey(tabModifierKey, e)) ||
+                (untabKeyComboPressed(key, e) && isUniqueModifierKey(untabModifierKey, e)) ||
+                (key === 13 && autoIndent && !inWhitespace))) {
+
             if (e.preventDefault) {
                 e.preventDefault();
             } else {
@@ -413,6 +502,7 @@ Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
                     addHandlers : removeHandlers;
 
             // don't manipulate param when referencing arguments object
+            // this is just a matter of practice
             elemsArr = elems;
             len = elemsArr.length;
 
@@ -480,6 +570,50 @@ Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
         }
 
         return autoIndent;
+    };
+
+    /**
+     * Gets or sets the tab key combination.
+     *
+     * @param  {Number}        keyCode            the key code of the key to use for tab
+     * @param  {String}        [modifierKeyName]  one of 'alt', 'ctrl', 'meta', or 'shift'
+     * @return {String|Object}                    the current tab key combination or the
+     *                                            TABOVERRIDE object
+     *
+     * @name tabKey
+     * @function
+     * @memberOf TABOVERRIDE
+     */
+    TABOVERRIDE.tabKey = function (keyCode, modifierKeyName) {
+        if (arguments.length) {
+            tabKey = keyCode;
+            tabModifierKey = modifierKeyName ? modifierKeyName + 'Key' : '';
+            return this;
+        }
+
+        return (tabModifierKey ? tabModifierKey.slice(0, -3) + '+' : '') + tabKey;
+    };
+
+    /**
+     * Gets or sets the untab key combination.
+     *
+     * @param  {Number}        keyCode            the key code of the key to use for untab
+     * @param  {String}        [modifierKeyName]  one of 'alt', 'ctrl', 'meta', or 'shift'
+     * @return {String|Object}                    the current untab key combination or the
+     *                                            TABOVERRIDE object
+     *
+     * @name untabKey
+     * @function
+     * @memberOf TABOVERRIDE
+     */
+    TABOVERRIDE.untabKey = function (keyCode, modifierKeyName) {
+        if (arguments.length) {
+            untabKey = keyCode;
+            untabModifierKey = modifierKeyName ? modifierKeyName + 'Key' : '';
+            return this;
+        }
+
+        return (untabModifierKey ? untabModifierKey.slice(0, -3) + '+' : '') + untabKey;
     };
 
     // get the characters used for a newline
