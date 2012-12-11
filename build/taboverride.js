@@ -628,11 +628,7 @@ Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
         }
 
         for (i = 0; i < tabModifierKeys.length; i += 1) {
-            keyCombo += tabModifierKeys[i].slice(0, -3);
-        }
-
-        if (keyCombo) {
-            keyCombo += '+';
+            keyCombo += tabModifierKeys[i].slice(0, -3) + '+';
         }
 
         return keyCombo + tabKey;
@@ -670,11 +666,7 @@ Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
         }
 
         for (i = 0; i < untabModifierKeys.length; i += 1) {
-            keyCombo += untabModifierKeys[i].slice(0, -3);
-        }
-
-        if (keyCombo) {
-            keyCombo += '+';
+            keyCombo += untabModifierKeys[i].slice(0, -3) + '+';
         }
 
         return keyCombo + untabKey;

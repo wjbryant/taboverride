@@ -619,11 +619,7 @@
         }
 
         for (i = 0; i < tabModifierKeys.length; i += 1) {
-            keyCombo += tabModifierKeys[i].slice(0, -3);
-        }
-
-        if (keyCombo) {
-            keyCombo += '+';
+            keyCombo += tabModifierKeys[i].slice(0, -3) + '+';
         }
 
         return keyCombo + tabKey;
@@ -661,11 +657,7 @@
         }
 
         for (i = 0; i < untabModifierKeys.length; i += 1) {
-            keyCombo += untabModifierKeys[i].slice(0, -3);
-        }
-
-        if (keyCombo) {
-            keyCombo += '+';
+            keyCombo += untabModifierKeys[i].slice(0, -3) + '+';
         }
 
         return keyCombo + untabKey;
