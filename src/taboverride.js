@@ -36,8 +36,8 @@
         aTab = '\t', // the string representing a tab
         tabKey = 9,
         untabKey = 9,
-        tabModifierKey = '',
-        untabModifierKey = 'shiftKey',
+        tabModifierKeys = [],
+        untabModifierKeys = ['shiftKey'],
         autoIndent = false, // whether each line should be automatically indented
         inWhitespace = false, // whether the start of the selection is in the leading whitespace on enter
         ta = document.createElement('textarea'), // temp textarea element to get newline character(s)
@@ -45,56 +45,90 @@
         newlineLen; // the number of characters used for a newline (1 or 2)
 
     /**
-     * Determines whether the specified modifier key was the only one pressed.
+     * Determines whether the specified modifier keys match the modifier keys
+     * that were pressed.
      *
-     * @param  {String}  modifierKey  the modifier key - ex: 'shiftKey'
-     * @param  {Object}  e            the event object for the keydown event
-     * @return {Boolean}              whether modifierKey is unique for the event
+     * @param  {String[]} modifierKeys  the modifier keys to check - ex: ['shiftKey']
+     * @param  {Event}    e             the event object for the keydown event
+     * @return {Boolean}                whether modifierKeys are valid for the event
      *
      * @private
      */
-    function isUniqueModifierKey(modifierKey, e) {
+    function isValidModifierKeyCombo(modifierKeys, e) {
         var modifierKeyNames = ['alt', 'ctrl', 'meta', 'shift'],
+            numModKeys = modifierKeys.length,
             i,
+            j,
             currModifierKey,
-            isUnique = true;
+            isValid = true;
 
-        for (i = 0; i < modifierKeyNames.length; i += 1) {
-            currModifierKey = modifierKeyNames[i] + 'Key';
-
-            if (currModifierKey !== modifierKey && e[currModifierKey]) {
-                isUnique = false;
+        // check that all required modifier keys were pressed
+        for (i = 0; i < numModKeys; i += 1) {
+            if (!e[modifierKeys[i]]) {
+                isValid = false;
                 break;
             }
         }
 
-        return isUnique;
+        // if requirements were met, check for additional modifier keys
+        if (isValid) {
+            for (i = 0; i < modifierKeyNames.length; i += 1) {
+                currModifierKey = modifierKeyNames[i] + 'Key';
+
+                // if this key was pressed
+                if (e[currModifierKey]) {
+                    // if there are required keys, check whether the current key
+                    // is required
+                    if (numModKeys) {
+                        isValid = false;
+
+                        // if this is a required key, continue
+                        for (j = 0; j < numModKeys; j += 1) {
+                            if (currModifierKey === modifierKeys[j]) {
+                                isValid = true;
+                                break;
+                            }
+                        }
+                    } else {
+                        // no required keys, but one was pressed
+                        isValid = false;
+                    }
+                }
+
+                // an extra key was pressed, don't check anymore
+                if (!isValid) {
+                    break;
+                }
+            }
+        }
+
+        return isValid;
     }
 
     /**
      * Determines whether the tab key combination was pressed.
      *
      * @param  {Number}  keyCode  the key code of the key that was pressed
-     * @param  {Object}  e        the event object for the key event
+     * @param  {Event}   e        the event object for the key event
      * @return {Boolean}          whether the tab key combo was pressed
      *
      * @private
      */
     function tabKeyComboPressed(keyCode, e) {
-        return keyCode === tabKey && isUniqueModifierKey(tabModifierKey, e);
+        return keyCode === tabKey && isValidModifierKeyCombo(tabModifierKeys, e);
     }
 
     /**
      * Determines whether the untab key combination was pressed.
      *
      * @param  {Number}  keyCode  the key code of the key that was pressed
-     * @param  {Object}  e        the event object for the key event
+     * @param  {Event}   e        the event object for the key event
      * @return {Boolean}          whether the untab key combo was pressed
      *
      * @private
      */
     function untabKeyComboPressed(keyCode, e) {
-        return keyCode === untabKey && isUniqueModifierKey(untabModifierKey, e);
+        return keyCode === untabKey && isValidModifierKeyCombo(untabModifierKeys, e);
     }
 
     /**
@@ -391,8 +425,7 @@
 
         var key = e.keyCode;
 
-        if (((tabKeyComboPressed(key, e) && isUniqueModifierKey(tabModifierKey, e)) ||
-                (untabKeyComboPressed(key, e) && isUniqueModifierKey(untabModifierKey, e)) ||
+        if ((tabKeyComboPressed(key, e) || untabKeyComboPressed(key, e) ||
                 (key === 13 && autoIndent && !inWhitespace))) {
 
             if (e.preventDefault) {
@@ -557,45 +590,85 @@
     /**
      * Gets or sets the tab key combination.
      *
-     * @param  {Number}        keyCode            the key code of the key to use for tab
-     * @param  {String}        [modifierKeyName]  one of 'alt', 'ctrl', 'meta', or 'shift'
-     * @return {String|Object}                    the current tab key combination or the
-     *                                            TABOVERRIDE object
+     * @param  {Number}        keyCode             the key code of the key to use for tab
+     * @param  {String[]}      [modifierKeyNames]  the modifier key names - valid names are
+     *                                             'alt', 'ctrl', 'meta', and 'shift'
+     * @return {String|Object}                     the current tab key combination or the
+     *                                             TABOVERRIDE object
      *
      * @name tabKey
      * @function
      * @memberOf TABOVERRIDE
      */
-    TABOVERRIDE.tabKey = function (keyCode, modifierKeyName) {
+    TABOVERRIDE.tabKey = function (keyCode, modifierKeyNames) {
+        var i,
+            keyCombo = '';
+
         if (arguments.length) {
             tabKey = keyCode;
-            tabModifierKey = modifierKeyName ? modifierKeyName + 'Key' : '';
+
+            tabModifierKeys = [];
+
+            if (modifierKeyNames && modifierKeyNames.length) {
+                for (i = 0; i < modifierKeyNames.length; i += 1) {
+                    tabModifierKeys.push(modifierKeyNames[i] + 'Key');
+                }
+            }
+
             return this;
         }
 
-        return (tabModifierKey ? tabModifierKey.slice(0, -3) + '+' : '') + tabKey;
+        for (i = 0; i < tabModifierKeys.length; i += 1) {
+            keyCombo += tabModifierKeys[i].slice(0, -3);
+        }
+
+        if (keyCombo) {
+            keyCombo += '+';
+        }
+
+        return keyCombo + tabKey;
     };
 
     /**
      * Gets or sets the untab key combination.
      *
-     * @param  {Number}        keyCode            the key code of the key to use for untab
-     * @param  {String}        [modifierKeyName]  one of 'alt', 'ctrl', 'meta', or 'shift'
-     * @return {String|Object}                    the current untab key combination or the
-     *                                            TABOVERRIDE object
+     * @param  {Number}        keyCode             the key code of the key to use for untab
+     * @param  {String[]}      [modifierKeyNames]  the modifier key names - valid names are
+     *                                             'alt', 'ctrl', 'meta', and 'shift'
+     * @return {String|Object}                     the current untab key combination or the
+     *                                             TABOVERRIDE object
      *
      * @name untabKey
      * @function
      * @memberOf TABOVERRIDE
      */
-    TABOVERRIDE.untabKey = function (keyCode, modifierKeyName) {
+    TABOVERRIDE.untabKey = function (keyCode, modifierKeyNames) {
+        var i,
+            keyCombo = '';
+
         if (arguments.length) {
             untabKey = keyCode;
-            untabModifierKey = modifierKeyName ? modifierKeyName + 'Key' : '';
+
+            untabModifierKeys = [];
+
+            if (modifierKeyNames && modifierKeyNames.length) {
+                for (i = 0; i < modifierKeyNames.length; i += 1) {
+                    untabModifierKeys.push(modifierKeyNames[i] + 'Key');
+                }
+            }
+
             return this;
         }
 
-        return (untabModifierKey ? untabModifierKey.slice(0, -3) + '+' : '') + untabKey;
+        for (i = 0; i < untabModifierKeys.length; i += 1) {
+            keyCombo += untabModifierKeys[i].slice(0, -3);
+        }
+
+        if (keyCombo) {
+            keyCombo += '+';
+        }
+
+        return keyCombo + untabKey;
     };
 
     // get the characters used for a newline
