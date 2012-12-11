@@ -90,7 +90,7 @@ Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
      * @private
      */
     function tabKeyComboPressed(keyCode, e) {
-        return keyCode === tabKey && (!tabModifierKey || e[tabModifierKey]);
+        return keyCode === tabKey && isUniqueModifierKey(tabModifierKey, e);
     }
 
     /**
@@ -103,7 +103,7 @@ Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
      * @private
      */
     function untabKeyComboPressed(keyCode, e) {
-        return keyCode === untabKey && (!untabModifierKey || e[untabModifierKey]);
+        return keyCode === untabKey && isUniqueModifierKey(untabModifierKey, e);
     }
 
     /**
@@ -190,7 +190,7 @@ Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
             return; // cannot access textarea selection - do nothing
         }
 
-        // tab/untab key - insert / remove tab
+        // tab / untab key - insert / remove tab
         if (key === tabKey || key === untabKey) {
 
             // initialize tab variables
@@ -232,12 +232,33 @@ Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
                     }
                 }
 
-                // if the untab key combo was pressed, remove tabs instead of inserting them
-                if (untabKeyComboPressed(key, e)) {
+                // tab key combo - insert tabs
+                if (tabKeyComboPressed(key, e)) {
 
-                    if (!isUniqueModifierKey(untabModifierKey, e)) {
-                        return;
+                    numTabs = 1; // for the first tab
+
+                    // insert tabs at the beginning of each line of the selection
+                    target.value = text.slice(0, startLine) + tab + text.slice(startLine, selStart) +
+                        sel.replace(/\n/g, function () {
+                            numTabs += 1;
+                            return '\n' + tab;
+                        }) + text.slice(selEnd);
+
+                    // set start and end points
+                    if (range) { // IE
+                        range.collapse();
+                        range.moveEnd(CHARACTER, selEnd + (numTabs * tabLen) - selNewlines - preNewlines);
+                        range.moveStart(CHARACTER, selStart + tabLen - preNewlines);
+                        range.select();
+                    } else {
+                        // the selection start is always moved by 1 character
+                        target.selectionStart = selStart + tabLen;
+                        // move the selection end over by the total number of tabs inserted
+                        target.selectionEnd = selEnd + (numTabs * tabLen);
+                        target.scrollTop = initScrollTop;
                     }
+                } else if (untabKeyComboPressed(key, e)) {
+                    // if the untab key combo was pressed, remove tabs instead of inserting them
 
                     if (text.slice(startLine).indexOf(tab) === 0) {
                         // is this tab part of the selection?
@@ -270,42 +291,24 @@ Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
                         // move the selection end over by the total number of tabs removed
                         target.selectionEnd = selEnd - startTab - (numTabs * tabLen);
                     }
-                } else if (tabKeyComboPressed(key, e)) {
+                } else {
+                    return; // do nothing for invalid key combinations
+                }
 
-                    if (!isUniqueModifierKey(tabModifierKey, e)) {
-                        return;
-                    }
+            } else { // single line selection
 
-                    numTabs = 1; // for the first tab
-
-                    // insert tabs at the beginning of each line of the selection
-                    target.value = text.slice(0, startLine) + tab + text.slice(startLine, selStart) +
-                        sel.replace(/\n/g, function () {
-                            numTabs += 1;
-                            return '\n' + tab;
-                        }) + text.slice(selEnd);
-
-                    // set start and end points
+                // tab key combo - insert a tab
+                if (tabKeyComboPressed(key, e)) {
                     if (range) { // IE
-                        range.collapse();
-                        range.moveEnd(CHARACTER, selEnd + (numTabs * tabLen) - selNewlines - preNewlines);
-                        range.moveStart(CHARACTER, selStart + tabLen - preNewlines);
+                        range.text = tab;
                         range.select();
                     } else {
-                        // the selection start is always moved by 1 character
-                        target.selectionStart = selStart + tabLen;
-                        // move the selection end over by the total number of tabs inserted
-                        target.selectionEnd = selEnd + (numTabs * tabLen);
+                        target.value = text.slice(0, selStart) + tab + text.slice(selEnd);
+                        target.selectionEnd = target.selectionStart = selStart + tabLen;
                         target.scrollTop = initScrollTop;
                     }
-                }
-            } else { // single line selection
-                // if the untab key combo was pressed, remove a tab instead of inserting one
-                if (untabKeyComboPressed(key, e)) {
-
-                    if (!isUniqueModifierKey(untabModifierKey, e)) {
-                        return;
-                    }
+                } else if (untabKeyComboPressed(key, e)) {
+                    // if the untab key combo was pressed, remove a tab instead of inserting one
 
                     // if the character before the selection is a tab, remove it
                     if (text.slice(selStart - tabLen).indexOf(tab) === 0) {
@@ -321,20 +324,8 @@ Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
                             target.scrollTop = initScrollTop;
                         }
                     }
-                } else if (tabKeyComboPressed(key, e)) {
-
-                    if (!isUniqueModifierKey(tabModifierKey, e)) {
-                        return;
-                    }
-
-                    if (range) { // IE
-                        range.text = tab;
-                        range.select();
-                    } else {
-                        target.value = text.slice(0, selStart) + tab + text.slice(selEnd);
-                        target.selectionEnd = target.selectionStart = selStart + tabLen;
-                        target.scrollTop = initScrollTop;
-                    }
+                } else {
+                    return; // do nothing for invalid key combinations
                 }
             }
         } else if (autoIndent) { // Enter key
