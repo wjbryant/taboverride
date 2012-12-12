@@ -70,7 +70,7 @@
             }
         }
 
-        // if requirements were met, check for additional modifier keys
+        // if the requirements were met, check for additional modifier keys
         if (isValid) {
             for (i = 0; i < modifierKeyNames.length; i += 1) {
                 currModifierKey = modifierKeyNames[i] + 'Key';
@@ -132,16 +132,48 @@
     }
 
     /**
-     * Event handler to insert or remove tabs and newlines on the keyDown event
-     * for the tab or enter key.
+     * Creates a function to get and set the specified key combination.
      *
-     * @param {Event} e  the event object
+     * @param  {Function} keyFunc       getter/setter function for the key
+     * @param  {String[]} modifierKeys  the array of modifier keys to manipulate
+     * @return {Function}               a getter/setter function for the specified
+     *                                  key combination
      *
-     * @name overrideKeyDown
-     * @function
-     * @memberOf TABOVERRIDE
+     * @private
      */
-    TABOVERRIDE.overrideKeyDown = function (e) {
+    function createGetterSetter(keyFunc, modifierKeys) {
+        return function (keyCode, modifierKeyNames) {
+            var i,
+                keyCombo = '';
+
+            if (arguments.length) {
+                keyFunc(keyCode);
+
+                modifierKeys.length = 0; // clear the array
+
+                if (modifierKeyNames && modifierKeyNames.length) {
+                    for (i = 0; i < modifierKeyNames.length; i += 1) {
+                        modifierKeys.push(modifierKeyNames[i] + 'Key');
+                    }
+                }
+
+                return this;
+            }
+
+            for (i = 0; i < modifierKeys.length; i += 1) {
+                keyCombo += modifierKeys[i].slice(0, -3) + '+';
+            }
+
+            return keyCombo + keyFunc();
+        };
+    }
+
+    /**
+     * See TABOVERRIDE.overrideKeyDown.
+     *
+     * @private
+     */
+    function overrideKeyDown(e) {
         e = e || event;
 
         // textarea elements can only contain text nodes which don't receive
@@ -406,21 +438,14 @@
             e.returnValue = false;
             return false;
         }
-    };
+    }
 
     /**
-     * Event handler to prevent the default action for the keyPress event when
-     * tab or enter is pressed. Opera (and Firefox) also fire a keypress event
-     * when the tab or enter key is pressed. Opera requires that the default
-     * action be prevented on this event or the textarea will lose focus.
+     * See TABOVERRIDE.overrideKeyPress.
      *
-     * @param {Event} e  the event object
-     *
-     * @name overrideKeyPress
-     * @function
-     * @memberOf TABOVERRIDE
+     * @private
      */
-    TABOVERRIDE.overrideKeyPress = function (e) {
+    function overrideKeyPress(e) {
         e = e || event;
 
         var key = e.keyCode;
@@ -435,7 +460,7 @@
                 return false;
             }
         }
-    };
+    }
 
     // use the standard event handler registration method when available
     if (document.addEventListener) {
@@ -451,8 +476,8 @@
             // added more than once
             removeHandlers(elem);
 
-            elem.addEventListener('keydown', TABOVERRIDE.overrideKeyDown, false);
-            elem.addEventListener('keypress', TABOVERRIDE.overrideKeyPress, false);
+            elem.addEventListener('keydown', overrideKeyDown, false);
+            elem.addEventListener('keypress', overrideKeyPress, false);
         };
 
         /**
@@ -463,8 +488,8 @@
          * @private
          */
         removeHandlers = function (elem) {
-            elem.removeEventListener('keydown', TABOVERRIDE.overrideKeyDown, false);
-            elem.removeEventListener('keypress', TABOVERRIDE.overrideKeyPress, false);
+            elem.removeEventListener('keydown', overrideKeyDown, false);
+            elem.removeEventListener('keypress', overrideKeyPress, false);
         };
 
     // support IE 6,7,8 
@@ -475,14 +500,14 @@
             // added more than once
             removeHandlers(elem);
 
-            elem.attachEvent('onkeydown', TABOVERRIDE.overrideKeyDown);
-            elem.attachEvent('onkeypress', TABOVERRIDE.overrideKeyPress);
+            elem.attachEvent('onkeydown', overrideKeyDown);
+            elem.attachEvent('onkeypress', overrideKeyPress);
         };
 
         /** @ignore */
         removeHandlers = function (elem) {
-            elem.detachEvent('onkeydown', TABOVERRIDE.overrideKeyDown);
-            elem.detachEvent('onkeypress', TABOVERRIDE.overrideKeyPress);
+            elem.detachEvent('onkeydown', overrideKeyDown);
+            elem.detachEvent('onkeypress', overrideKeyPress);
         };
 
     // browser not supported
@@ -490,6 +515,35 @@
         /** @ignore */
         addHandlers = /** @ignore */ removeHandlers = function () {};
     }
+
+
+    // Public Properties and Methods
+
+    /**
+     * Event handler to insert or remove tabs and newlines on the keyDown event
+     * for the tab or enter key.
+     *
+     * @param {Event} e  the event object
+     *
+     * @name overrideKeyDown
+     * @function
+     * @memberOf TABOVERRIDE
+     */
+    TABOVERRIDE.overrideKeyDown = overrideKeyDown;
+
+    /**
+     * Event handler to prevent the default action for the keyPress event when
+     * tab or enter is pressed. Opera (and Firefox) also fire a keypress event
+     * when the tab or enter key is pressed. Opera requires that the default
+     * action be prevented on this event or the textarea will lose focus.
+     *
+     * @param {Event} e  the event object
+     *
+     * @name overrideKeyPress
+     * @function
+     * @memberOf TABOVERRIDE
+     */
+    TABOVERRIDE.overrideKeyPress = overrideKeyPress;
 
     /**
      * Enables or disables Tab Override for the specified textarea element(s).
@@ -600,30 +654,12 @@
      * @function
      * @memberOf TABOVERRIDE
      */
-    TABOVERRIDE.tabKey = function (keyCode, modifierKeyNames) {
-        var i,
-            keyCombo = '';
-
-        if (arguments.length) {
-            tabKey = keyCode;
-
-            tabModifierKeys = [];
-
-            if (modifierKeyNames && modifierKeyNames.length) {
-                for (i = 0; i < modifierKeyNames.length; i += 1) {
-                    tabModifierKeys.push(modifierKeyNames[i] + 'Key');
-                }
-            }
-
-            return this;
+    TABOVERRIDE.tabKey = createGetterSetter(function (value) {
+        if (!arguments.length) {
+            return tabKey;
         }
-
-        for (i = 0; i < tabModifierKeys.length; i += 1) {
-            keyCombo += tabModifierKeys[i].slice(0, -3) + '+';
-        }
-
-        return keyCombo + tabKey;
-    };
+        tabKey = value;
+    }, tabModifierKeys);
 
     /**
      * Gets or sets the untab key combination.
@@ -638,30 +674,12 @@
      * @function
      * @memberOf TABOVERRIDE
      */
-    TABOVERRIDE.untabKey = function (keyCode, modifierKeyNames) {
-        var i,
-            keyCombo = '';
-
-        if (arguments.length) {
-            untabKey = keyCode;
-
-            untabModifierKeys = [];
-
-            if (modifierKeyNames && modifierKeyNames.length) {
-                for (i = 0; i < modifierKeyNames.length; i += 1) {
-                    untabModifierKeys.push(modifierKeyNames[i] + 'Key');
-                }
-            }
-
-            return this;
+    TABOVERRIDE.untabKey = createGetterSetter(function (value) {
+        if (!arguments.length) {
+            return untabKey;
         }
-
-        for (i = 0; i < untabModifierKeys.length; i += 1) {
-            keyCombo += untabModifierKeys[i].slice(0, -3) + '+';
-        }
-
-        return keyCombo + untabKey;
-    };
+        untabKey = value;
+    }, untabModifierKeys);
 
     // get the characters used for a newline
     ta.value = '\n';

@@ -11,18 +11,17 @@ Try out the demo at
 
 ## Features
 
-* Tab insertion via the tab key
-* Tab removal via the shift+tab key combination
+* Tab insertion via the Tab key
+* Tab removal via the Shift+Tab key combination
 * Multi-line selection support
 * Adjustable tab size
 * Auto indent
+* Custom key combinations (use any key and modifier keys for tab/untab)
 
 ## Setup
 
-Include either `taboverride-x.x.x.js` or `taboverride-x.x.x.min.js` in the page.
-See the [Downloads page](https://github.com/wjbryant/taboverride/downloads) or
-the [build directory](https://github.com/wjbryant/taboverride/tree/master/build)
-for the appropriate files.
+Include either `taboverride.js` or `taboverride.min.js` in the page. These files
+can be found in the [build directory](https://github.com/wjbryant/taboverride/tree/master/build).
 
 ### Library Adapters
 
@@ -120,6 +119,43 @@ TABOVERRIDE.autoIndent(true);
 
 // disable auto indent (default)
 TABOVERRIDE.autoIndent(false);
+```
+
+### Get/Set Key Combinations
+
+```javascript
+// get the current tab key combination
+var tabKeyCombo = TABOVERRIDE.tabKey();
+
+// get the current untab key combination
+var untabKeyCombo = TABOVERRIDE.untabKey();
+```
+
+The key combinations used for tabbing and untabbing can be customized. If
+accessibility is a concern, it is recommended to set key combinations that are
+not mapped to any action by default.
+
+Setting the key combinations is done by calling the `tabKey()` or `untabKey()`
+methods with parameters. The first parameter is the key code (`Number`) of the
+key. The second parameter is optional and specifies modifier keys (`alt`, `ctrl`,
+`meta`, `shift`) as an array of strings.
+
+```javascript
+// set the tab key combination to ctrl+]
+// and the untab key combination to ctrl+[
+TABOVERRIDE
+    .tabKey(221, ['ctrl'])
+    .untabKey(219, ['ctrl']);
+```
+
+The default tab key combination is: `Tab`. The default untab key combination is:
+`Shift + Tab`. These combinations can be set like this:
+
+```javascript
+// reset the default key combinations
+TABOVERRIDE
+    .tabKey(9)
+    .untabKey(9, ['shift']);
 ```
 
 ### Additional Notes

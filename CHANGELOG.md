@@ -1,5 +1,8 @@
 # Tab Override Changelog
 
+## 3.2.0 (2012-12-12)
+* Added `tabKey()` and `untabKey()` methods to allow for custom key combinations
+
 ## 3.1.0 (2012-11-12)
 * Re-exposed `overrideKeyDown()` and `overrideKeyPress()` event handlers
 
