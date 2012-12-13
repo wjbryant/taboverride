@@ -141,7 +141,7 @@
      *
      * @private
      */
-    function createGetterSetter(keyFunc, modifierKeys) {
+    function createKeyComboFunction(keyFunc, modifierKeys) {
         return function (keyCode, modifierKeyNames) {
             var i,
                 keyCombo = '';
@@ -654,7 +654,7 @@
      * @function
      * @memberOf TABOVERRIDE
      */
-    TABOVERRIDE.tabKey = createGetterSetter(function (value) {
+    TABOVERRIDE.tabKey = createKeyComboFunction(function (value) {
         if (!arguments.length) {
             return tabKey;
         }
@@ -674,7 +674,7 @@
      * @function
      * @memberOf TABOVERRIDE
      */
-    TABOVERRIDE.untabKey = createGetterSetter(function (value) {
+    TABOVERRIDE.untabKey = createKeyComboFunction(function (value) {
         if (!arguments.length) {
             return untabKey;
         }

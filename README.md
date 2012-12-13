@@ -148,6 +148,15 @@ TABOVERRIDE
     .untabKey(219, ['ctrl']);
 ```
 
+Different modifier keys can be used for different operating systems by checking
+the `navigator.platform` property. The following example uses the Command key on
+Mac and the Control key on Windows/Linux.
+
+```javascript
+var modKey = /mac/i.test(navigator.platform) ? 'meta' : 'ctrl';
+TABOVERRIDE.tabKey(221, modKey).untabKey(219, modKey);
+```
+
 The default tab key combination is: `Tab`. The default untab key combination is:
 `Shift + Tab`. These combinations can be set like this:
 
