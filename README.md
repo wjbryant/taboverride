@@ -153,8 +153,8 @@ the `navigator.platform` property. The following example uses the Command key on
 Mac and the Control key on Windows/Linux.
 
 ```javascript
-var modKey = /mac/i.test(navigator.platform) ? 'meta' : 'ctrl';
-TABOVERRIDE.tabKey(221, modKey).untabKey(219, modKey);
+var modKeys = [/mac/i.test(navigator.platform) ? 'meta' : 'ctrl'];
+TABOVERRIDE.tabKey(221, modKeys).untabKey(219, modKeys);
 ```
 
 The default tab key combination is: `Tab`. The default untab key combination is:
