@@ -280,6 +280,10 @@
                 if (selEnd === text.length || text.charAt(selEnd) === '\n') {
                     // the selection ends at the end of a line
                     endLine = selEnd;
+                } else if (text.charAt(selEnd - 1) === '\n') {
+                    // the selection ends at the start of a line, but no
+                    // characters are selected - don't indent this line
+                    endLine = selEnd - 1;
                 } else {
                     // the selection ends before the end of a line
                     // set endLine to the end of the last partially selected line
@@ -295,11 +299,11 @@
                     numTabs = 1; // for the first tab
 
                     // insert tabs at the beginning of each line of the selection
-                    target.value = text.slice(0, startLine) + tab + text.slice(startLine, selStart) +
-                        sel.replace(/\n/g, function () {
+                    target.value = text.slice(0, startLine) + tab +
+                        text.slice(startLine, endLine).replace(/\n/g, function () {
                             numTabs += 1;
                             return '\n' + tab;
-                        }) + text.slice(selEnd);
+                        }) + text.slice(endLine);
 
                     // set start and end points
                     if (range) { // IE
