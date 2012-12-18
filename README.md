@@ -20,8 +20,9 @@ Try out the demo at
 
 ## Setup
 
-Include either `taboverride.js` or `taboverride.min.js` in the page. These files
-can be found in the [build directory](https://github.com/wjbryant/taboverride/tree/master/build).
+Download the latest release from the [tags page](https://github.com/wjbryant/taboverride/tags).
+Load either `taboverride.js` or `taboverride.min.js` in your project. These files
+can be found in the `build` directory.
 
 ### Library Adapters
 

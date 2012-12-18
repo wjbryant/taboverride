@@ -1,10 +1,10 @@
-/*! taboverride v3.2.0 | https://github.com/wjbryant/taboverride
+/*! taboverride v3.2.1-pre | https://github.com/wjbryant/taboverride
 Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
 
 /**
  * @fileOverview taboverride
  * @author       Bill Bryant
- * @version      3.2.0
+ * @version      3.2.1-pre
  */
 
 /*jslint browser: true */
@@ -150,7 +150,7 @@ Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
      *
      * @private
      */
-    function createGetterSetter(keyFunc, modifierKeys) {
+    function createKeyComboFunction(keyFunc, modifierKeys) {
         return function (keyCode, modifierKeyNames) {
             var i,
                 keyCombo = '';
@@ -289,6 +289,10 @@ Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
                 if (selEnd === text.length || text.charAt(selEnd) === '\n') {
                     // the selection ends at the end of a line
                     endLine = selEnd;
+                } else if (text.charAt(selEnd - 1) === '\n') {
+                    // the selection ends at the start of a line, but no
+                    // characters are selected - don't indent this line
+                    endLine = selEnd - 1;
                 } else {
                     // the selection ends before the end of a line
                     // set endLine to the end of the last partially selected line
@@ -304,11 +308,11 @@ Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
                     numTabs = 1; // for the first tab
 
                     // insert tabs at the beginning of each line of the selection
-                    target.value = text.slice(0, startLine) + tab + text.slice(startLine, selStart) +
-                        sel.replace(/\n/g, function () {
+                    target.value = text.slice(0, startLine) + tab +
+                        text.slice(startLine, endLine).replace(/\n/g, function () {
                             numTabs += 1;
                             return '\n' + tab;
-                        }) + text.slice(selEnd);
+                        }) + text.slice(endLine);
 
                     // set start and end points
                     if (range) { // IE
@@ -663,7 +667,7 @@ Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
      * @function
      * @memberOf TABOVERRIDE
      */
-    TABOVERRIDE.tabKey = createGetterSetter(function (value) {
+    TABOVERRIDE.tabKey = createKeyComboFunction(function (value) {
         if (!arguments.length) {
             return tabKey;
         }
@@ -683,7 +687,7 @@ Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
      * @function
      * @memberOf TABOVERRIDE
      */
-    TABOVERRIDE.untabKey = createGetterSetter(function (value) {
+    TABOVERRIDE.untabKey = createKeyComboFunction(function (value) {
         if (!arguments.length) {
             return untabKey;
         }
