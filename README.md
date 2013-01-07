@@ -48,7 +48,21 @@ This will download Tab Override into a `components` directory in your project.
 
 This script is [AMD](https://github.com/amdjs/amdjs-api/wiki/AMD) compatible and
 can be loaded using a script loader such as [RequireJS](http://requirejs.org/).
-It is defined as a module named `taboverride`.
+
+#### Optimization
+
+When combining this script with other JavaScript files, it is recommended to
+first process it with the [r.js](https://github.com/jrburke/r.js) tool like so:
+
+```
+r.js -o name=taboverride out=taboverride.named.min.js
+```
+
+*Note: On Windows, you may have to use `r.js.cmd` instead.*
+
+Then combine the resulting `taboverride.named.min.js` file with the other
+JavaScript files. This will give the module a name so that calls to `require()`
+continue to function properly.
 
 ## Usage
 

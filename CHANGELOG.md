@@ -2,6 +2,7 @@
 
 ## 3.2.1-pre
 * For multi-line selections, a line with no selected text is no longer indented
+* Register as an anonymous AMD module instead of a named one
 
 ## 3.2.0 (2012-12-12)
 * Added `tabKey()` and `untabKey()` methods to allow for custom key combinations
