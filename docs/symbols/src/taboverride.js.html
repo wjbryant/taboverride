@@ -6,7 +6,7 @@
 	.REGX {color: #339;}
 	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
 	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">/*! taboverride v3.2.1-pre | https://github.com/wjbryant/taboverride
-<span class='line'>  2</span> Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */</span><span class="WHIT">
+<span class='line'>  2</span> Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */</span><span class="WHIT">
 <span class='line'>  3</span> 
 <span class='line'>  4</span> </span><span class="COMM">/**
 <span class='line'>  5</span>  * @fileOverview taboverride
@@ -35,9 +35,9 @@
 <span class='line'> 28</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
 <span class='line'> 29</span> 
 <span class='line'> 30</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="WHIT"> </span><span class="NAME">define</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="STRN">'function'</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">define.amd</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 31</span> </span><span class="WHIT">        </span><span class="COMM">// AMD - register as a named module, but still create a global variable</span><span class="WHIT">
-<span class='line'> 32</span> </span><span class="WHIT">        </span><span class="COMM">// using a named module allows for non-AMD-aware concatenation</span><span class="WHIT">
-<span class='line'> 33</span> </span><span class="WHIT">        </span><span class="NAME">define</span><span class="PUNC">(</span><span class="STRN">'taboverride'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">[</span><span class="PUNC">]</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">factoryWrapper</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 31</span> </span><span class="WHIT">        </span><span class="COMM">// AMD - register as an anonymous module, but still create a global variable</span><span class="WHIT">
+<span class='line'> 32</span> </span><span class="WHIT">        </span><span class="COMM">// files must be concatenated using an AMD-aware tool such as r.js</span><span class="WHIT">
+<span class='line'> 33</span> </span><span class="WHIT">        </span><span class="NAME">define</span><span class="PUNC">(</span><span class="NAME">factoryWrapper</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 34</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
 <span class='line'> 35</span> </span><span class="WHIT">        </span><span class="COMM">// no AMD - just create the global variable</span><span class="WHIT">
 <span class='line'> 36</span> </span><span class="WHIT">        </span><span class="NAME">factoryWrapper</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
@@ -56,7 +56,7 @@
 <span class='line'> 49</span> </span><span class="WHIT">        </span><span class="NAME">untabModifierKeys</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">[</span><span class="STRN">'shiftKey'</span><span class="PUNC">]</span><span class="PUNC">,</span><span class="WHIT">
 <span class='line'> 50</span> </span><span class="WHIT">        </span><span class="NAME">autoIndent</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="COMM">// whether each line should be automatically indented</span><span class="WHIT">
 <span class='line'> 51</span> </span><span class="WHIT">        </span><span class="NAME">inWhitespace</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="COMM">// whether the start of the selection is in the leading whitespace on enter</span><span class="WHIT">
-<span class='line'> 52</span> </span><span class="WHIT">        </span><span class="NAME">ta</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">document.createElement</span><span class="PUNC">(</span><span class="STRN">'textarea'</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="COMM">// temp textarea element to get newline character(s)</span><span class="WHIT">
+<span class='line'> 52</span> </span><span class="WHIT">        </span><span class="NAME">textareaElem</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">document.createElement</span><span class="PUNC">(</span><span class="STRN">'textarea'</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="COMM">// temp textarea element to get newline character(s)</span><span class="WHIT">
 <span class='line'> 53</span> </span><span class="WHIT">        </span><span class="NAME">newline</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="COMM">// the newline character sequence (\n or \r\n)</span><span class="WHIT">
 <span class='line'> 54</span> </span><span class="WHIT">        </span><span class="NAME">newlineLen</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">// the number of characters used for a newline (1 or 2)</span><span class="WHIT">
 <span class='line'> 55</span> 
@@ -702,10 +702,10 @@
 <span class='line'>695</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">untabModifierKeys</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>696</span> 
 <span class='line'>697</span> </span><span class="WHIT">    </span><span class="COMM">// get the characters used for a newline</span><span class="WHIT">
-<span class='line'>698</span> </span><span class="WHIT">    </span><span class="NAME">ta.value</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">'\n'</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>699</span> </span><span class="WHIT">    </span><span class="NAME">newline</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">ta.value</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>698</span> </span><span class="WHIT">    </span><span class="NAME">textareaElem.value</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">'\n'</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>699</span> </span><span class="WHIT">    </span><span class="NAME">newline</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">textareaElem.value</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>700</span> </span><span class="WHIT">    </span><span class="NAME">newlineLen</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">newline.length</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>701</span> </span><span class="WHIT">    </span><span class="NAME">ta</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>701</span> </span><span class="WHIT">    </span><span class="NAME">textareaElem</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>702</span> 
 <span class='line'>703</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">TABOVERRIDE</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>704</span> </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">

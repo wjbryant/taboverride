@@ -1,5 +1,5 @@
 /*! taboverride v3.2.1-pre | https://github.com/wjbryant/taboverride
-Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
+Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
 
 /**
  * @fileOverview taboverride
@@ -28,9 +28,9 @@ Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
     }
 
     if (typeof define === 'function' && define.amd) {
-        // AMD - register as a named module, but still create a global variable
-        // using a named module allows for non-AMD-aware concatenation
-        define('taboverride', [], factoryWrapper);
+        // AMD - register as an anonymous module, but still create a global variable
+        // files must be concatenated using an AMD-aware tool such as r.js
+        define(factoryWrapper);
     } else {
         // no AMD - just create the global variable
         factoryWrapper();
@@ -49,7 +49,7 @@ Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
         untabModifierKeys = ['shiftKey'],
         autoIndent = false, // whether each line should be automatically indented
         inWhitespace = false, // whether the start of the selection is in the leading whitespace on enter
-        ta = document.createElement('textarea'), // temp textarea element to get newline character(s)
+        textareaElem = document.createElement('textarea'), // temp textarea element to get newline character(s)
         newline, // the newline character sequence (\n or \r\n)
         newlineLen; // the number of characters used for a newline (1 or 2)
 
@@ -695,10 +695,10 @@ Copyright (c) 2012 Bill Bryant | http://opensource.org/licenses/mit */
     }, untabModifierKeys);
 
     // get the characters used for a newline
-    ta.value = '\n';
-    newline = ta.value;
+    textareaElem.value = '\n';
+    newline = textareaElem.value;
     newlineLen = newline.length;
-    ta = null;
+    textareaElem = null;
 
     return TABOVERRIDE;
 }));
