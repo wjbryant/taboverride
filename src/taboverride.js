@@ -147,13 +147,15 @@
                 keyCombo = '';
 
             if (arguments.length) {
-                keyFunc(keyCode);
+                if (typeof keyCode === 'number') {
+                    keyFunc(keyCode);
 
-                modifierKeys.length = 0; // clear the array
+                    modifierKeys.length = 0; // clear the array
 
-                if (modifierKeyNames && modifierKeyNames.length) {
-                    for (i = 0; i < modifierKeyNames.length; i += 1) {
-                        modifierKeys.push(modifierKeyNames[i] + 'Key');
+                    if (modifierKeyNames && modifierKeyNames.length) {
+                        for (i = 0; i < modifierKeyNames.length; i += 1) {
+                            modifierKeys.push(modifierKeyNames[i] + 'Key');
+                        }
                     }
                 }
 
@@ -564,30 +566,30 @@
      * @memberOf TABOVERRIDE
      */
     TABOVERRIDE.set = function (elems, enable) {
-        var func,
+        var setHandlers,
             i,
-            len,
+            numElems,
             elemsArr,
             elem;
 
         if (elems) {
-            func = arguments.length < 2 || enable ?
+            setHandlers = arguments.length < 2 || enable ?
                     addHandlers : removeHandlers;
 
             // don't manipulate param when referencing arguments object
             // this is just a matter of practice
             elemsArr = elems;
-            len = elemsArr.length;
+            numElems = elemsArr.length;
 
-            if (typeof len !== 'number') {
+            if (typeof numElems !== 'number') {
                 elemsArr = [elemsArr];
-                len = 1;
+                numElems = 1;
             }
 
-            for (i = 0; i < len; i += 1) {
+            for (i = 0; i < numElems; i += 1) {
                 elem = elemsArr[i];
                 if (elem && elem.nodeName && elem.nodeName.toLowerCase() === 'textarea') {
-                    func(elem);
+                    setHandlers(elem);
                 }
             }
         }
@@ -658,11 +660,11 @@
      * @function
      * @memberOf TABOVERRIDE
      */
-    TABOVERRIDE.tabKey = createKeyComboFunction(function (value) {
+    TABOVERRIDE.tabKey = createKeyComboFunction(function (keyCode) {
         if (!arguments.length) {
             return tabKey;
         }
-        tabKey = value;
+        tabKey = keyCode;
     }, tabModifierKeys);
 
     /**
@@ -678,11 +680,11 @@
      * @function
      * @memberOf TABOVERRIDE
      */
-    TABOVERRIDE.untabKey = createKeyComboFunction(function (value) {
+    TABOVERRIDE.untabKey = createKeyComboFunction(function (keyCode) {
         if (!arguments.length) {
             return untabKey;
         }
-        untabKey = value;
+        untabKey = keyCode;
     }, untabModifierKeys);
 
     // get the characters used for a newline
