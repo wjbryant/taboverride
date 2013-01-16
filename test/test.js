@@ -41,30 +41,21 @@
         return text.replace(/\r\n/g, '\n');
     }
 
-    function setCaretPosition(textarea, start, end) {
-        var preNewlines,
-            selNewlines,
-            range;
+    function setSelection(textarea, start, end) {
+        var range;
 
         if (typeof end !== 'number') {
             end = start;
         }
 
-        textarea.focus();
-
         if (typeof textarea.selectionStart === 'number') {
+            textarea.focus();
             textarea.setSelectionRange(start, end);
         } else if (textarea.createTextRange) {
-            // newlines are \r\n when working with ranges
-            // count the number of newlines before the start
-            preNewlines = textarea.value.slice(0, start).split('\n').length - 1;
-            // count the number of newlines in the selection
-            selNewlines = textarea.value.slice(start, end).split('\n').length - 1;
-
             range = textarea.createTextRange();
             range.collapse(true);
-            range.moveEnd('character', preNewlines + selNewlines + end);
-            range.moveStart('character', preNewlines + start);
+            range.moveEnd('character', end);
+            range.moveStart('character', start);
             range.select();
         }
     }
@@ -153,10 +144,10 @@
 
         // set up textarea
         textarea.value = 'example text';
-        setCaretPosition(textarea, 0);
+        setSelection(textarea, 0);
 
         // insert tab
-        simulateKeyDown(textarea);
+        simulateKeyDown(textarea, 9);
 
         strictEqual(textarea.value, '\texample text', 'tab inserted at start of line');
     });
@@ -166,7 +157,7 @@
 
         // set up textarea
         textarea.value = '\texample text';
-        setCaretPosition(textarea, 1);
+        setSelection(textarea, 1);
 
         // remove tab
         simulateKeyDown(textarea, 9, ['shift']);
@@ -182,19 +173,19 @@
             sampleText = 'this is line one\nthis is line two\nthis is line three';
 
         textarea.value = sampleText;
-        setCaretPosition(textarea, 5, 24);
+        setSelection(textarea, 5, 24);
 
-        simulateKeyDown(textarea);
+        simulateKeyDown(textarea, 9);
 
         strictEqual(normalizeNewlines(textarea.value), '\tthis is line one\n\tthis is line two\nthis is line three', 'tabs inserted at start of lines 1 and 2');
 
         // reset textarea
         textarea.value = sampleText;
-        setCaretPosition(textarea, 5, 24);
+        setSelection(textarea, 5, 24);
 
         // use 4 spaces instead of tab character
         TABOVERRIDE.tabSize(4);
-        simulateKeyDown(textarea);
+        simulateKeyDown(textarea, 9);
 
         strictEqual(normalizeNewlines(textarea.value), '    this is line one\n    this is line two\nthis is line three', '4 spaces inserted at start of lines 1 and 2');
     });
@@ -204,7 +195,7 @@
             nonIndentedText = 'this is line one\nthis is line two\nthis is line three';
 
         textarea.value = '\tthis is line one\n\tthis is line two\nthis is line three';
-        setCaretPosition(textarea, 6, 26);
+        setSelection(textarea, 6, 26);
 
         simulateKeyDown(textarea, 9, ['shift']);
 
@@ -212,7 +203,7 @@
 
         // reset textarea
         textarea.value = '    this is line one\n    this is line two\nthis is line three';
-        setCaretPosition(textarea, 9, 32);
+        setSelection(textarea, 9, 32);
 
         // use 4 spaces instead of tab character
         TABOVERRIDE.tabSize(4);
