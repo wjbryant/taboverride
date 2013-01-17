@@ -1,6 +1,6 @@
 # Tab Override Changelog
 
-## 3.2.1-pre
+## 3.2.1 (2012-01-17)
 * For multi-line selections, a line with no selected text is no longer indented
 * Register as an anonymous AMD module instead of a named one
 * Added basic unit tests
