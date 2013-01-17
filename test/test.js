@@ -41,7 +41,23 @@
         return text.replace(/\r\n/g, '\n');
     }
 
-    function setSelection(textarea, start, end) {
+    function removeIndentation(text) {
+        return text.replace(/^[\t ]+/m, '');
+    }
+
+    function getTextSelection(textarea) {
+        var sel;
+
+        if (typeof textarea.selectionStart === 'number') {
+            sel = textarea.value.slice(textarea.selectionStart, textarea.selectionEnd);
+        } else if (document.selection) {
+            sel = document.selection.createRange().text;
+        }
+
+        return sel;
+    }
+
+    function setTextSelection(textarea, start, end) {
         var range;
 
         if (typeof end !== 'number') {
@@ -144,7 +160,7 @@
 
         // set up textarea
         textarea.value = 'example text';
-        setSelection(textarea, 0);
+        setTextSelection(textarea, 0);
 
         // insert tab
         simulateKeyDown(textarea, 9);
@@ -157,7 +173,7 @@
 
         // set up textarea
         textarea.value = '\texample text';
-        setSelection(textarea, 1);
+        setTextSelection(textarea, 1);
 
         // remove tab
         simulateKeyDown(textarea, 9, ['shift']);
@@ -168,47 +184,51 @@
 
     module('multi-line');
 
-    test('indent multiple lines', 2, function () {
+    test('indent multiple lines', 4, function () {
         var textarea = getTextarea(),
             sampleText = 'this is line one\nthis is line two\nthis is line three';
 
         textarea.value = sampleText;
-        setSelection(textarea, 5, 24);
+        setTextSelection(textarea, 5, 24);
 
         simulateKeyDown(textarea, 9);
 
         strictEqual(normalizeNewlines(textarea.value), '\tthis is line one\n\tthis is line two\nthis is line three', 'tabs inserted at start of lines 1 and 2');
+        strictEqual(normalizeNewlines(removeIndentation(getTextSelection(textarea))), sampleText.slice(5, 24), 'selection should be unchanged after inserting tabs');
 
         // reset textarea
         textarea.value = sampleText;
-        setSelection(textarea, 5, 24);
+        setTextSelection(textarea, 5, 24);
 
         // use 4 spaces instead of tab character
         TABOVERRIDE.tabSize(4);
         simulateKeyDown(textarea, 9);
 
         strictEqual(normalizeNewlines(textarea.value), '    this is line one\n    this is line two\nthis is line three', '4 spaces inserted at start of lines 1 and 2');
+        strictEqual(normalizeNewlines(removeIndentation(getTextSelection(textarea))), sampleText.slice(5, 24), 'selection should be unchanged after inserting 4 spaces');
     });
 
-    test('unindent multiple lines', 2, function () {
+    test('unindent multiple lines', 4, function () {
         var textarea = getTextarea(),
             nonIndentedText = 'this is line one\nthis is line two\nthis is line three';
 
         textarea.value = '\tthis is line one\n\tthis is line two\nthis is line three';
-        setSelection(textarea, 6, 26);
+        setTextSelection(textarea, 6, 26);
 
         simulateKeyDown(textarea, 9, ['shift']);
 
         strictEqual(normalizeNewlines(textarea.value), nonIndentedText, 'tabs removed at start of lines 1 and 2');
+        strictEqual(normalizeNewlines(removeIndentation(getTextSelection(textarea))), nonIndentedText.slice(5, 24), 'selection should be unchanged after removing tabs');
 
         // reset textarea
         textarea.value = '    this is line one\n    this is line two\nthis is line three';
-        setSelection(textarea, 9, 32);
+        setTextSelection(textarea, 9, 32);
 
         // use 4 spaces instead of tab character
         TABOVERRIDE.tabSize(4);
         simulateKeyDown(textarea, 9, ['shift']);
 
         strictEqual(normalizeNewlines(textarea.value), nonIndentedText, '4 spaces removed at start of lines 1 and 2');
+        strictEqual(normalizeNewlines(removeIndentation(getTextSelection(textarea))), nonIndentedText.slice(5, 24), 'selection should be unchanged after removing 4 spaces');
     });
 }());
