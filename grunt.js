@@ -10,7 +10,7 @@ module.exports = function (grunt) {
                 ' * @version      <%= pkg.version %>\r\n' +
                 ' */',
             empty: '<% %>',
-            component: '{\r\n' +
+            bower: '{\r\n' +
                 '    "name": "<%= pkg.name %>",\r\n' +
                 '    "version": "<%= pkg.version %>",\r\n' +
                 '    "main": "./build/taboverride.js"\r\n' +
@@ -29,9 +29,9 @@ module.exports = function (grunt) {
                 dest: 'build/taboverride.min.js',
                 separator: ''
             },
-            component: {
-                src: '<banner:meta.component>',
-                dest: 'component.json',
+            bower: {
+                src: '<banner:meta.bower>',
+                dest: 'bower.json',
                 separator: ''
             }
         },
@@ -43,5 +43,5 @@ module.exports = function (grunt) {
         }
         // need to a create custom task for jsdoc-toolkit documentation
     });
-    grunt.registerTask('default', 'lint concat:dist min concat:newline concat:component');
+    grunt.registerTask('default', 'lint concat:dist min concat:newline concat:bower');
 };
