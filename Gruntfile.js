@@ -1,4 +1,4 @@
-/*jslint node:true */
+/*jslint node: true */
 
 module.exports = function (grunt) {
     'use strict';
@@ -57,7 +57,6 @@ module.exports = function (grunt) {
 
     grunt.registerTask('generateBowerManifest', 'Generates the bower.json file.', function () {
         grunt.config.requires(['pkg']);
-        grunt.task.requires(['concat', 'uglify']);
 
         var contents = grunt.template.process('{\r\n' +
                 '    "name": "<%= pkg.name %>",\r\n' +
