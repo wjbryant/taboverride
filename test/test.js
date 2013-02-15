@@ -1,4 +1,3 @@
-/*jslint browser: true */
 /*global TABOVERRIDE, QUnit, module, test, ok, strictEqual */
 
 (function () {

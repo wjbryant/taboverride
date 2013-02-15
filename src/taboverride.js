@@ -1,4 +1,3 @@
-/*jslint browser: true */
 /*global define */
 
 /**
@@ -498,7 +497,7 @@
             elem.removeEventListener('keypress', overrideKeyPress, false);
         };
 
-    // support IE 6,7,8 
+    // support IE 6,7,8
     } else if (document.attachEvent) {
         /** @ignore */
         addHandlers = function (elem) {

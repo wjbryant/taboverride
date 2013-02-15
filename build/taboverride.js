@@ -7,7 +7,6 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
  * @version      3.2.2-dev
  */
 
-/*jslint browser: true */
 /*global define */
 
 /**
@@ -507,7 +506,7 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
             elem.removeEventListener('keypress', overrideKeyPress, false);
         };
 
-    // support IE 6,7,8 
+    // support IE 6,7,8
     } else if (document.attachEvent) {
         /** @ignore */
         addHandlers = function (elem) {

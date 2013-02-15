@@ -1,4 +1,4 @@
-/*jslint node: true */
+/*jshint es5: true, node: true */
 
 module.exports = function (grunt) {
     'use strict';
@@ -6,7 +6,18 @@ module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         jshint: {
-            all: ['src/taboverride.js']
+            options: {
+                jshintrc: '.jshintrc'
+            },
+            all: [
+                'Gruntfile.js',
+                'src/taboverride.js',
+                'test/test.js',
+                'examples/js/*.js'
+            ]
+        },
+        qunit: {
+            all: ['test/index.html']
         },
         concat: {
             dist: {
@@ -45,6 +56,7 @@ module.exports = function (grunt) {
     });
 
     grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-qunit');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
 
@@ -97,5 +109,5 @@ module.exports = function (grunt) {
         );
     });
 
-    grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'moveMinJSFile', 'generateBowerManifest', 'generateDocs']);
+    grunt.registerTask('default', ['jshint', 'qunit', 'concat', 'uglify', 'moveMinJSFile', 'generateBowerManifest', 'generateDocs']);
 };

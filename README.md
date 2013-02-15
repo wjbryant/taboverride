@@ -215,6 +215,20 @@ $('textarea')
 *Note: The [jQuery plugin](https://github.com/wjbryant/jquery.taboverride)
 may already provide the functionality you need.*
 
+## Building the Project
+
+This project uses [Grunt](https://github.com/gruntjs/grunt) to manage the build
+process. Everything required to build the project can be installed via
+[npm](https://npmjs.org/). Run `npm install` from the root directory of the
+project to install all the dependencies. Then run `grunt` to start the build.
+
+*Note: Currently, on Windows, `npm install` will fail when trying to install a
+dependency from a Git URL if `git.exe` is not in the `PATH`. A workaround is to
+use a Git-enabled shell from [GitHub for Windows](http://windows.github.com/) or
+[Git for Windows](http://msysgit.github.com/). Alternatively, Git for Windows
+can be installed with the "Run Git and included Unix tools from the Windows
+Command Prompt" option.*
+
 ## Browser Support
 
 IE 6+, Firefox, Chrome, Safari, Opera 10.50+

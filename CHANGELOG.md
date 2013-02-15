@@ -1,10 +1,10 @@
 # Tab Override Changelog
 
 ## Dev
-* Updated Grunt
-* Switched API documentation generator to JSDoc 3
-* Generate source map during build
-* Generate API documentation during build
+* Updated build process
+  * Use JSDoc 3 and JSHint
+  * Generate source map and API documentation
+  * Run unit tests
 
 ## 3.2.1 (2012-01-17)
 * For multi-line selections, a line with no selected text is no longer indented

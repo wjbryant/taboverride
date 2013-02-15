@@ -1,4 +1,3 @@
-/*jslint browser: true */
 /*global require */
 
 // load Tab Override
