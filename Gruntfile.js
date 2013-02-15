@@ -19,6 +19,10 @@ module.exports = function (grunt) {
         qunit: {
             all: ['test/index.html']
         },
+        clean: {
+            build: ['build'],
+            docs: ['docs']
+        },
         concat: {
             dist: {
                 options: {
@@ -57,6 +61,7 @@ module.exports = function (grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-qunit');
+    grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
 
@@ -79,7 +84,7 @@ module.exports = function (grunt) {
         grunt.file.write('bower.json', contents);
     });
 
-    grunt.registerTask('generateDocs', 'Generates API documentation using JSDoc 3.', function () {
+    grunt.registerTask('generateAPIDocs', 'Generates API documentation using JSDoc 3.', function () {
         grunt.task.requires(['concat']);
 
         var done = this.async(),
@@ -109,5 +114,8 @@ module.exports = function (grunt) {
         );
     });
 
-    grunt.registerTask('default', ['jshint', 'qunit', 'concat', 'uglify', 'moveMinJSFile', 'generateBowerManifest', 'generateDocs']);
+    grunt.registerTask('default', [
+        'jshint', 'qunit', 'clean:build', 'concat', 'uglify', 'moveMinJSFile',
+        'generateBowerManifest', 'clean:docs', 'generateAPIDocs'
+    ]);
 };
