@@ -2,9 +2,10 @@
 
 ## Dev
 * Updated build process
-  * Use JSDoc 3 and JSHint
-  * Generate source map and API documentation
+  * Use JSHint for all js files
   * Run unit tests
+  * Generate source map
+  * Generate API documentation with JSDoc 3
 
 ## 3.2.1 (2012-01-17)
 * For multi-line selections, a line with no selected text is no longer indented
