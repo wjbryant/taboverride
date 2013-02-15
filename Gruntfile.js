@@ -67,7 +67,35 @@ module.exports = function (grunt) {
         grunt.file.write('bower.json', contents);
     });
 
-    // need to a create custom task for jsdoc-toolkit documentation
+    grunt.registerTask('generateDocs', 'Generates API documentation using JSDoc 3.', function () {
+        grunt.task.requires(['concat']);
 
-    grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'moveMinJSFile', 'generateBowerManifest']);
+        var done = this.async(),
+            jsdoc = 'node_modules/jsdoc/jsdoc',
+            cmd = jsdoc,
+            args = [];
+
+        // work around for https://github.com/joyent/node/issues/2318
+        if (process.platform === 'win32') {
+            cmd = 'cmd';
+            args.push('/c', jsdoc.replace(/\//g, '\\'));
+        }
+
+        args.push('-d', 'docs', 'build/taboverride.js');
+
+        grunt.util.spawn(
+            {
+                cmd: cmd,
+                args: args
+            },
+            function (error, result) {
+                if (error) {
+                    grunt.log.error(result.toString());
+                }
+                done(!error);
+            }
+        );
+    });
+
+    grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'moveMinJSFile', 'generateBowerManifest', 'generateDocs']);
 };

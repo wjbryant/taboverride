@@ -1,5 +1,11 @@
 # Tab Override Changelog
 
+## Dev
+* Updated Grunt
+* Switched API documentation generator to JSDoc 3
+* Generate source map during build
+* Generate API documentation during build
+
 ## 3.2.1 (2012-01-17)
 * For multi-line selections, a line with no selected text is no longer indented
 * Register as an anonymous AMD module instead of a named one
