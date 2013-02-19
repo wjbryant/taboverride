@@ -1,8 +1,8 @@
 /*jshint es5: true, node: true */
 
-module.exports = function (grunt) {
-    'use strict';
+'use strict';
 
+module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         jshint: {
