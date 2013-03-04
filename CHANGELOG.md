@@ -6,6 +6,8 @@
   * Run unit tests
   * Generate source map
   * Generate API documentation with JSDoc 3
+* Support CommonJS
+* Do not create global variable when using a module loader
 
 ## 3.2.1 (2012-01-17)
 * For multi-line selections, a line with no selected text is no longer indented

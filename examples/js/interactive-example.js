@@ -9,7 +9,7 @@
         inputTabSize = document.getElementById('tab_override_tab_size'),
         checkboxAutoIndent = document.getElementById('tab_override_auto_indent'),
         checkboxAltKeys = document.getElementById('tab_override_alt_keys'),
-        
+
         // use cmd key on Mac and ctrl key everywhere else
         modKeys = [/mac/i.test(navigator.platform) ? 'meta' : 'ctrl'];
 

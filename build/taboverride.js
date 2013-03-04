@@ -7,7 +7,7 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
  * @version      3.2.2-dev
  */
 
-/*global define */
+/*global exports, module, define */
 
 /**
  * the TABOVERRIDE "namespace" global object
@@ -20,19 +20,16 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
 (function (factory) {
     'use strict';
 
-    // assign the module created by factory() to a global variable and return it
-    function factoryWrapper() {
-        var mod = window.TABOVERRIDE = factory();
-        return mod;
-    }
-
-    if (typeof define === 'function' && define.amd) {
+    if (typeof exports === 'object') {
+        // Node/CommonJS - export the TABOVERRIDE object
+        module.exports = factory();
+    } else if (typeof define === 'function' && define.amd) {
         // AMD - register as an anonymous module, but still create a global variable
         // files must be concatenated using an AMD-aware tool such as r.js
-        define(factoryWrapper);
+        define(factory);
     } else {
         // no AMD - just create the global variable
-        factoryWrapper();
+        window.TABOVERRIDE = factory();
     }
 }(function () {
     'use strict';
