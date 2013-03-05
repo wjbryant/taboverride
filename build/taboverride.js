@@ -7,7 +7,7 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
  * @version      3.2.2-dev
  */
 
-/*global exports: true, define */
+/*global exports, define */
 
 /**
  * the TABOVERRIDE "namespace" global object

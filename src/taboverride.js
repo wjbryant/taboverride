@@ -1,4 +1,4 @@
-/*global exports: true, define */
+/*global exports, define */
 
 /**
  * the TABOVERRIDE "namespace" global object
