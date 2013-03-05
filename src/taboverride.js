@@ -1,4 +1,4 @@
-/*global exports, module, define */
+/*global exports: true, define */
 
 /**
  * the TABOVERRIDE "namespace" global object
@@ -7,20 +7,17 @@
  * @namespace
  */
 
-// use CommonJS or AMD if available
+// use AMD or CommonJS if available
 (function (factory) {
     'use strict';
 
-    if (typeof exports === 'object') {
-        // Node/CommonJS - export the TABOVERRIDE object
-        module.exports = factory();
-    } else if (typeof define === 'function' && define.amd) {
-        // AMD - register as an anonymous module, but still create a global variable
+    if (typeof define === 'function' && define.amd) {
+        // AMD - register as an anonymous module
         // files must be concatenated using an AMD-aware tool such as r.js
         define(factory);
     } else {
-        // no AMD - just create the global variable
-        window.TABOVERRIDE = factory();
+        // check for exports object to support CommonJS, otherwise use window
+        (typeof exports === 'object' ? exports : window).TABOVERRIDE = factory();
     }
 }(function () {
     'use strict';
