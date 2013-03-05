@@ -7,23 +7,26 @@
  * @namespace
  */
 
-// use AMD or CommonJS if available
+// use CommonJS or AMD if available
 (function (factory) {
     'use strict';
 
-    if (typeof define === 'function' && define.amd) {
+    if (typeof exports === 'object') {
+        // Node.js/CommonJS
+        factory(exports);
+    } else if (typeof define === 'function' && define.amd) {
         // AMD - register as an anonymous module
         // files must be concatenated using an AMD-aware tool such as r.js
-        define(factory);
+        define(['exports'], factory);
     } else {
-        // check for exports object to support CommonJS, otherwise use window
-        (typeof exports === 'object' ? exports : window).TABOVERRIDE = factory();
+        // no module format - create global variable
+        window.TABOVERRIDE = {};
+        factory(window.TABOVERRIDE);
     }
-}(function () {
+}(function (TABOVERRIDE) {
     'use strict';
 
-    var TABOVERRIDE = {},
-        document = window.document,
+    var document = window.document,
         addHandlers,
         removeHandlers,
         aTab = '\t', // the string representing a tab
@@ -685,6 +688,4 @@
     newline = textareaElem.value;
     newlineLen = newline.length;
     textareaElem = null;
-
-    return TABOVERRIDE;
 }));
