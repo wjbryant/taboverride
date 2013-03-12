@@ -1,4 +1,6 @@
-/*jslint browser: true */
+// v1.0.0
+
+/*jshint browser: true */
 /*global TABOVERRIDE */
 
 (function (TABOVERRIDE, document) {
