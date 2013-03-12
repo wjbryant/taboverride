@@ -4,7 +4,7 @@ Tab Override is a lightweight script that allows tabs to be entered in
 `textarea` elements. A
 [jQuery plugin](https://github.com/wjbryant/jquery.taboverride "Tab Override jQuery plugin")
 is also available to adapt the API to jQuery. Code documentation is available at
-[wjbryant.github.com/taboverride/docs/](http://wjbryant.github.com/taboverride/docs/symbols/TABOVERRIDE.html "Tab Override Code Documentation").
+[wjbryant.github.com/taboverride/docs/](http://wjbryant.github.com/taboverride/docs/TABOVERRIDE.html "Tab Override Code Documentation").
 
 Try out the demo at
 [wjbryant.github.com/taboverride/](http://wjbryant.github.com/taboverride/ "Tab Override Demo").
