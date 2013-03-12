@@ -64,6 +64,11 @@ Then combine the resulting `taboverride.named.min.js` file with the other
 JavaScript files. This will give the module a name so that calls to `require()`
 continue to function properly.
 
+### CommonJS
+
+This script is also compatible with [CommonJS module](http://wiki.commonjs.org/wiki/Modules)
+systems.
+
 ## Usage
 
 This script creates a single global variable named `TABOVERRIDE`. The API
@@ -220,7 +225,8 @@ may already provide the functionality you need.*
 This project uses [Grunt](https://github.com/gruntjs/grunt) to manage the build
 process. Everything required to build the project can be installed via
 [npm](https://npmjs.org/). Run `npm install` from the root directory of the
-project to install all the dependencies. Then run `grunt` to start the build.
+project to install all the dependencies. [Java](http://java.com/) must also be
+installed in order to generate the documentation. Run `grunt` to start the build.
 
 *Note: Currently, on Windows, `npm install` will fail when trying to install a
 dependency from a Git URL if `git.exe` is not in the `PATH`. A workaround is to

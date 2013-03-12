@@ -1,15 +1,15 @@
 # Tab Override Changelog
 
-## Dev
+## 3.2.2 (2013-03-12)
+* Added CommonJS module support
+* The global variable is no longer created when using a module loader
 * Updated build process
   * Use JSHint for all js files
   * Run unit tests
   * Generate source map
   * Generate API documentation with JSDoc 3
-* Support CommonJS
-* Do not create global variable when using a module loader
 
-## 3.2.1 (2012-01-17)
+## 3.2.1 (2013-01-17)
 * For multi-line selections, a line with no selected text is no longer indented
 * Register as an anonymous AMD module instead of a named one
 * Added basic unit tests

@@ -1,5 +1,5 @@
 {
     "name": "taboverride",
-    "version": "3.2.2-dev",
+    "version": "3.2.2",
     "main": "./build/taboverride.js"
 }

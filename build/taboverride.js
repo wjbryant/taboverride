@@ -1,10 +1,10 @@
-/*! taboverride v3.2.2-dev | https://github.com/wjbryant/taboverride
+/*! taboverride v3.2.2 | https://github.com/wjbryant/taboverride
 Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
 
 /**
  * @fileOverview taboverride
  * @author       Bill Bryant
- * @version      3.2.2-dev
+ * @version      3.2.2
  */
 
 /*global exports, define */
