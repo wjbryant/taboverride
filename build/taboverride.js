@@ -461,8 +461,8 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
 
         var key = e.keyCode;
 
-        if ((tabKeyComboPressed(key, e) || untabKeyComboPressed(key, e) ||
-                (key === 13 && autoIndent && !inWhitespace))) {
+        if (tabKeyComboPressed(key, e) || untabKeyComboPressed(key, e) ||
+                (key === 13 && autoIndent && !inWhitespace)) {
 
             if (e.preventDefault) {
                 e.preventDefault();

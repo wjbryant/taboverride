@@ -452,8 +452,8 @@
 
         var key = e.keyCode;
 
-        if ((tabKeyComboPressed(key, e) || untabKeyComboPressed(key, e) ||
-                (key === 13 && autoIndent && !inWhitespace))) {
+        if (tabKeyComboPressed(key, e) || untabKeyComboPressed(key, e) ||
+                (key === 13 && autoIndent && !inWhitespace)) {
 
             if (e.preventDefault) {
                 e.preventDefault();
