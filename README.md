@@ -17,6 +17,7 @@ Try out the demo at
 * Adjustable tab size
 * Auto indent
 * Custom key combinations (use any key and modifier keys for tab/untab)
+* Extension system allows new functionality to be added
 
 ## Setup
 
@@ -205,8 +206,8 @@ The event handler functions can also be accessed directly, if you wish to use
 a different method of event registration.
 
 There are two event handler functions that need to be registered.
-`TABOVERRIDE.handlers.keyDown` should be registered for the `keydown` event and
-`TABOVERRIDE.handlers.keyPress` should be registered for the `keypress` event.
+`TABOVERRIDE.handlers.keydown` should be registered for the `keydown` event and
+`TABOVERRIDE.handlers.keypress` should be registered for the `keypress` event.
 
 For example, to use jQuery event registration instead of the `TABOVERRIDE.set()`
 method, you could do the following:
