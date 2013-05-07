@@ -1,5 +1,11 @@
 # Tab Override Changelog
 
+## 4.0.0-dev
+* Moved `TABOVERRIDE.overrideKeyDown()` to `TABOVERRIDE.handlers.keydown()`
+* Moved `TABOVERRIDE.overrideKeyPress()` to `TABOVERRIDE.handlers.keypress()`
+* Added `utils` namespace with methods: `isValidModifierKeyCombo()`, `createListeners()`, `addListeners()`, and `removeListeners()`
+* Added basic extension system - use `TABOVERRIDE.addExtension()` to register an extension function
+
 ## 3.2.2 (2013-03-12)
 * Added CommonJS module support
 * The global variable is no longer created when using a module loader

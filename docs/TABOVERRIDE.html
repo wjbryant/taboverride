@@ -89,6 +89,16 @@
     
     
     
+        <h3 class="subsection-title">Namespaces</h3>
+        
+        <dl>
+            <dt><a href="namespaces.html#TABOVERRIDE.handlers"><a href="TABOVERRIDE.handlers.html">handlers</a></a></dt>
+            <dd></dd>
+        
+            <dt><a href="namespaces.html#TABOVERRIDE.utils"><a href="TABOVERRIDE.utils.html">utils</a></a></dt>
+            <dd></dd>
+        </dl>
+    
     
     
     
@@ -96,6 +106,141 @@
         <h3 class="subsection-title">Methods</h3>
         
         <dl>
+            
+<dt>
+    <h4 class="name" id="addExtension"><span class="type-signature">&lt;static> </span>addExtension<span class="signature">(func)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Adds an extension function to be executed when Tab Override is enabled ordisabled. The extension function is called for each element and is passedthe element and the enable boolean.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>func</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Function</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">the function to be executed when Tab Override is                        enabled or disabled</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="taboverride.js.html">taboverride.js</a>, line 628
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    the TABOVERRIDE object
+</div>
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">Object</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
             
 <dt>
     <h4 class="name" id="autoIndent"><span class="type-signature">&lt;static> </span>autoIndent<span class="signature">(<span class="optional">enable</span>)</span><span class="type-signature"> &rarr; {Boolean|Object}</span></h4>
@@ -197,7 +342,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="taboverride.js.html">taboverride.js</a>, line 634
+        <a href="taboverride.js.html">taboverride.js</a>, line 713
     </li></ul></dd>
     
     
@@ -239,232 +384,6 @@
 </dl>
 
         
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="overrideKeyDown"><span class="type-signature">&lt;static> </span>overrideKeyDown<span class="signature">(e)</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Event handler to insert or remove tabs and newlines on the keyDown eventfor the tab or enter key.
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>e</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Event</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">the event object</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="taboverride.js.html">taboverride.js</a>, line 533
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-    
-    
-    
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="overrideKeyPress"><span class="type-signature">&lt;static> </span>overrideKeyPress<span class="signature">(e)</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Event handler to prevent the default action for the keyPress event whentab or enter is pressed. Opera (and Firefox) also fire a keypress eventwhen the tab or enter key is pressed. Opera requires that the defaultaction be prevented on this event or the textarea will lose focus.
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>e</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Event</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">the event object</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="taboverride.js.html">taboverride.js</a>, line 545
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-    
-    
-    
-    
     
     
 </dd>
@@ -615,7 +534,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="taboverride.js.html">taboverride.js</a>, line 559
+        <a href="taboverride.js.html">taboverride.js</a>, line 646
     </li></ul></dd>
     
     
@@ -789,7 +708,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="taboverride.js.html">taboverride.js</a>, line 655
+        <a href="taboverride.js.html">taboverride.js</a>, line 733
     </li></ul></dd>
     
     
@@ -937,7 +856,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="taboverride.js.html">taboverride.js</a>, line 605
+        <a href="taboverride.js.html">taboverride.js</a>, line 687
     </li></ul></dd>
     
     
@@ -1114,7 +1033,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="taboverride.js.html">taboverride.js</a>, line 675
+        <a href="taboverride.js.html">taboverride.js</a>, line 751
     </li></ul></dd>
     
     
@@ -1176,13 +1095,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Namespaces</h3><ul><li><a href="TABOVERRIDE.html">TABOVERRIDE</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Namespaces</h3><ul><li><a href="TABOVERRIDE.html">TABOVERRIDE</a></li><li><a href="TABOVERRIDE.handlers.html">handlers</a></li><li><a href="TABOVERRIDE.utils.html">utils</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.1.1</a> on Tue Mar 12 2013 13:47:31 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.1.1</a> on Tue May 07 2013 17:19:40 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>

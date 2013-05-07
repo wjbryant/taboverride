@@ -24,7 +24,7 @@
             }
         }
 
-        TABOVERRIDE.overrideKeyDown.call(textarea, e);
+        TABOVERRIDE.handlers.keydown.call(textarea, e);
     }
 
     function testReturnValue(func) {
