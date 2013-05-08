@@ -17,7 +17,7 @@ Try out the demo at
 * Adjustable tab size
 * Auto indent
 * Custom key combinations (use any key and modifier keys for tab/untab)
-* Extension system allows new functionality to be added
+* Extension system that allows new functionality to be added
 
 ## Setup
 
@@ -135,10 +135,10 @@ var autoIndentEnabled = TABOVERRIDE.autoIndent();
 ```
 
 ```javascript
-// enable auto indent
+// enable auto indent (default)
 TABOVERRIDE.autoIndent(true);
 
-// disable auto indent (default)
+// disable auto indent
 TABOVERRIDE.autoIndent(false);
 ```
 

@@ -44,7 +44,7 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
         untabKey = 9,
         tabModifierKeys = [],
         untabModifierKeys = ['shiftKey'],
-        autoIndent = false, // whether each line should be automatically indented
+        autoIndent = true, // whether each line should be automatically indented
         inWhitespace = false, // whether the start of the selection is in the leading whitespace on enter
         textareaElem = document.createElement('textarea'), // temp textarea element to get newline character(s)
         newline, // the newline character sequence (\n or \r\n)
@@ -704,7 +704,7 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
 
     /**
      * Gets or sets the auto indent setting. True if each line should be
-     * automatically indented (default = false).
+     * automatically indented (default = true).
      *
      * @param  {Boolean}        [enable]  whether auto indent should be enabled
      * @return {Boolean|Object}           whether auto indent is enabled or the

@@ -5,6 +5,7 @@
 * Moved `TABOVERRIDE.overrideKeyPress()` to `TABOVERRIDE.handlers.keypress()`
 * Added `utils` namespace with methods: `isValidModifierKeyCombo()`, `createListeners()`, `addListeners()`, and `removeListeners()`
 * Added basic extension system - use `TABOVERRIDE.addExtension()` to register an extension function
+* Auto indent is now enabled by default
 
 ## 3.2.2 (2013-03-12)
 * Added CommonJS module support
