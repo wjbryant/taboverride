@@ -9,13 +9,6 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
 
 /*global exports, define */
 
-/**
- * the TABOVERRIDE "namespace" global object
- *
- * @name TABOVERRIDE
- * @namespace
- */
-
 // use CommonJS or AMD if available
 (function (factory) {
     'use strict';
@@ -36,6 +29,13 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
     }
 }(function (TABOVERRIDE) {
     'use strict';
+
+    /**
+     * The TABOVERRIDE "namespace" global object
+     *
+     * @name TABOVERRIDE
+     * @namespace
+     */
 
     var document = window.document,
         listeners,
@@ -546,7 +546,7 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
     // Public Properties and Methods
 
     /**
-     * Namespace for utility functions.
+     * Namespace for utility functions
      *
      * @namespace
      */
@@ -588,7 +588,7 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
     };
 
     /**
-     * Namespace for event handler functions.
+     * Namespace for event handler functions
      *
      * @namespace
      */

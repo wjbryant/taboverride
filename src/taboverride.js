@@ -1,32 +1,12 @@
-/*global exports, define */
-
-/**
- * the TABOVERRIDE "namespace" global object
- *
- * @name TABOVERRIDE
- * @namespace
- */
-
-// use CommonJS or AMD if available
-(function (factory) {
+function (TABOVERRIDE) {
     'use strict';
 
-    var mod;
-
-    if (typeof exports === 'object') {
-        // Node.js/CommonJS
-        factory(exports);
-    } else if (typeof define === 'function' && define.amd) {
-        // AMD - register as an anonymous module
-        // files must be concatenated using an AMD-aware tool such as r.js
-        define(['exports'], factory);
-    } else {
-        // no module format - create global variable
-        mod = window.TABOVERRIDE = {};
-        factory(mod);
-    }
-}(function (TABOVERRIDE) {
-    'use strict';
+    /**
+     * The TABOVERRIDE "namespace" global object
+     *
+     * @name TABOVERRIDE
+     * @namespace
+     */
 
     var document = window.document,
         listeners,
@@ -537,7 +517,7 @@
     // Public Properties and Methods
 
     /**
-     * Namespace for utility functions.
+     * Namespace for utility functions
      *
      * @namespace
      */
@@ -579,7 +559,7 @@
     };
 
     /**
-     * Namespace for event handler functions.
+     * Namespace for event handler functions
      *
      * @namespace
      */
@@ -751,4 +731,4 @@
     newline = textareaElem.value;
     newlineLen = newline.length;
     textareaElem = null;
-}));
+}

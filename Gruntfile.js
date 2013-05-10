@@ -5,38 +5,51 @@
 module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+        clean: {
+            output: ['build/output'],
+            docs: ['docs']
+        },
+        concat: {
+            options: {
+                banner: '/*! <%= pkg.name %> v<%= pkg.version %> | <%= pkg.homepage %>\r\n' +
+                    'Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %> | <%= pkg.licenses[0].url %> */\r\n\r\n' +
+                    '/**\r\n' +
+                    ' * @fileOverview <%= pkg.name %>\r\n' +
+                    ' * @author       <%= pkg.author.name %>\r\n' +
+                    ' * @version      <%= pkg.version %>\r\n' +
+                    ' */\r\n\r\n',
+                separator: ''
+            },
+            umd: {
+                src: ['build/fragments/umd-pre.js', 'src/taboverride.js', 'build/fragments/umd-post.js'],
+                dest: 'build/output/taboverride.js'
+            },
+            cjs: {
+                src: ['build/fragments/cjs-pre.js', 'src/taboverride.js', 'build/fragments/cjs-post.js'],
+                dest: 'build/output/taboverride.js'
+            },
+            amd: {
+                src: ['build/fragments/amd-pre.js', 'src/taboverride.js', 'build/fragments/amd-post.js'],
+                dest: 'build/output/taboverride.js'
+            },
+            globals: {
+                src: ['build/fragments/globals-pre.js', 'src/taboverride.js', 'build/fragments/globals-post.js'],
+                dest: 'build/output/taboverride.js'
+            }
+        },
         jshint: {
             options: {
                 jshintrc: '.jshintrc'
             },
             all: [
                 'Gruntfile.js',
-                'src/taboverride.js',
+                'build/output/taboverride.js',
                 'test/test.js',
                 'examples/js/*.js'
             ]
         },
         qunit: {
             all: ['test/index.html']
-        },
-        clean: {
-            build: ['build'],
-            docs: ['docs']
-        },
-        concat: {
-            dist: {
-                options: {
-                    banner: '/*! <%= pkg.name %> v<%= pkg.version %> | <%= pkg.homepage %>\r\n' +
-                        'Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %> | <%= pkg.licenses[0].url %> */\r\n\r\n' +
-                        '/**\r\n' +
-                        ' * @fileOverview <%= pkg.name %>\r\n' +
-                        ' * @author       <%= pkg.author.name %>\r\n' +
-                        ' * @version      <%= pkg.version %>\r\n' +
-                        ' */\r\n\r\n'
-                },
-                src: ['src/taboverride.js'],
-                dest: 'build/taboverride.js'
-            }
         },
         uglify: {
             options: {
@@ -46,29 +59,29 @@ module.exports = function (grunt) {
             },
             dist: {
                 options: {
-                    sourceMap: 'build/taboverride.min.js.map',
+                    sourceMap: 'build/output/taboverride.min.js.map',
                     sourceMappingURL: 'taboverride.min.js.map',
                     sourceMapPrefix: 1
                 },
                 files: {
-                    // the min file is moved to the build directory via a custom task
+                    // the min file is moved to the build/output directory via a custom task
                     // this is to ensure the "file" field is set correctly in the source map
-                    'taboverride.min.js': ['build/taboverride.js']
+                    'taboverride.min.js': ['build/output/taboverride.js']
                 }
             }
         }
     });
 
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-qunit');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-qunit');
     grunt.loadNpmTasks('grunt-contrib-uglify');
 
-    grunt.registerTask('moveMinJSFile', 'Moves the minified JS file to the build directory.', function () {
+    grunt.registerTask('moveMinJSFile', 'Moves the minified JS file to the build/output directory.', function () {
         grunt.task.requires(['uglify']);
 
-        grunt.file.copy('taboverride.min.js', 'build/taboverride.min.js');
+        grunt.file.copy('taboverride.min.js', 'build/output/taboverride.min.js');
         grunt.file['delete']('taboverride.min.js');
     });
 
@@ -85,7 +98,7 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('generateAPIDocs', 'Generates API documentation using JSDoc 3.', function () {
-        grunt.task.requires(['concat']);
+        //grunt.task.requires(['concat:umd']);
 
         var done = this.async(),
             jsdoc = 'node_modules/jsdoc/jsdoc',
@@ -98,7 +111,7 @@ module.exports = function (grunt) {
             args.push('/c', jsdoc.replace(/\//g, '\\'));
         }
 
-        args.push('-d', 'docs', 'build/taboverride.js');
+        args.push('-d', 'docs', 'build/output/taboverride.js');
 
         grunt.util.spawn(
             {
@@ -114,8 +127,14 @@ module.exports = function (grunt) {
         );
     });
 
+    // umd
     grunt.registerTask('default', [
-        'jshint', 'qunit', 'clean:build', 'concat', 'uglify', 'moveMinJSFile',
+        'clean:output', 'concat:umd', 'jshint', 'qunit', 'uglify', 'moveMinJSFile',
         'generateBowerManifest', 'clean:docs', 'generateAPIDocs'
     ]);
+
+    // cjs, amd, and globals tasks - just concat, lint, and minify, no testing or docs
+    grunt.registerTask('cjs', ['clean:output', 'concat:cjs', 'jshint', 'uglify', 'moveMinJSFile']);
+    grunt.registerTask('amd', ['clean:output', 'concat:amd', 'jshint', 'uglify', 'moveMinJSFile']);
+    grunt.registerTask('globals', ['clean:output', 'concat:globals', 'jshint', 'uglify', 'moveMinJSFile']);
 };
