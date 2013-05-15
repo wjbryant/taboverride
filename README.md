@@ -33,6 +33,11 @@ in your project to gain access to the Tab Override API through jQuery. See the
 [jQuery plugin repository](https://github.com/wjbryant/jquery.taboverride)
 for more details.
 
+### Extensions
+
+* [Delay](https://github.com/wjbryant/taboverride.delay) - wait some time after focus before enabling Tab Override
+* [Escape](https://github.com/wjbryant/taboverride.escape) - make the Escape key temporarily disable Tab Override
+
 ### Bower
 
 This script is registered as `taboverride` in the global [Bower](http://twitter.github.com/bower/)
