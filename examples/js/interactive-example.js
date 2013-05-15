@@ -1,6 +1,6 @@
-/*global TABOVERRIDE */
+/*global tabOverride */
 
-(function (TABOVERRIDE, document) {
+(function (tabOverride, document) {
     'use strict';
 
     // get references to the elements on the page
@@ -15,30 +15,30 @@
 
     // enable/disable Tab Override when the checkbox value changes
     checkboxEnableTabOverride.onchange = function () {
-        TABOVERRIDE.set(textarea, this.checked);
+        tabOverride.set(textarea, this.checked);
     };
     checkboxEnableTabOverride.onchange(); // initialize
 
     // update the tab size setting when the number changes
     inputTabSize.onchange = function () {
-        TABOVERRIDE.tabSize(parseInt(this.value, 10));
+        tabOverride.tabSize(parseInt(this.value, 10));
     };
     inputTabSize.onchange(); // initialize
 
     // toggle auto indent when the checkbox value changes
     checkboxAutoIndent.onchange = function () {
-        TABOVERRIDE.autoIndent(this.checked);
+        tabOverride.autoIndent(this.checked);
     };
     checkboxAutoIndent.onchange(); // initialize
 
     // toggle custom key combinations
     checkboxAltKeys.onchange = function () {
         if (this.checked) {
-            TABOVERRIDE.tabKey(221, modKeys).untabKey(219, modKeys);
+            tabOverride.tabKey(221, modKeys).untabKey(219, modKeys);
         } else {
-            TABOVERRIDE.tabKey(9).untabKey(9, ['shift']);
+            tabOverride.tabKey(9).untabKey(9, ['shift']);
         }
     };
     checkboxAltKeys.onchange(); // initialize
 
-}(TABOVERRIDE, document));
+}(tabOverride, document));

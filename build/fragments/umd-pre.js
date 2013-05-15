@@ -15,7 +15,7 @@
         define(['exports'], factory);
     } else {
         // no module format - create global variable
-        mod = window.TABOVERRIDE = {};
+        mod = window.tabOverride = {};
         factory(mod);
     }
 }(

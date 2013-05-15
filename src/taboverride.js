@@ -1,10 +1,10 @@
-function (TABOVERRIDE) {
+function (tabOverride) {
     'use strict';
 
     /**
-     * The TABOVERRIDE "namespace" global object
+     * The tabOverride "namespace" global object
      *
-     * @name TABOVERRIDE
+     * @name tabOverride
      * @namespace
      */
 
@@ -23,7 +23,7 @@ function (TABOVERRIDE) {
         extensions = [];
 
     /**
-     * @see TABOVERRIDE.utils.isValidModifierKeyCombo
+     * @see tabOverride.utils.isValidModifierKeyCombo
      * @private
      */
     function isValidModifierKeyCombo(modifierKeys, e) {
@@ -143,7 +143,7 @@ function (TABOVERRIDE) {
     }
 
     /**
-     * @see TABOVERRIDE.handlers.keydown
+     * @see tabOverride.handlers.keydown
      * @private
      */
     function overrideKeyDown(e) {
@@ -418,7 +418,7 @@ function (TABOVERRIDE) {
     }
 
     /**
-     * @see TABOVERRIDE.handlers.keypress
+     * @see tabOverride.handlers.keypress
      * @private
      */
     function overrideKeyPress(e) {
@@ -521,7 +521,7 @@ function (TABOVERRIDE) {
      *
      * @namespace
      */
-    TABOVERRIDE.utils = {
+    tabOverride.utils = {
         /**
          * Determines whether the specified modifier keys match the modifier keys
          * that were pressed.
@@ -563,7 +563,7 @@ function (TABOVERRIDE) {
      *
      * @namespace
      */
-    TABOVERRIDE.handlers = {
+    tabOverride.handlers = {
         /**
          * Event handler to insert or remove tabs and newlines on the keydown event
          * for the tab or enter key.
@@ -594,9 +594,9 @@ function (TABOVERRIDE) {
      *
      * @param {Function} func  the function to be executed when Tab Override is
      *                         enabled or disabled
-     * @return {Object}        the TABOVERRIDE object
+     * @return {Object}        the tabOverride object
      */
-    TABOVERRIDE.addExtension = function(func) {
+    tabOverride.addExtension = function(func) {
         if (typeof func === 'function') {
             extensions.push(func);
         }
@@ -612,9 +612,9 @@ function (TABOVERRIDE) {
      *                                            Tab Override
      * @param  {Boolean}           [enable=true]  whether Tab Override should be
      *                                            enabled for the element(s)
-     * @return {Object}                           the TABOVERRIDE object
+     * @return {Object}                           the tabOverride object
      */
-    TABOVERRIDE.set = function (elems, enable) {
+    tabOverride.set = function (elems, enable) {
         var enableFlag,
             setListeners,
             i,
@@ -653,9 +653,9 @@ function (TABOVERRIDE) {
      * 0 represents the tab character.
      *
      * @param  {Number}        [size]  the tab size
-     * @return {Number|Object}         the tab size or the TABOVERRIDE object
+     * @return {Number|Object}         the tab size or the tabOverride object
      */
-    TABOVERRIDE.tabSize = function (size) {
+    tabOverride.tabSize = function (size) {
         var i;
 
         if (arguments.length) {
@@ -679,9 +679,9 @@ function (TABOVERRIDE) {
      *
      * @param  {Boolean}        [enable]  whether auto indent should be enabled
      * @return {Boolean|Object}           whether auto indent is enabled or the
-     *                                    TABOVERRIDE object
+     *                                    tabOverride object
      */
-    TABOVERRIDE.autoIndent = function (enable) {
+    tabOverride.autoIndent = function (enable) {
         if (arguments.length) {
             autoIndent = enable ? true : false;
             return this;
@@ -697,11 +697,11 @@ function (TABOVERRIDE) {
      * @param  {String[]}      [modifierKeyNames]  the modifier key names - valid names are
      *                                             'alt', 'ctrl', 'meta', and 'shift'
      * @return {String|Object}                     the current tab key combination or the
-     *                                             TABOVERRIDE object
+     *                                             tabOverride object
      *
      * @function
      */
-    TABOVERRIDE.tabKey = createKeyComboFunction(function (keyCode) {
+    tabOverride.tabKey = createKeyComboFunction(function (keyCode) {
         if (!arguments.length) {
             return tabKey;
         }
@@ -715,11 +715,11 @@ function (TABOVERRIDE) {
      * @param  {String[]}      [modifierKeyNames]  the modifier key names - valid names are
      *                                             'alt', 'ctrl', 'meta', and 'shift'
      * @return {String|Object}                     the current untab key combination or the
-     *                                             TABOVERRIDE object
+     *                                             tabOverride object
      *
      * @function
      */
-    TABOVERRIDE.untabKey = createKeyComboFunction(function (keyCode) {
+    tabOverride.untabKey = createKeyComboFunction(function (keyCode) {
         if (!arguments.length) {
             return untabKey;
         }

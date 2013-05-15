@@ -1,4 +1,4 @@
 /*global exports */
 
-// CommonJS - alias exports as TABOVERRIDE
+// CommonJS - alias exports as tabOverride
 (

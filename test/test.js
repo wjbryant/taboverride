@@ -1,10 +1,10 @@
-/*global TABOVERRIDE, QUnit, module, test, ok, strictEqual */
+/*global tabOverride, QUnit, module, test, ok, strictEqual */
 
 (function () {
     'use strict';
 
     function resetSettings() {
-        TABOVERRIDE
+        tabOverride
             .tabSize(0)
             .autoIndent(false)
             .tabKey(9)
@@ -24,15 +24,15 @@
             }
         }
 
-        TABOVERRIDE.handlers.keydown.call(textarea, e);
+        tabOverride.handlers.keydown.call(textarea, e);
     }
 
     function testReturnValue(func) {
-        test('returns TABOVERRIDE object', 4, function () {
-            strictEqual(func.apply(TABOVERRIDE, [undefined]), TABOVERRIDE, 'undefined argument');
-            strictEqual(func.apply(TABOVERRIDE, [-1]), TABOVERRIDE, 'negative number argument');
-            strictEqual(func.apply(TABOVERRIDE, [2]), TABOVERRIDE, 'positive number argument');
-            strictEqual(func.apply(TABOVERRIDE, [2, []]), TABOVERRIDE, 'multiple arguments');
+        test('returns tabOverride object', 4, function () {
+            strictEqual(func.apply(tabOverride, [undefined]), tabOverride, 'undefined argument');
+            strictEqual(func.apply(tabOverride, [-1]), tabOverride, 'negative number argument');
+            strictEqual(func.apply(tabOverride, [2]), tabOverride, 'positive number argument');
+            strictEqual(func.apply(tabOverride, [2, []]), tabOverride, 'multiple arguments');
         });
     }
 
@@ -84,72 +84,72 @@
 
     module('globals');
 
-    test('TABOVERRIDE object created', 1, function () {
-        ok(window.TABOVERRIDE, 'window.TABOVERRIDE exists');
+    test('tabOverride object created', 1, function () {
+        ok(window.tabOverride, 'window.tabOverride exists');
     });
 
 
     module('tabSize()');
 
     test('invalid arguments', 2, function () {
-        TABOVERRIDE.tabSize(-1);
-        strictEqual(TABOVERRIDE.tabSize(), 0, 'negative number');
+        tabOverride.tabSize(-1);
+        strictEqual(tabOverride.tabSize(), 0, 'negative number');
 
-        TABOVERRIDE.tabSize('4');
-        strictEqual(TABOVERRIDE.tabSize(), 0, 'string');
+        tabOverride.tabSize('4');
+        strictEqual(tabOverride.tabSize(), 0, 'string');
     });
 
     test('number arguments correctly set', 2, function () {
-        TABOVERRIDE.tabSize(4);
-        strictEqual(TABOVERRIDE.tabSize(), 4, 'tabSize was set to 4');
+        tabOverride.tabSize(4);
+        strictEqual(tabOverride.tabSize(), 4, 'tabSize was set to 4');
 
-        TABOVERRIDE.tabSize(0);
-        strictEqual(TABOVERRIDE.tabSize(), 0, 'tabSize was set to 0');
+        tabOverride.tabSize(0);
+        strictEqual(tabOverride.tabSize(), 0, 'tabSize was set to 0');
     });
 
-    testReturnValue(TABOVERRIDE.tabSize);
+    testReturnValue(tabOverride.tabSize);
 
 
     module('autoIndent()');
 
     test('value correctly set', 5, function () {
-        TABOVERRIDE.autoIndent(false);
-        strictEqual(TABOVERRIDE.autoIndent(), false, 'false -> false');
+        tabOverride.autoIndent(false);
+        strictEqual(tabOverride.autoIndent(), false, 'false -> false');
 
-        TABOVERRIDE.autoIndent(true);
-        strictEqual(TABOVERRIDE.autoIndent(), true, 'true -> true');
+        tabOverride.autoIndent(true);
+        strictEqual(tabOverride.autoIndent(), true, 'true -> true');
 
-        TABOVERRIDE.autoIndent(0);
-        strictEqual(TABOVERRIDE.autoIndent(), false, '0 -> false');
+        tabOverride.autoIndent(0);
+        strictEqual(tabOverride.autoIndent(), false, '0 -> false');
 
-        TABOVERRIDE.autoIndent(1);
-        strictEqual(TABOVERRIDE.autoIndent(), true, '1 -> true');
+        tabOverride.autoIndent(1);
+        strictEqual(tabOverride.autoIndent(), true, '1 -> true');
 
-        TABOVERRIDE.autoIndent(undefined);
-        strictEqual(TABOVERRIDE.autoIndent(), false, 'undefined -> false');
+        tabOverride.autoIndent(undefined);
+        strictEqual(tabOverride.autoIndent(), false, 'undefined -> false');
     });
 
-    testReturnValue(TABOVERRIDE.autoIndent);
+    testReturnValue(tabOverride.autoIndent);
 
 
     module('tabKey()');
 
     test('value correctly set', 1, function () {
-        TABOVERRIDE.tabKey(221);
-        strictEqual(TABOVERRIDE.tabKey(), '221', 'number argument');
+        tabOverride.tabKey(221);
+        strictEqual(tabOverride.tabKey(), '221', 'number argument');
     });
 
-    testReturnValue(TABOVERRIDE.tabKey);
+    testReturnValue(tabOverride.tabKey);
 
 
     module('untabKey()');
 
     test('value correctly set', 1, function () {
-        TABOVERRIDE.untabKey(219);
-        strictEqual(TABOVERRIDE.untabKey(), '219', 'number argument');
+        tabOverride.untabKey(219);
+        strictEqual(tabOverride.untabKey(), '219', 'number argument');
     });
 
-    testReturnValue(TABOVERRIDE.untabKey);
+    testReturnValue(tabOverride.untabKey);
 
 
     module('single line');
@@ -200,7 +200,7 @@
         setTextSelection(textarea, 5, 24);
 
         // use 4 spaces instead of tab character
-        TABOVERRIDE.tabSize(4);
+        tabOverride.tabSize(4);
         simulateKeyDown(textarea, 9);
 
         strictEqual(normalizeNewlines(textarea.value), '    this is line one\n    this is line two\nthis is line three', '4 spaces inserted at start of lines 1 and 2');
@@ -224,7 +224,7 @@
         setTextSelection(textarea, 9, 32);
 
         // use 4 spaces instead of tab character
-        TABOVERRIDE.tabSize(4);
+        tabOverride.tabSize(4);
         simulateKeyDown(textarea, 9, ['shift']);
 
         strictEqual(normalizeNewlines(textarea.value), nonIndentedText, '4 spaces removed at start of lines 1 and 2');

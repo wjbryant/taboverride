@@ -1,10 +1,10 @@
 /*global require */
 
 // load Tab Override
-require(['../build/taboverride.min.js'], function (TABOVERRIDE) {
+require(['../build/taboverride.min.js'], function (tabOverride) {
     'use strict';
 
     var textarea = document.getElementById('txt');
 
-    TABOVERRIDE.set(textarea);
+    tabOverride.set(textarea);
 });

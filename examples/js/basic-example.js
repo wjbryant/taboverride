@@ -1,4 +1,4 @@
-/*global TABOVERRIDE */
+/*global tabOverride */
 
 // enable Tab Override for all textarea elements on the page
-TABOVERRIDE.set(document.getElementsByTagName('textarea'));
+tabOverride.set(document.getElementsByTagName('textarea'));

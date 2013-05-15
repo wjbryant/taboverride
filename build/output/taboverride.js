@@ -24,16 +24,16 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
         define(['exports'], factory);
     } else {
         // no module format - create global variable
-        mod = window.TABOVERRIDE = {};
+        mod = window.tabOverride = {};
         factory(mod);
     }
-}(function (TABOVERRIDE) {
+}(function (tabOverride) {
     'use strict';
 
     /**
-     * The TABOVERRIDE "namespace" global object
+     * The tabOverride "namespace" global object
      *
-     * @name TABOVERRIDE
+     * @name tabOverride
      * @namespace
      */
 
@@ -52,7 +52,7 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
         extensions = [];
 
     /**
-     * @see TABOVERRIDE.utils.isValidModifierKeyCombo
+     * @see tabOverride.utils.isValidModifierKeyCombo
      * @private
      */
     function isValidModifierKeyCombo(modifierKeys, e) {
@@ -172,7 +172,7 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
     }
 
     /**
-     * @see TABOVERRIDE.handlers.keydown
+     * @see tabOverride.handlers.keydown
      * @private
      */
     function overrideKeyDown(e) {
@@ -447,7 +447,7 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
     }
 
     /**
-     * @see TABOVERRIDE.handlers.keypress
+     * @see tabOverride.handlers.keypress
      * @private
      */
     function overrideKeyPress(e) {
@@ -550,7 +550,7 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
      *
      * @namespace
      */
-    TABOVERRIDE.utils = {
+    tabOverride.utils = {
         /**
          * Determines whether the specified modifier keys match the modifier keys
          * that were pressed.
@@ -592,7 +592,7 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
      *
      * @namespace
      */
-    TABOVERRIDE.handlers = {
+    tabOverride.handlers = {
         /**
          * Event handler to insert or remove tabs and newlines on the keydown event
          * for the tab or enter key.
@@ -623,9 +623,9 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
      *
      * @param {Function} func  the function to be executed when Tab Override is
      *                         enabled or disabled
-     * @return {Object}        the TABOVERRIDE object
+     * @return {Object}        the tabOverride object
      */
-    TABOVERRIDE.addExtension = function(func) {
+    tabOverride.addExtension = function(func) {
         if (typeof func === 'function') {
             extensions.push(func);
         }
@@ -641,9 +641,9 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
      *                                            Tab Override
      * @param  {Boolean}           [enable=true]  whether Tab Override should be
      *                                            enabled for the element(s)
-     * @return {Object}                           the TABOVERRIDE object
+     * @return {Object}                           the tabOverride object
      */
-    TABOVERRIDE.set = function (elems, enable) {
+    tabOverride.set = function (elems, enable) {
         var enableFlag,
             setListeners,
             i,
@@ -682,9 +682,9 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
      * 0 represents the tab character.
      *
      * @param  {Number}        [size]  the tab size
-     * @return {Number|Object}         the tab size or the TABOVERRIDE object
+     * @return {Number|Object}         the tab size or the tabOverride object
      */
-    TABOVERRIDE.tabSize = function (size) {
+    tabOverride.tabSize = function (size) {
         var i;
 
         if (arguments.length) {
@@ -708,9 +708,9 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
      *
      * @param  {Boolean}        [enable]  whether auto indent should be enabled
      * @return {Boolean|Object}           whether auto indent is enabled or the
-     *                                    TABOVERRIDE object
+     *                                    tabOverride object
      */
-    TABOVERRIDE.autoIndent = function (enable) {
+    tabOverride.autoIndent = function (enable) {
         if (arguments.length) {
             autoIndent = enable ? true : false;
             return this;
@@ -726,11 +726,11 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
      * @param  {String[]}      [modifierKeyNames]  the modifier key names - valid names are
      *                                             'alt', 'ctrl', 'meta', and 'shift'
      * @return {String|Object}                     the current tab key combination or the
-     *                                             TABOVERRIDE object
+     *                                             tabOverride object
      *
      * @function
      */
-    TABOVERRIDE.tabKey = createKeyComboFunction(function (keyCode) {
+    tabOverride.tabKey = createKeyComboFunction(function (keyCode) {
         if (!arguments.length) {
             return tabKey;
         }
@@ -744,11 +744,11 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
      * @param  {String[]}      [modifierKeyNames]  the modifier key names - valid names are
      *                                             'alt', 'ctrl', 'meta', and 'shift'
      * @return {String|Object}                     the current untab key combination or the
-     *                                             TABOVERRIDE object
+     *                                             tabOverride object
      *
      * @function
      */
-    TABOVERRIDE.untabKey = createKeyComboFunction(function (keyCode) {
+    tabOverride.untabKey = createKeyComboFunction(function (keyCode) {
         if (!arguments.length) {
             return untabKey;
         }

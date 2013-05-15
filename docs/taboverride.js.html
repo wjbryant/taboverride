@@ -51,16 +51,16 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
         define(['exports'], factory);
     } else {
         // no module format - create global variable
-        mod = window.TABOVERRIDE = {};
+        mod = window.tabOverride = {};
         factory(mod);
     }
-}(function (TABOVERRIDE) {
+}(function (tabOverride) {
     'use strict';
 
     /**
-     * The TABOVERRIDE "namespace" global object
+     * The tabOverride "namespace" global object
      *
-     * @name TABOVERRIDE
+     * @name tabOverride
      * @namespace
      */
 
@@ -79,7 +79,7 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
         extensions = [];
 
     /**
-     * @see TABOVERRIDE.utils.isValidModifierKeyCombo
+     * @see tabOverride.utils.isValidModifierKeyCombo
      * @private
      */
     function isValidModifierKeyCombo(modifierKeys, e) {
@@ -199,7 +199,7 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
     }
 
     /**
-     * @see TABOVERRIDE.handlers.keydown
+     * @see tabOverride.handlers.keydown
      * @private
      */
     function overrideKeyDown(e) {
@@ -474,7 +474,7 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
     }
 
     /**
-     * @see TABOVERRIDE.handlers.keypress
+     * @see tabOverride.handlers.keypress
      * @private
      */
     function overrideKeyPress(e) {
@@ -577,7 +577,7 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
      *
      * @namespace
      */
-    TABOVERRIDE.utils = {
+    tabOverride.utils = {
         /**
          * Determines whether the specified modifier keys match the modifier keys
          * that were pressed.
@@ -619,7 +619,7 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
      *
      * @namespace
      */
-    TABOVERRIDE.handlers = {
+    tabOverride.handlers = {
         /**
          * Event handler to insert or remove tabs and newlines on the keydown event
          * for the tab or enter key.
@@ -650,9 +650,9 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
      *
      * @param {Function} func  the function to be executed when Tab Override is
      *                         enabled or disabled
-     * @return {Object}        the TABOVERRIDE object
+     * @return {Object}        the tabOverride object
      */
-    TABOVERRIDE.addExtension = function(func) {
+    tabOverride.addExtension = function(func) {
         if (typeof func === 'function') {
             extensions.push(func);
         }
@@ -668,9 +668,9 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
      *                                            Tab Override
      * @param  {Boolean}           [enable=true]  whether Tab Override should be
      *                                            enabled for the element(s)
-     * @return {Object}                           the TABOVERRIDE object
+     * @return {Object}                           the tabOverride object
      */
-    TABOVERRIDE.set = function (elems, enable) {
+    tabOverride.set = function (elems, enable) {
         var enableFlag,
             setListeners,
             i,
@@ -709,9 +709,9 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
      * 0 represents the tab character.
      *
      * @param  {Number}        [size]  the tab size
-     * @return {Number|Object}         the tab size or the TABOVERRIDE object
+     * @return {Number|Object}         the tab size or the tabOverride object
      */
-    TABOVERRIDE.tabSize = function (size) {
+    tabOverride.tabSize = function (size) {
         var i;
 
         if (arguments.length) {
@@ -735,9 +735,9 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
      *
      * @param  {Boolean}        [enable]  whether auto indent should be enabled
      * @return {Boolean|Object}           whether auto indent is enabled or the
-     *                                    TABOVERRIDE object
+     *                                    tabOverride object
      */
-    TABOVERRIDE.autoIndent = function (enable) {
+    tabOverride.autoIndent = function (enable) {
         if (arguments.length) {
             autoIndent = enable ? true : false;
             return this;
@@ -753,11 +753,11 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
      * @param  {String[]}      [modifierKeyNames]  the modifier key names - valid names are
      *                                             'alt', 'ctrl', 'meta', and 'shift'
      * @return {String|Object}                     the current tab key combination or the
-     *                                             TABOVERRIDE object
+     *                                             tabOverride object
      *
      * @function
      */
-    TABOVERRIDE.tabKey = createKeyComboFunction(function (keyCode) {
+    tabOverride.tabKey = createKeyComboFunction(function (keyCode) {
         if (!arguments.length) {
             return tabKey;
         }
@@ -771,11 +771,11 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
      * @param  {String[]}      [modifierKeyNames]  the modifier key names - valid names are
      *                                             'alt', 'ctrl', 'meta', and 'shift'
      * @return {String|Object}                     the current untab key combination or the
-     *                                             TABOVERRIDE object
+     *                                             tabOverride object
      *
      * @function
      */
-    TABOVERRIDE.untabKey = createKeyComboFunction(function (keyCode) {
+    tabOverride.untabKey = createKeyComboFunction(function (keyCode) {
         if (!arguments.length) {
             return untabKey;
         }
@@ -798,13 +798,13 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Namespaces</h3><ul><li><a href="TABOVERRIDE.html">TABOVERRIDE</a></li><li><a href="TABOVERRIDE.handlers.html">handlers</a></li><li><a href="TABOVERRIDE.utils.html">utils</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Namespaces</h3><ul><li><a href="tabOverride.html">tabOverride</a></li><li><a href="tabOverride.handlers.html">handlers</a></li><li><a href="tabOverride.utils.html">utils</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.1.1</a> on Fri May 10 2013 16:49:34 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.1.1</a> on Wed May 15 2013 18:31:43 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>

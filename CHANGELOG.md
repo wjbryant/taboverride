@@ -1,10 +1,11 @@
 # Tab Override Changelog
 
 ## 4.0.0-dev
-* Moved `TABOVERRIDE.overrideKeyDown()` to `TABOVERRIDE.handlers.keydown()`
-* Moved `TABOVERRIDE.overrideKeyPress()` to `TABOVERRIDE.handlers.keypress()`
+* Changed namespace from `TABOVERRIDE` to `tabOverride`
+* Moved `overrideKeyDown()` to `tabOverride.handlers.keydown()`
+* Moved `overrideKeyPress()` to `tabOverride.handlers.keypress()`
 * Added `utils` namespace with methods: `isValidModifierKeyCombo()`, `createListeners()`, `addListeners()`, and `removeListeners()`
-* Added basic extension system - use `TABOVERRIDE.addExtension()` to register an extension function
+* Added basic extension system - use `tabOverride.addExtension()` to register an extension function
 * Auto indent is now enabled by default
 
 ## 3.2.2 (2013-03-12)
