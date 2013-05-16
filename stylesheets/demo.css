@@ -1,5 +1,15 @@
 #txt { font-family: monospace; }
 
-#settings { margin: 1em 0; }
+#enable,
+#settings {
+    margin: 1em 0;
+}
 
 #tab_override_tab_size { text-align: right; }
+
+.description,
+.description code {
+    color: #636363;
+}
+
+#docs { margin-top: 2em; }
