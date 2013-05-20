@@ -35,8 +35,9 @@ for more details.
 
 ### Extensions
 
-* [Delay](https://github.com/wjbryant/taboverride.delay) - wait some time after focus before enabling Tab Override
-* [Escape](https://github.com/wjbryant/taboverride.escape) - make the Escape key temporarily disable Tab Override
+* [Delay](https://github.com/wjbryant/taboverride.delay) - Waits some time after focus before enabling Tab Override
+* [Escape](https://github.com/wjbryant/taboverride.escape) - Makes the Escape key temporarily disable Tab Override
+* [Style](https://github.com/wjbryant/taboverride.style) - Adds a CSS class to elements with Tab Override enabled
 
 ### Bower
 
