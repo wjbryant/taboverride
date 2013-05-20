@@ -234,6 +234,10 @@ process. Everything required to build the project can be installed via
 project to install all the dependencies. [Java](http://java.com/) must also be
 installed in order to generate the documentation. Run `grunt` to start the build.
 
+It is also possible to build the project for loading in a specific environment
+using the Grunt targets `amd`, `cjs`, or `globals`. These targets will not run
+unit tests. `umd` is used if no target is specified.
+
 *Note: Currently, on Windows, `npm install` will fail when trying to install a
 dependency from a Git URL if `git.exe` is not in the `PATH`. A workaround is to
 use a Git-enabled shell from [GitHub for Windows](http://windows.github.com/) or

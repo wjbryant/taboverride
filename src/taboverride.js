@@ -438,6 +438,10 @@ function (tabOverride) {
         }
     }
 
+    /**
+     * @see tabOverride.utils.createListeners
+     * @private
+     */
     function createListeners(paramList) {
         var i,
             len = paramList.length,
@@ -535,7 +539,16 @@ function (tabOverride) {
         isValidModifierKeyCombo: isValidModifierKeyCombo,
 
         /**
-         * Creates event listeners.
+         * Creates functions to add and remove event listeners in a cross-browser
+         * compatible way.
+         *
+         * @param  {Object[]} paramList  an array of objects with event 'type' and
+         *                               'handler' properties
+         * @return {Object}              an object with 'add' and 'remove' methods
+         *                               to add and remove all the event listeners
+         *                               from the specified element
+         *
+         * @function
          */
         createListeners: createListeners,
 
