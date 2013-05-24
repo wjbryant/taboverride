@@ -658,15 +658,15 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
      */
     tabOverride.set = function (elems, enable) {
         var enableFlag,
-            setListeners,
-            i,
-            numElems,
             elemsArr,
+            numElems,
+            setListeners,
+            attrValue,
+            i,
             elem;
 
         if (elems) {
             enableFlag = arguments.length < 2 || enable;
-            setListeners = listeners[enableFlag ? 'add' : 'remove'];
 
             // don't manipulate param when referencing arguments object
             // this is just a matter of practice
@@ -678,10 +678,19 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
                 numElems = 1;
             }
 
+            if (enableFlag) {
+                setListeners = listeners.add;
+                attrValue = 'true';
+            } else {
+                setListeners = listeners.remove;
+                attrValue = '';
+            }
+
             for (i = 0; i < numElems; i += 1) {
                 elem = elemsArr[i];
                 if (elem && elem.nodeName && elem.nodeName.toLowerCase() === 'textarea') {
                     executeExtensions(elem, enableFlag);
+                    elem.setAttribute('data-taboverride-enabled', attrValue);
                     setListeners(elem);
                 }
             }
