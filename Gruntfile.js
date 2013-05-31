@@ -1,4 +1,4 @@
-/*jshint es5: true, node: true */
+/*jshint node: true */
 
 'use strict';
 
@@ -61,7 +61,7 @@ module.exports = function (grunt) {
                 options: {
                     sourceMap: 'build/output/taboverride.min.js.map',
                     sourceMappingURL: 'taboverride.min.js.map',
-                    sourceMapPrefix: 1
+                    sourceMapPrefix: 2
                 },
                 files: {
                     // the min file is moved to the build/output directory via a custom task
