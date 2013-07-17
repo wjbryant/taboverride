@@ -80,9 +80,9 @@ function (tabOverride) {
     /**
      * Determines whether the tab key combination was pressed.
      *
-     * @param  {Number}  keyCode  the key code of the key that was pressed
+     * @param  {number}  keyCode  the key code of the key that was pressed
      * @param  {Event}   e        the event object for the key event
-     * @return {Boolean}          whether the tab key combo was pressed
+     * @return {boolean}          whether the tab key combo was pressed
      *
      * @private
      */
@@ -93,9 +93,9 @@ function (tabOverride) {
     /**
      * Determines whether the untab key combination was pressed.
      *
-     * @param  {Number}  keyCode  the key code of the key that was pressed
+     * @param  {number}  keyCode  the key code of the key that was pressed
      * @param  {Event}   e        the event object for the key event
-     * @return {Boolean}          whether the untab key combo was pressed
+     * @return {boolean}          whether the untab key combo was pressed
      *
      * @private
      */
@@ -107,7 +107,7 @@ function (tabOverride) {
      * Creates a function to get and set the specified key combination.
      *
      * @param  {Function} keyFunc       getter/setter function for the key
-     * @param  {String[]} modifierKeys  the array of modifier keys to manipulate
+     * @param  {string[]} modifierKeys  the array of modifier keys to manipulate
      * @return {Function}               a getter/setter function for the specified
      *                                  key combination
      *
@@ -469,9 +469,8 @@ function (tabOverride) {
                     elem.removeEventListener(type, handler, false);
                 });
             };
-        }
-        // support IE 6,7,8
-        else if (document.attachEvent) {
+        } else if (document.attachEvent) {
+            // support IE 6-8
             add = function (elem) {
                 remove(elem);
                 loop(function (type, handler) {
@@ -483,9 +482,8 @@ function (tabOverride) {
                     elem.detachEvent('on' + type, handler);
                 });
             };
-        }
-        // browser not supported
-        else {
+        } else {
+            // browser not supported
             add = remove = function () {};
         }
 
@@ -504,7 +502,7 @@ function (tabOverride) {
      * Executes all registered extension functions.
      *
      * @param {Element} elem    the textarea element
-     * @param {Boolean} enable  whether to enable or disable Tab Override
+     * @param {boolean} enable  whether to enable or disable Tab Override
      *
      * @private
      */
@@ -530,9 +528,9 @@ function (tabOverride) {
          * Determines whether the specified modifier keys match the modifier keys
          * that were pressed.
          *
-         * @param  {String[]} modifierKeys  the modifier keys to check - ex: ['shiftKey']
+         * @param  {string[]} modifierKeys  the modifier keys to check - ex: ['shiftKey']
          * @param  {Event}    e             the event object for the keydown event
-         * @return {Boolean}                whether modifierKeys are valid for the event
+         * @return {boolean}                whether modifierKeys are valid for the event
          *
          * @function
          */
@@ -605,11 +603,11 @@ function (tabOverride) {
      * disabled. The extension function is called for each element and is passed
      * the element and the enable boolean.
      *
-     * @param {Function} func  the function to be executed when Tab Override is
-     *                         enabled or disabled
-     * @return {Object}        the tabOverride object
+     * @param  {Function} func  the function to be executed when Tab Override is
+     *                          enabled or disabled
+     * @return {Object}         the tabOverride object
      */
-    tabOverride.addExtension = function(func) {
+    tabOverride.addExtension = function (func) {
         if (typeof func === 'function') {
             extensions.push(func);
         }
@@ -623,7 +621,7 @@ function (tabOverride) {
      * @param  {Element|Element[]} elems          the textarea element(s) for
      *                                            which to enable or disable
      *                                            Tab Override
-     * @param  {Boolean}           [enable=true]  whether Tab Override should be
+     * @param  {boolean}           [enable=true]  whether Tab Override should be
      *                                            enabled for the element(s)
      * @return {Object}                           the tabOverride object
      */
@@ -674,8 +672,8 @@ function (tabOverride) {
      * Gets or sets the tab size for all elements that have Tab Override enabled.
      * 0 represents the tab character.
      *
-     * @param  {Number}        [size]  the tab size
-     * @return {Number|Object}         the tab size or the tabOverride object
+     * @param  {number}        [size]  the tab size
+     * @return {number|Object}         the tab size or the tabOverride object
      */
     tabOverride.tabSize = function (size) {
         var i;
@@ -699,8 +697,8 @@ function (tabOverride) {
      * Gets or sets the auto indent setting. True if each line should be
      * automatically indented (default = true).
      *
-     * @param  {Boolean}        [enable]  whether auto indent should be enabled
-     * @return {Boolean|Object}           whether auto indent is enabled or the
+     * @param  {boolean}        [enable]  whether auto indent should be enabled
+     * @return {boolean|Object}           whether auto indent is enabled or the
      *                                    tabOverride object
      */
     tabOverride.autoIndent = function (enable) {
@@ -715,10 +713,10 @@ function (tabOverride) {
     /**
      * Gets or sets the tab key combination.
      *
-     * @param  {Number}        keyCode             the key code of the key to use for tab
-     * @param  {String[]}      [modifierKeyNames]  the modifier key names - valid names are
+     * @param  {number}        keyCode             the key code of the key to use for tab
+     * @param  {string[]}      [modifierKeyNames]  the modifier key names - valid names are
      *                                             'alt', 'ctrl', 'meta', and 'shift'
-     * @return {String|Object}                     the current tab key combination or the
+     * @return {string|Object}                     the current tab key combination or the
      *                                             tabOverride object
      *
      * @function
@@ -733,10 +731,10 @@ function (tabOverride) {
     /**
      * Gets or sets the untab key combination.
      *
-     * @param  {Number}        keyCode             the key code of the key to use for untab
-     * @param  {String[]}      [modifierKeyNames]  the modifier key names - valid names are
+     * @param  {number}        keyCode             the key code of the key to use for untab
+     * @param  {string[]}      [modifierKeyNames]  the modifier key names - valid names are
      *                                             'alt', 'ctrl', 'meta', and 'shift'
-     * @return {String|Object}                     the current untab key combination or the
+     * @return {string|Object}                     the current untab key combination or the
      *                                             tabOverride object
      *
      * @function

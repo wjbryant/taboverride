@@ -17,7 +17,7 @@ Try out the demo at
 * Adjustable tab size
 * Auto indent
 * Custom key combinations (use any key and modifier keys for tab/untab)
-* Extension system that allows new functionality to be added
+* Extension system
 
 ## Setup
 
@@ -232,19 +232,11 @@ may already provide the functionality you need.*
 This project uses [Grunt](https://github.com/gruntjs/grunt) to manage the build
 process. Everything required to build the project can be installed via
 [npm](https://npmjs.org/). Run `npm install` from the root directory of the
-project to install all the dependencies. [Java](http://java.com/) must also be
-installed in order to generate the documentation. Run `grunt` to start the build.
+project to install all the dependencies. Run `grunt` to start the build.
 
 It is also possible to build the project for loading in a specific environment
 using the Grunt targets `amd`, `cjs`, or `globals`. These targets will not run
 unit tests. `umd` is used if no target is specified.
-
-*Note: Currently, on Windows, `npm install` will fail when trying to install a
-dependency from a Git URL if `git.exe` is not in the `PATH`. A workaround is to
-use a Git-enabled shell from [GitHub for Windows](http://windows.github.com/) or
-[Git for Windows](http://msysgit.github.com/). Alternatively, Git for Windows
-can be installed with the "Run Git and included Unix tools from the Windows
-Command Prompt" option.*
 
 ## Browser Support
 

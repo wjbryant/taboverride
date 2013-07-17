@@ -91,7 +91,7 @@ module.exports = function (grunt) {
         var contents = grunt.template.process('{\r\n' +
                 '    "name": "<%= pkg.name %>",\r\n' +
                 '    "version": "<%= pkg.version %>",\r\n' +
-                '    "main": "./build/taboverride.js"\r\n' +
+                '    "main": "./build/output/taboverride.js"\r\n' +
                 '}\r\n');
 
         grunt.file.write('bower.json', contents);
