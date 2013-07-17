@@ -21,9 +21,9 @@ Try out the demo at
 
 ## Setup
 
-Download the latest release from the [tags page](https://github.com/wjbryant/taboverride/tags).
+Download the latest release from the [releases page](https://github.com/wjbryant/taboverride/releases).
 Load either `taboverride.js` or `taboverride.min.js` in your project. These files
-can be found in the `build` directory.
+can be found in the `build/output` directory.
 
 ### Library Adapters
 
@@ -193,6 +193,39 @@ tabOverride
     .tabKey(9)
     .untabKey(9, ['shift']);
 ```
+
+### Add an Extension
+
+Tab Override can be extended by "hooking into" different parts of the code.
+To add an extension function, call the `addExtension` method with the name of
+the hook for which to register and the function to be executed when the hook
+"fires."
+
+Example:
+
+```javascript
+tabOverride.addExtension('set', function (elem, enable) {
+    console.log('tabOverride was ' + (enable ? 'enabled' : 'disabled') + ' on: ', elem);
+});
+```
+
+#### Hooks
+
+**set** - Called when the `set` method is invoked
+
+*Parameters:*
+* `elem` - the element for which Tab Override was enabled or disabled
+* `enable` - whether Tab Override was enabled or disabled
+
+**addListeners** - Called when the `utils.addListeners` method is invoked
+
+*Parameters:*
+* `elem` - the element on which the listeners were added
+
+**removeListeners** - Called when the `utils.removeListeners` method is invoked
+
+*Parameters:*
+* `elem` - the element from which the listeners were removed
 
 ### Additional Notes
 

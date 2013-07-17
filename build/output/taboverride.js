@@ -49,7 +49,7 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
         textareaElem = document.createElement('textarea'), // temp textarea element to get newline character(s)
         newline, // the newline character sequence (\n or \r\n)
         newlineLen, // the number of characters used for a newline (1 or 2)
-        extensions = [];
+        hooks = {};
 
     /**
      * @see tabOverride.utils.isValidModifierKeyCombo
@@ -468,6 +468,24 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
     }
 
     /**
+     * Executes all registered extension functions for the specified hook.
+     *
+     * @param {string}  hook    the name of the hook for which the extensions are registered
+     * @param {Array}   [args]  the arguments to pass to the extension
+     *
+     * @private
+     */
+    function executeExtensions(hook, args) {
+        var i,
+            extensions = hooks[hook] || [],
+            len = extensions.length;
+
+        for (i = 0; i < len; i += 1) {
+            extensions[i].apply(null, args);
+        }
+    }
+
+    /**
      * @see tabOverride.utils.createListeners
      * @private
      */
@@ -528,20 +546,21 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
     ]);
 
     /**
-     * Executes all registered extension functions.
-     *
-     * @param {Element} elem    the textarea element
-     * @param {boolean} enable  whether to enable or disable Tab Override
-     *
+     * @see tabOverride.utils.addListeners
      * @private
      */
-    function executeExtensions(elem, enable) {
-        var i,
-            len = extensions.length;
+    function addListeners(elem) {
+        executeExtensions('addListeners', [elem]);
+        listeners.add(elem);
+    }
 
-        for (i = 0; i < len; i += 1) {
-            extensions[i](elem, enable);
-        }
+    /**
+     * @see tabOverride.utils.removeListeners
+     * @private
+     */
+    function removeListeners(elem) {
+        executeExtensions('removeListeners', [elem]);
+        listeners.remove(elem);
     }
 
 
@@ -586,7 +605,7 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
          *
          * @function
          */
-        addListeners: listeners.add,
+        addListeners: addListeners,
 
         /**
          * Removes the Tab Override event listeners from the specified element.
@@ -595,7 +614,7 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
          *
          * @function
          */
-        removeListeners: listeners.remove
+        removeListeners: removeListeners
     };
 
     /**
@@ -632,13 +651,18 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
      * disabled. The extension function is called for each element and is passed
      * the element and the enable boolean.
      *
+     * @param  {string}   hook  the name of the hook for which the extension
+     *                          will be registered
      * @param  {Function} func  the function to be executed when Tab Override is
      *                          enabled or disabled
      * @return {Object}         the tabOverride object
      */
-    tabOverride.addExtension = function (func) {
-        if (typeof func === 'function') {
-            extensions.push(func);
+    tabOverride.addExtension = function (hook, func) {
+        if (hook && typeof hook === 'string' && typeof func === 'function') {
+            if (!hooks[hook]) {
+                hooks[hook] = [];
+            }
+            hooks[hook].push(func);
         }
 
         return this;
@@ -677,17 +701,17 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
             }
 
             if (enableFlag) {
-                setListeners = listeners.add;
+                setListeners = addListeners;
                 attrValue = 'true';
             } else {
-                setListeners = listeners.remove;
+                setListeners = removeListeners;
                 attrValue = '';
             }
 
             for (i = 0; i < numElems; i += 1) {
                 elem = elemsArr[i];
                 if (elem && elem.nodeName && elem.nodeName.toLowerCase() === 'textarea') {
-                    executeExtensions(elem, enableFlag);
+                    executeExtensions('set', [elem, enableFlag]);
                     elem.setAttribute('data-taboverride-enabled', attrValue);
                     setListeners(elem);
                 }
