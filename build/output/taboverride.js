@@ -468,11 +468,7 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
     }
 
     /**
-     * Executes all registered extension functions for the specified hook.
-     *
-     * @param {string}  hook    the name of the hook for which the extensions are registered
-     * @param {Array}   [args]  the arguments to pass to the extension
-     *
+     * @see tabOverride.utils.executeExtensions
      * @private
      */
     function executeExtensions(hook, args) {
@@ -581,6 +577,16 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
      * @namespace
      */
     tabOverride.utils = {
+        /**
+         * Executes all registered extension functions for the specified hook.
+         *
+         * @param {string}  hook    the name of the hook for which the extensions are registered
+         * @param {Array}   [args]  the arguments to pass to the extension
+         *
+         * @function
+         */
+        executeExtensions: executeExtensions,
+
         /**
          * Determines whether the specified modifier keys match the modifier keys
          * that were pressed.
