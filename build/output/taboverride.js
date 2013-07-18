@@ -492,8 +492,8 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
     function createListeners(paramList) {
         var i,
             len = paramList.length,
-            add,
-            remove;
+            remove,
+            add;
 
         function loop(func) {
             for (i = 0; i < len; i += 1) {
@@ -503,6 +503,11 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
 
         // use the standard event handler registration method when available
         if (document.addEventListener) {
+            remove = function (elem) {
+                loop(function (type, handler) {
+                    elem.removeEventListener(type, handler, false);
+                });
+            };
             add = function (elem) {
                 // remove listeners before adding them to make sure they are not
                 // added more than once
@@ -511,22 +516,17 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
                     elem.addEventListener(type, handler, false);
                 });
             };
-            remove = function (elem) {
-                loop(function (type, handler) {
-                    elem.removeEventListener(type, handler, false);
-                });
-            };
         } else if (document.attachEvent) {
             // support IE 6-8
+            remove = function (elem) {
+                loop(function (type, handler) {
+                    elem.detachEvent('on' + type, handler);
+                });
+            };
             add = function (elem) {
                 remove(elem);
                 loop(function (type, handler) {
                     elem.attachEvent('on' + type, handler);
-                });
-            };
-            remove = function (elem) {
-                loop(function (type, handler) {
-                    elem.detachEvent('on' + type, handler);
                 });
             };
         } else {
@@ -539,11 +539,6 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
             remove: remove
         };
     }
-
-    listeners = createListeners([
-        { type: 'keydown', handler: overrideKeyDown },
-        { type: 'keypress', handler: overrideKeyPress }
-    ]);
 
     /**
      * @see tabOverride.utils.addListeners
@@ -562,6 +557,20 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
         executeExtensions('removeListeners', [elem]);
         listeners.remove(elem);
     }
+
+
+    // Initialize Variables
+
+    listeners = createListeners([
+        { type: 'keydown', handler: overrideKeyDown },
+        { type: 'keypress', handler: overrideKeyPress }
+    ]);
+
+    // get the characters used for a newline
+    textareaElem.value = '\n';
+    newline = textareaElem.value;
+    newlineLen = newline.length;
+    textareaElem = null;
 
 
     // Public Properties and Methods
@@ -647,14 +656,13 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
     };
 
     /**
-     * Adds an extension function to be executed when Tab Override is enabled or
-     * disabled. The extension function is called for each element and is passed
-     * the element and the enable boolean.
+     * Adds an extension function to be executed when the specified hook is
+     * "fired." The extension function is called for each element and is passed
+     * any relevant arguments for the hook.
      *
      * @param  {string}   hook  the name of the hook for which the extension
      *                          will be registered
-     * @param  {Function} func  the function to be executed when Tab Override is
-     *                          enabled or disabled
+     * @param  {Function} func  the function to be executed when the hook is "fired"
      * @return {Object}         the tabOverride object
      */
     tabOverride.addExtension = function (hook, func) {
@@ -798,10 +806,4 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
         }
         untabKey = keyCode;
     }, untabModifierKeys);
-
-    // get the characters used for a newline
-    textareaElem.value = '\n';
-    newline = textareaElem.value;
-    newlineLen = newline.length;
-    textareaElem = null;
 }));
