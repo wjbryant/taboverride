@@ -4,9 +4,10 @@
 * Changed namespace from `TABOVERRIDE` to `tabOverride`
 * Moved `overrideKeyDown()` to `tabOverride.handlers.keydown()`
 * Moved `overrideKeyPress()` to `tabOverride.handlers.keypress()`
-* Added `utils` namespace with methods: `isValidModifierKeyCombo()`, `createListeners()`, `addListeners()`, and `removeListeners()`
-* Added basic extension system - use `tabOverride.addExtension()` to register an extension function
+* Added `utils` namespace with methods: `executeExtensions()`, `isValidModifierKeyCombo()`, `createListeners()`, `addListeners()`, and `removeListeners()`
+* Added basic extension system with hooks - use `tabOverride.addExtension()` to register an extension function
 * Auto indent is now enabled by default
+* Added new build targets: `amd`, `cjs`, `globals`, and `umd` (default)
 
 ## 3.2.2 (2013-03-12)
 * Added CommonJS module support

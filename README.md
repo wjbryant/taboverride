@@ -163,7 +163,7 @@ accessibility is a concern, it is recommended to set key combinations that are
 not mapped to any action by default.
 
 Setting the key combinations is done by calling the `tabKey()` or `untabKey()`
-methods with parameters. The first parameter is the key code (`Number`) of the
+method with arguments. The first parameter is the key code (`number`) of the
 key. The second parameter is optional and specifies modifier keys (`alt`, `ctrl`,
 `meta`, `shift`) as an array of strings.
 
@@ -226,6 +226,16 @@ tabOverride.addExtension('set', function (elem, enable) {
 
 *Parameters:*
 * `elem` - the element from which the listeners were removed
+
+### Utility Functions
+
+Utility functions are provided under `tabOverride.utils`:
+
+* `executeExtensions`
+* `isValidModifierKeyCombo`
+* `createListeners`
+* `addListeners`
+* `removeListeners`
 
 ### Additional Notes
 

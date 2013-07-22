@@ -31,10 +31,9 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
     'use strict';
 
     /**
-     * The tabOverride "namespace" global object
+     * The tabOverride namespace global object
      *
-     * @name tabOverride
-     * @namespace
+     * @namespace tabOverride
      */
 
     var document = window.document,
@@ -485,15 +484,15 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
      * @see tabOverride.utils.createListeners
      * @private
      */
-    function createListeners(paramList) {
+    function createListeners(handlerList) {
         var i,
-            len = paramList.length,
+            len = handlerList.length,
             remove,
             add;
 
         function loop(func) {
             for (i = 0; i < len; i += 1) {
-                func(paramList[i].type, paramList[i].handler);
+                func(handlerList[i].type, handlerList[i].handler);
             }
         }
 
@@ -525,9 +524,6 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
                     elem.attachEvent('on' + type, handler);
                 });
             };
-        } else {
-            // browser not supported
-            add = remove = function () {};
         }
 
         return {
@@ -583,7 +579,7 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
          * @param {string}  hook    the name of the hook for which the extensions are registered
          * @param {Array}   [args]  the arguments to pass to the extension
          *
-         * @function
+         * @method
          */
         executeExtensions: executeExtensions,
 
@@ -595,21 +591,34 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
          * @param  {Event}    e             the event object for the keydown event
          * @return {boolean}                whether modifierKeys are valid for the event
          *
-         * @function
+         * @method
          */
         isValidModifierKeyCombo: isValidModifierKeyCombo,
+
+        /**
+         * @typedef {Object} tabOverride.utils~handlerObj
+         *
+         * @property {string}   type     the event type
+         * @property {Function} handler  the handler function - passed an Event object
+         */
+
+        /**
+         * @typedef {Object} tabOverride.utils~listenersObj
+         *
+         * @property {Function} add     Adds all the event listeners to the
+         *                              specified element
+         * @property {Function} remove  Removes all the event listeners from
+         *                              the specified element
+         */
 
         /**
          * Creates functions to add and remove event listeners in a cross-browser
          * compatible way.
          *
-         * @param  {Object[]} paramList  an array of objects with event 'type' and
-         *                               'handler' properties
-         * @return {Object}              an object with 'add' and 'remove' methods
-         *                               to add and remove all the event listeners
-         *                               from the specified element
+         * @param  {tabOverride.utils~handlerObj[]} handlerList  an array of {@link tabOverride.utils~handlerObj handlerObj} objects
+         * @return {tabOverride.utils~listenersObj}              a listenersObj object used to add and remove the event listeners
          *
-         * @function
+         * @method
          */
         createListeners: createListeners,
 
@@ -618,7 +627,7 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
          *
          * @param {Element} elem  the element to which the listeners will be added
          *
-         * @function
+         * @method
          */
         addListeners: addListeners,
 
@@ -627,7 +636,7 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
          *
          * @param {Element} elem  the element from which the listeners will be removed
          *
-         * @function
+         * @method
          */
         removeListeners: removeListeners
     };
@@ -786,7 +795,7 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
      * @return {string|Object}                     the current tab key combination or the
      *                                             tabOverride object
      *
-     * @function
+     * @method
      */
     tabOverride.tabKey = createKeyComboFunction(function (keyCode) {
         if (!arguments.length) {
@@ -804,7 +813,7 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
      * @return {string|Object}                     the current untab key combination or the
      *                                             tabOverride object
      *
-     * @function
+     * @method
      */
     tabOverride.untabKey = createKeyComboFunction(function (keyCode) {
         if (!arguments.length) {

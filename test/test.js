@@ -230,4 +230,19 @@
         strictEqual(normalizeNewlines(textarea.value), nonIndentedText, '4 spaces removed at start of lines 1 and 2');
         strictEqual(normalizeNewlines(removeIndentation(getTextSelection(textarea))), nonIndentedText.slice(5, 24), 'selection should be unchanged after removing 4 spaces');
     });
+
+
+    module('extensions');
+
+    test('add extensions', 1, function () {
+        var textarea = getTextarea(),
+            extensionExecuted = false;
+
+        tabOverride.addExtension('set', function () {
+            extensionExecuted = true;
+        });
+        tabOverride.set(textarea);
+
+        strictEqual(extensionExecuted, true, 'extension functions are executed');
+    });
 }());
