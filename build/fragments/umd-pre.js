@@ -1,3 +1,4 @@
+/*jslint browser: true */
 /*global exports, define */
 
 // use CommonJS or AMD if available

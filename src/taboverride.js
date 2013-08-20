@@ -2,7 +2,7 @@ function (tabOverride) {
     'use strict';
 
     /**
-     * The tabOverride namespace global object
+     * The tabOverride namespace object
      *
      * @namespace tabOverride
      */
@@ -547,8 +547,8 @@ function (tabOverride) {
         /**
          * Executes all registered extension functions for the specified hook.
          *
-         * @param {string}  hook    the name of the hook for which the extensions are registered
-         * @param {Array}   [args]  the arguments to pass to the extension
+         * @param {string} hook    the name of the hook for which the extensions are registered
+         * @param {Array}  [args]  the arguments to pass to the extension
          *
          * @method
          */

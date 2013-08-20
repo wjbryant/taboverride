@@ -1,3 +1,4 @@
+/*jslint browser: true */
 /*global tabOverride */
 
 (function (tabOverride, document) {

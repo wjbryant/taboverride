@@ -1,6 +1,6 @@
 # Tab Override Changelog
 
-## 4.0.0-dev
+## 4.0.0
 * Changed namespace from `TABOVERRIDE` to `tabOverride`
 * Moved `overrideKeyDown()` to `tabOverride.handlers.keydown()`
 * Moved `overrideKeyPress()` to `tabOverride.handlers.keypress()`

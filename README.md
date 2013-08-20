@@ -17,7 +17,7 @@ Try out the demo at
 * Adjustable tab size
 * Auto indent
 * Custom key combinations (use any key and modifier keys for tab/untab)
-* Extension system
+* Extension system using hooks
 
 ## Setup
 
@@ -78,8 +78,8 @@ systems.
 
 ## Usage
 
-This script creates a single global variable named `tabOverride`. The API
-consists of methods attached to this object.
+Unless using a module loader, this script creates a single global variable
+named `tabOverride`. The API consists of methods attached to this object.
 
 ### Enable/Disable Tab Override
 
@@ -237,6 +237,8 @@ Utility functions are provided under `tabOverride.utils`:
 * `addListeners`
 * `removeListeners`
 
+Documentation on these functions can be found in the [code documentation](http://wjbryant.github.io/taboverride/docs/tabOverride.utils.html).
+
 ### Additional Notes
 
 #### Method Chaining
@@ -273,9 +275,10 @@ may already provide the functionality you need.*
 ## Building the Project
 
 This project uses [Grunt](https://github.com/gruntjs/grunt) to manage the build
-process. Everything required to build the project can be installed via
-[npm](https://npmjs.org/). Run `npm install` from the root directory of the
-project to install all the dependencies. Run `grunt` to start the build.
+process. Most dependencies needed to build the project can be installed via
+[npm](https://npmjs.org/). Documentation generation requires [Java](http://java.com/).
+Run `npm install` from the root directory of the project to install the
+dependencies. Run `grunt` to start the build.
 
 It is also possible to build the project for loading in a specific environment
 using the Grunt targets `amd`, `cjs`, or `globals`. These targets will not run

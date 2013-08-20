@@ -1,3 +1,4 @@
+/*jslint node: true */
 /*jshint node: true */
 
 'use strict';

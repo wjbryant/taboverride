@@ -1,6 +1,7 @@
+/*jslint browser: true */
 /*global tabOverride, QUnit, module, test, ok, strictEqual */
 
-(function () {
+(function (window, document) {
     'use strict';
 
     function resetSettings() {
@@ -28,8 +29,9 @@
     }
 
     function testReturnValue(func) {
-        test('returns tabOverride object', 4, function () {
+        test('returns tabOverride object', 5, function () {
             strictEqual(func.apply(tabOverride, [undefined]), tabOverride, 'undefined argument');
+            strictEqual(func.apply(tabOverride, ['']), tabOverride, 'empty string argument');
             strictEqual(func.apply(tabOverride, [-1]), tabOverride, 'negative number argument');
             strictEqual(func.apply(tabOverride, [2]), tabOverride, 'positive number argument');
             strictEqual(func.apply(tabOverride, [2, []]), tabOverride, 'multiple arguments');
@@ -245,4 +247,4 @@
 
         strictEqual(extensionExecuted, true, 'extension functions are executed');
     });
-}());
+}(window, document));

@@ -1,3 +1,4 @@
+/*jslint browser: true */
 /*global define */
 
 // use AMD

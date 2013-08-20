@@ -1,12 +1,13 @@
-/*! taboverride v4.0.0-dev | https://github.com/wjbryant/taboverride
+/*! taboverride v4.0.0 | https://github.com/wjbryant/taboverride
 Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
 
 /**
  * @fileOverview taboverride
  * @author       Bill Bryant
- * @version      4.0.0-dev
+ * @version      4.0.0
  */
 
+/*jslint browser: true */
 /*global exports, define */
 
 // use CommonJS or AMD if available
@@ -31,7 +32,7 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
     'use strict';
 
     /**
-     * The tabOverride namespace global object
+     * The tabOverride namespace object
      *
      * @namespace tabOverride
      */
@@ -576,8 +577,8 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
         /**
          * Executes all registered extension functions for the specified hook.
          *
-         * @param {string}  hook    the name of the hook for which the extensions are registered
-         * @param {Array}   [args]  the arguments to pass to the extension
+         * @param {string} hook    the name of the hook for which the extensions are registered
+         * @param {Array}  [args]  the arguments to pass to the extension
          *
          * @method
          */
