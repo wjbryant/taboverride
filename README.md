@@ -3,7 +3,7 @@
 Tab Override is a lightweight script that allows tabs to be entered in
 `textarea` elements. A
 [jQuery plugin](https://github.com/wjbryant/jquery.taboverride "Tab Override jQuery plugin")
-is also available to adapt the API to jQuery. Code documentation is available at
+is also available which wraps the API for jQuery. Code documentation is available at
 [wjbryant.github.io/taboverride/docs/](http://wjbryant.github.io/taboverride/docs/tabOverride.html "Tab Override Code Documentation").
 
 Try out the demo at
@@ -25,7 +25,7 @@ Download the latest release from the [releases page](https://github.com/wjbryant
 Load either `taboverride.js` or `taboverride.min.js` in your project. These files
 can be found in the `build/output` directory.
 
-### Library Adapters
+### Library Wrappers
 
 If you are using jQuery, you can also include the
 [Tab Override jQuery plugin](https://github.com/wjbryant/jquery.taboverride)
@@ -209,7 +209,10 @@ tabOverride.addExtension('set', function (elem, enable) {
 });
 ```
 
-#### Hooks
+### Hooks
+
+These are the default available hooks. Library wrappers and extensions may add
+additional hooks.
 
 **set** - Called when the `set` method is invoked
 
@@ -227,9 +230,9 @@ tabOverride.addExtension('set', function (elem, enable) {
 *Parameters:*
 * `elem` - the element from which the listeners were removed
 
-### Utility Functions
+### Utility Methods
 
-Utility functions are provided under `tabOverride.utils`:
+Utility methods are provided under `tabOverride.utils`:
 
 * `executeExtensions`
 * `isValidModifierKeyCombo`
@@ -237,19 +240,22 @@ Utility functions are provided under `tabOverride.utils`:
 * `addListeners`
 * `removeListeners`
 
-Documentation on these functions can be found in the [code documentation](http://wjbryant.github.io/taboverride/docs/tabOverride.utils.html).
+Documentation on these methods can be found in the
+[code documentation](http://wjbryant.github.io/taboverride/docs/tabOverride.utils.html).
 
 ### Additional Notes
 
 #### Method Chaining
 
-All methods (unless used as getters) return the `tabOverride` object, in order
-to support method chaining:
+When used as setters, all methods of `tabOverride` return the `tabOverride`
+object, in order to support method chaining:
 
 ```javascript
 // set up Tab Override
 tabOverride.tabSize(4).autoIndent(true).set(textarea);
 ```
+
+Utility methods under the `tabOverride.utils` namespace are not chainable.
 
 #### Custom Event Registration
 

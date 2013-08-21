@@ -539,7 +539,7 @@ function (tabOverride) {
     // Public Properties and Methods
 
     /**
-     * Namespace for utility functions
+     * Namespace for utility methods
      *
      * @namespace
      */
@@ -596,6 +596,9 @@ function (tabOverride) {
         /**
          * Adds the Tab Override event listeners to the specified element.
          *
+         * Hooks: addListeners - passed the element to which the listeners will
+         * be added.
+         *
          * @param {Element} elem  the element to which the listeners will be added
          *
          * @method
@@ -604,6 +607,9 @@ function (tabOverride) {
 
         /**
          * Removes the Tab Override event listeners from the specified element.
+         *
+         * Hooks: removeListeners - passed the element from which the listeners
+         * will be removed.
          *
          * @param {Element} elem  the element from which the listeners will be removed
          *
@@ -664,6 +670,9 @@ function (tabOverride) {
 
     /**
      * Enables or disables Tab Override for the specified textarea element(s).
+     *
+     * Hooks: set - passed the current element and a boolean indicating whether
+     * Tab Override was enabled or disabled.
      *
      * @param  {Element|Element[]} elems          the textarea element(s) for
      *                                            which to enable or disable
