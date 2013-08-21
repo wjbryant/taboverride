@@ -106,12 +106,12 @@ var textareas = document.getElementsByTagName('textarea');
 tabOverride.set(textareas);
 ```
 
-The `set()` method also accepts an optional second parameter. If this
-parameter is any truthy value, Tab Override will be enabled, otherwise it will
-be disabled for the specified element(s). The default value is `true`.
+The `set()` method also accepts an optional second parameter. If this parameter
+is any truthy value, Tab Override will be enabled. A falsy value will disable
+Tab Override for the specified element(s). The default value is `true`.
 
 To disable Tab Override for the `textarea`, pass a falsy value as the second
-parameter to `tabOverride.set()`:
+argument to `tabOverride.set()`:
 
 ```javascript
 // disable Tab Override for the textarea
