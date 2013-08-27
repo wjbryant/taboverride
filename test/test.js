@@ -238,13 +238,87 @@
 
     test('add extensions', 1, function () {
         var textarea = getTextarea(),
-            extensionExecuted = false;
+            extension = this.spy();
 
-        tabOverride.addExtension('set', function () {
-            extensionExecuted = true;
-        });
+        tabOverride.addExtension('set', extension);
         tabOverride.set(textarea);
 
-        strictEqual(extensionExecuted, true, 'extension functions are executed');
+        ok(extension.calledOnce, 'extension functions are added and executed');
+    });
+
+
+    module('utils');
+
+    test('executeExtensions', 2, function () {
+        var extension = this.spy();
+
+        tabOverride.addExtension('testHook', extension);
+        tabOverride.utils.executeExtensions('testHook', [1, 2]);
+
+        strictEqual(extension.calledOnce, true, 'extension executed');
+        strictEqual(extension.firstCall.calledWith(1, 2), true, 'arguments passed');
+    });
+
+    test('isValidModifierKeyCombo', 4, function () {
+        strictEqual(
+            tabOverride.utils.isValidModifierKeyCombo(
+                ['ctrlKey', 'shiftKey'],
+                { ctrlKey: true, shiftKey: true }
+            ),
+            true,
+            'exact match'
+        );
+
+        strictEqual(
+            tabOverride.utils.isValidModifierKeyCombo(
+                ['ctrlKey', 'shiftKey'],
+                { altKey: true, ctrlKey: true, shiftKey: true }
+            ),
+            false,
+            'extra key'
+        );
+
+        strictEqual(
+            tabOverride.utils.isValidModifierKeyCombo(
+                ['ctrlKey', 'shiftKey'],
+                { ctrlKey: true }
+            ),
+            false,
+            'missing key'
+        );
+
+        strictEqual(
+            tabOverride.utils.isValidModifierKeyCombo(['altKey'], {}),
+            false,
+            'no keys'
+        );
+    });
+
+    test('createListeners', 2, function () {
+        var textarea = getTextarea(),
+            handler = this.spy(),
+            listeners = tabOverride.utils.createListeners([{
+                type: 'focus',
+                handler: handler
+            }]);
+
+        listeners.add(textarea);
+
+        // trigger event
+        textarea.blur();
+        textarea.focus();
+
+        // check that handler was called
+        ok(handler.calledOnce, 'event listener registered and called');
+
+
+        listeners.remove(textarea);
+
+        // trigger event
+        textarea.blur();
+        textarea.focus();
+
+        // check that handler was not called again
+        ok(handler.calledOnce, 'event listener removed');
     });
 }(window, document));

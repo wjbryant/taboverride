@@ -52,8 +52,14 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
         hooks = {};
 
     /**
-     * @see tabOverride.utils.isValidModifierKeyCombo
-     * @private
+     * Determines whether the specified modifier keys match the modifier keys
+     * that were pressed.
+     *
+     * @param  {string[]} modifierKeys  the modifier keys to check - ex: ['shiftKey']
+     * @param  {Event}    e             the event object for the keydown event
+     * @return {boolean}                whether modifierKeys are valid for the event
+     *
+     * @method tabOverride.utils.isValidModifierKeyCombo
      */
     function isValidModifierKeyCombo(modifierKeys, e) {
         var modifierKeyNames = ['alt', 'ctrl', 'meta', 'shift'],
@@ -172,8 +178,12 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
     }
 
     /**
-     * @see tabOverride.handlers.keydown
-     * @private
+     * Event handler to insert or remove tabs and newlines on the keydown event
+     * for the tab or enter key.
+     *
+     * @param {Event} e  the event object
+     *
+     * @method tabOverride.handlers.keydown
      */
     function overrideKeyDown(e) {
         e = e || event;
@@ -447,8 +457,14 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
     }
 
     /**
-     * @see tabOverride.handlers.keypress
-     * @private
+     * Event handler to prevent the default action for the keypress event when
+     * tab or enter is pressed. Opera and Firefox also fire a keypress event
+     * when the tab or enter key is pressed. Opera requires that the default
+     * action be prevented on this event or the textarea will lose focus.
+     *
+     * @param {Event} e  the event object
+     *
+     * @method tabOverride.handlers.keypress
      */
     function overrideKeyPress(e) {
         e = e || event;
@@ -468,8 +484,12 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
     }
 
     /**
-     * @see tabOverride.utils.executeExtensions
-     * @private
+     * Executes all registered extension functions for the specified hook.
+     *
+     * @param {string} hook    the name of the hook for which the extensions are registered
+     * @param {Array}  [args]  the arguments to pass to the extension
+     *
+     * @method tabOverride.utils.executeExtensions
      */
     function executeExtensions(hook, args) {
         var i,
@@ -482,8 +502,29 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
     }
 
     /**
-     * @see tabOverride.utils.createListeners
-     * @private
+     * @typedef {Object} tabOverride.utils~handlerObj
+     *
+     * @property {string}   type     the event type
+     * @property {Function} handler  the handler function - passed an Event object
+     */
+
+    /**
+     * @typedef {Object} tabOverride.utils~listenersObj
+     *
+     * @property {Function} add     Adds all the event listeners to the
+     *                              specified element
+     * @property {Function} remove  Removes all the event listeners from
+     *                              the specified element
+     */
+
+    /**
+     * Creates functions to add and remove event listeners in a cross-browser
+     * compatible way.
+     *
+     * @param  {tabOverride.utils~handlerObj[]} handlerList  an array of {@link tabOverride.utils~handlerObj handlerObj} objects
+     * @return {tabOverride.utils~listenersObj}              a listenersObj object used to add and remove the event listeners
+     *
+     * @method tabOverride.utils.createListeners
      */
     function createListeners(handlerList) {
         var i,
@@ -534,8 +575,14 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
     }
 
     /**
-     * @see tabOverride.utils.addListeners
-     * @private
+     * Adds the Tab Override event listeners to the specified element.
+     *
+     * Hooks: addListeners - passed the element to which the listeners will
+     * be added.
+     *
+     * @param {Element} elem  the element to which the listeners will be added
+     *
+     * @method tabOverride.utils.addListeners
      */
     function addListeners(elem) {
         executeExtensions('addListeners', [elem]);
@@ -543,8 +590,14 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
     }
 
     /**
-     * @see tabOverride.utils.removeListeners
-     * @private
+     * Removes the Tab Override event listeners from the specified element.
+     *
+     * Hooks: removeListeners - passed the element from which the listeners
+     * will be removed.
+     *
+     * @param {Element} elem  the element from which the listeners will be removed
+     *
+     * @method tabOverride.utils.removeListeners
      */
     function removeListeners(elem) {
         executeExtensions('removeListeners', [elem]);
@@ -574,77 +627,10 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
      * @namespace
      */
     tabOverride.utils = {
-        /**
-         * Executes all registered extension functions for the specified hook.
-         *
-         * @param {string} hook    the name of the hook for which the extensions are registered
-         * @param {Array}  [args]  the arguments to pass to the extension
-         *
-         * @method
-         */
         executeExtensions: executeExtensions,
-
-        /**
-         * Determines whether the specified modifier keys match the modifier keys
-         * that were pressed.
-         *
-         * @param  {string[]} modifierKeys  the modifier keys to check - ex: ['shiftKey']
-         * @param  {Event}    e             the event object for the keydown event
-         * @return {boolean}                whether modifierKeys are valid for the event
-         *
-         * @method
-         */
         isValidModifierKeyCombo: isValidModifierKeyCombo,
-
-        /**
-         * @typedef {Object} tabOverride.utils~handlerObj
-         *
-         * @property {string}   type     the event type
-         * @property {Function} handler  the handler function - passed an Event object
-         */
-
-        /**
-         * @typedef {Object} tabOverride.utils~listenersObj
-         *
-         * @property {Function} add     Adds all the event listeners to the
-         *                              specified element
-         * @property {Function} remove  Removes all the event listeners from
-         *                              the specified element
-         */
-
-        /**
-         * Creates functions to add and remove event listeners in a cross-browser
-         * compatible way.
-         *
-         * @param  {tabOverride.utils~handlerObj[]} handlerList  an array of {@link tabOverride.utils~handlerObj handlerObj} objects
-         * @return {tabOverride.utils~listenersObj}              a listenersObj object used to add and remove the event listeners
-         *
-         * @method
-         */
         createListeners: createListeners,
-
-        /**
-         * Adds the Tab Override event listeners to the specified element.
-         *
-         * Hooks: addListeners - passed the element to which the listeners will
-         * be added.
-         *
-         * @param {Element} elem  the element to which the listeners will be added
-         *
-         * @method
-         */
         addListeners: addListeners,
-
-        /**
-         * Removes the Tab Override event listeners from the specified element.
-         *
-         * Hooks: removeListeners - passed the element from which the listeners
-         * will be removed.
-         *
-         * @param {Element} elem  the element from which the listeners will be removed
-         *
-         * @method
-         */
         removeListeners: removeListeners
     };
 
@@ -654,26 +640,7 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
      * @namespace
      */
     tabOverride.handlers = {
-        /**
-         * Event handler to insert or remove tabs and newlines on the keydown event
-         * for the tab or enter key.
-         *
-         * @param {Event} e  the event object
-         *
-         * @function
-         */
         keydown: overrideKeyDown,
-
-        /**
-         * Event handler to prevent the default action for the keypress event when
-         * tab or enter is pressed. Opera and Firefox also fire a keypress event
-         * when the tab or enter key is pressed. Opera requires that the default
-         * action be prevented on this event or the textarea will lose focus.
-         *
-         * @param {Event} e  the event object
-         *
-         * @function
-         */
         keypress: overrideKeyPress
     };
 
