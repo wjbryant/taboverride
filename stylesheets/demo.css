@@ -1,15 +1,27 @@
-#txt { font-family: monospace; }
+#txt {
+    font-family: monospace;
+    overflow: auto; /* hide scrollbar by default */
+}
+
+.tabOverrideActive:focus {
+    color: #f9f9f9;
+    background-color: #222;
+}
 
 #enable,
-#settings {
-    margin: 1em 0;
-}
+#settings,
+#extensions { margin: 1em 0; }
 
-#tab_override_tab_size { text-align: right; }
+#extensions div>div { margin-left: 1.5em; }
+
+label,
+input[type="checkbox"] { cursor: pointer; }
+
+#tab_override_tab_size,
+#tab_override_delay,
+#tab_override_hard_tab_size { text-align: right; }
 
 .description,
-.description code {
-    color: #636363;
-}
+.description code { color: #636363; }
 
 #docs { margin-top: 2em; }

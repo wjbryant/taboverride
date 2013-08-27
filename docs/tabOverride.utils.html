@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Namespace: tabOverride</title>
+    <title>JSDoc: Namespace: utils</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Namespace: tabOverride</h1>
+    <h1 class="page-title">Namespace: utils</h1>
     
     
 
@@ -27,7 +27,9 @@
     
 <header>
     <h2>
-    tabOverride
+        <span class="ancestors"><a href="tabOverride.html">tabOverride</a>.</span>
+    
+    utils
     </h2>
     
 </header>  
@@ -38,7 +40,7 @@
     
     
         
-            <div class="description">The tabOverride namespace object</div>
+            <div class="description">Namespace for utility methods</div>
         
         
         
@@ -64,7 +66,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="taboverride.js.html">taboverride.js</a>, <a href="taboverride.js.html#line34">line 34</a>
+        <a href="taboverride.js.html">taboverride.js</a>, <a href="taboverride.js.html#line629">line 629</a>
     </li></ul></dd>
     
     
@@ -89,16 +91,6 @@
     
     
     
-        <h3 class="subsection-title">Namespaces</h3>
-        
-        <dl>
-            <dt><a href="namespaces.html#tabOverride.handlers"><a href="tabOverride.handlers.html">handlers</a></a></dt>
-            <dd></dd>
-        
-            <dt><a href="namespaces.html#tabOverride.utils"><a href="tabOverride.utils.html">utils</a></a></dt>
-            <dd></dd>
-        </dl>
-    
     
     
     
@@ -108,7 +100,7 @@
         <dl>
             
 <dt>
-    <h4 class="name" id="addExtension"><span class="type-signature">&lt;static> </span>addExtension<span class="signature">(hook, func)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="addListeners"><span class="type-signature">&lt;static> </span>addListeners<span class="signature">(elem)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -116,7 +108,7 @@
     
     
     <div class="description">
-        Adds an extension function to be executed when the specified hook is"fired." The extension function is called for each element and is passedany relevant arguments for the hook.
+        Adds the Tab Override event listeners to the specified element.Hooks: addListeners - passed the element to which the listeners willbe added.
     </div>
     
 
@@ -137,6 +129,264 @@
 		
 		<th>Type</th>
 		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>elem</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Element</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">the element to which the listeners will be added</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="taboverride.js.html">taboverride.js</a>, <a href="taboverride.js.html#line577">line 577</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="createListeners"><span class="type-signature">&lt;static> </span>createListeners<span class="signature">(handlerList)</span><span class="type-signature"> &rarr; {<a href="tabOverride.utils.html#listenersObj">tabOverride.utils~listenersObj</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Creates functions to add and remove event listeners in a cross-browsercompatible way.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>handlerList</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">tabOverride.utils~handlerObj[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">an array of <a href="tabOverride.utils.html#handlerObj">handlerObj</a> objects</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="taboverride.js.html">taboverride.js</a>, <a href="taboverride.js.html#line508">line 508</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    a listenersObj object used to add and remove the event listeners
+</div>
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="tabOverride.utils.html#listenersObj">tabOverride.utils~listenersObj</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="executeExtensions"><span class="type-signature">&lt;static> </span>executeExtensions<span class="signature">(hook, <span class="optional">args</span>)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Executes all registered extension functions for the specified hook.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		<th>Argument</th>
 		
 		
 		
@@ -163,17 +413,467 @@
             </td>
             
             
+                <td class="attributes">
+                
+                    
+                
+                    
+                
+                </td>
             
             
             
-            <td class="description last">the name of the hook for which the extension                         will be registered</td>
+            
+            <td class="description last">the name of the hook for which the extensions are registered</td>
         </tr>
 	
 	
 	
         <tr>
             
-                <td class="name"><code>func</code></td>
+                <td class="name"><code>args</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                    
+                
+                </td>
+            
+            
+            
+            
+            <td class="description last">the arguments to pass to the extension</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="taboverride.js.html">taboverride.js</a>, <a href="taboverride.js.html#line486">line 486</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="isValidModifierKeyCombo"><span class="type-signature">&lt;static> </span>isValidModifierKeyCombo<span class="signature">(modifierKeys, e)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Determines whether the specified modifier keys match the modifier keysthat were pressed.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>modifierKeys</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">the modifier keys to check - ex: ['shiftKey']</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Event</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">the event object for the keydown event</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="taboverride.js.html">taboverride.js</a>, <a href="taboverride.js.html#line54">line 54</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    whether modifierKeys are valid for the event
+</div>
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">boolean</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="removeListeners"><span class="type-signature">&lt;static> </span>removeListeners<span class="signature">(elem)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Removes the Tab Override event listeners from the specified element.Hooks: removeListeners - passed the element from which the listenerswill be removed.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>elem</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Element</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">the element from which the listeners will be removed</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="taboverride.js.html">taboverride.js</a>, <a href="taboverride.js.html#line592">line 592</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        </dl>
+    
+    
+    
+        <h3 class="subsection-title">Type Definitions</h3>
+        
+        <dl>
+                
+<dt>
+    <h4 class="name" id="handlerObj">handlerObj</h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+        
+        <h5 class="subsection-title">Properties:</h5>
+        
+        <dl>
+
+<table class="props">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">the event type</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>handler</code></td>
             
             
             <td class="type">
@@ -189,16 +889,13 @@
             
             
             
-            <td class="description last">the function to be executed when the hook is "fired"</td>
+            <td class="description last">the handler function - passed an Event object</td>
         </tr>
 	
 	
 	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
+</table></dl>
+        
     
         
     
@@ -220,7 +917,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="taboverride.js.html">taboverride.js</a>, <a href="taboverride.js.html#line657">line 657</a>
+        <a href="taboverride.js.html">taboverride.js</a>, <a href="taboverride.js.html#line504">line 504</a>
     </li></ul></dd>
     
     
@@ -233,64 +930,39 @@
 
     
     
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    the tabOverride object
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">Object</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
 </dd>
 
-        
             
+                
 <dt>
-    <h4 class="name" id="autoIndent"><span class="type-signature">&lt;static> </span>autoIndent<span class="signature">(<span class="optional">enable</span>)</span><span class="type-signature"> &rarr; {boolean|Object}</span></h4>
+    <h4 class="name" id="listenersObj">listenersObj</h4>
     
     
 </dt>
 <dd>
     
     
-    <div class="description">
-        Gets or sets the auto indent setting. True if each line should beautomatically indented (default = true).
-    </div>
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+            </li>
+        </ul>
     
 
     
+<dl class="details">
     
-    
-    
-    
-        <h5>Parameters:</h5>
         
+        <h5 class="subsection-title">Properties:</h5>
+        
+        <dl>
 
-<table class="params">
+<table class="props">
     <thead>
 	<tr>
 		
@@ -299,8 +971,6 @@
 		
 		<th>Type</th>
 		
-		
-		<th>Argument</th>
 		
 		
 		
@@ -314,42 +984,52 @@
 	
         <tr>
             
-                <td class="name"><code>enable</code></td>
+                <td class="name"><code>add</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">boolean</span>
+<span class="param-type">Function</span>
 
 
             
             </td>
             
             
-                <td class="attributes">
+            
+            
+            
+            <td class="description last">Adds all the event listeners to the                             specified element</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>remove</code></td>
+            
+            
+            <td class="type">
+            
                 
-                    &lt;optional><br>
-                
-                    
-                
-                    
-                
-                </td>
+<span class="param-type">Function</span>
+
+
+            
+            </td>
             
             
             
             
-            <td class="description last">whether auto indent should be enabled</td>
+            
+            <td class="description last">Removes all the event listeners from                             the specified element</td>
         </tr>
 	
 	
 	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
+</table></dl>
+        
     
         
     
@@ -371,7 +1051,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="taboverride.js.html">taboverride.js</a>, <a href="taboverride.js.html#line757">line 757</a>
+        <a href="taboverride.js.html">taboverride.js</a>, <a href="taboverride.js.html#line506">line 506</a>
     </li></ul></dd>
     
     
@@ -384,767 +1064,9 @@
 
     
     
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    whether auto indent is enabled or the                                   tabOverride object
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">boolean</span>
-|
-
-<span class="param-type">Object</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
 </dd>
 
-        
-            
-<dt>
-    <h4 class="name" id="set"><span class="type-signature">&lt;static> </span>set<span class="signature">(elems, <span class="optional">enable</span>)</span><span class="type-signature"> &rarr; {Object}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Enables or disables Tab Override for the specified textarea element(s).Hooks: set - passed the current element and a boolean indicating whetherTab Override was enabled or disabled.
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		<th>Argument</th>
-		
-		
-		
-		<th>Default</th>
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>elems</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Element</span>
-|
-
-<span class="param-type">Array.&lt;Element></span>
-
-
-            
-            </td>
-            
-            
-                <td class="attributes">
-                
-                    
-                
-                    
-                
-                </td>
-            
-            
-            
-                <td class="default">
-                
-                </td>
-            
-            
-            <td class="description last">the textarea element(s) for                                           which to enable or disable                                           Tab Override</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>enable</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-            
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-                    
-                
-                    
-                
-                </td>
-            
-            
-            
-                <td class="default">
-                
-                    true
-                
-                </td>
-            
-            
-            <td class="description last">whether Tab Override should be                                           enabled for the element(s)</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="taboverride.js.html">taboverride.js</a>, <a href="taboverride.js.html#line681">line 681</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    the tabOverride object
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">Object</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="tabKey"><span class="type-signature">&lt;static> </span>tabKey<span class="signature">(keyCode, <span class="optional">modifierKeyNames</span>)</span><span class="type-signature"> &rarr; {string|Object}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Gets or sets the tab key combination.
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		<th>Argument</th>
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>keyCode</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-            
-            
-                <td class="attributes">
-                
-                    
-                
-                    
-                
-                </td>
-            
-            
-            
-            
-            <td class="description last">the key code of the key to use for tab</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>modifierKeyNames</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string[]</span>
-
-
-            
-            </td>
-            
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-                    
-                
-                    
-                
-                </td>
-            
-            
-            
-            
-            <td class="description last">the modifier key names - valid names are                                            'alt', 'ctrl', 'meta', and 'shift'</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="taboverride.js.html">taboverride.js</a>, <a href="taboverride.js.html#line777">line 777</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    the current tab key combination or the                                            tabOverride object
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">string</span>
-|
-
-<span class="param-type">Object</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="tabSize"><span class="type-signature">&lt;static> </span>tabSize<span class="signature">(<span class="optional">size</span>)</span><span class="type-signature"> &rarr; {number|Object}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Gets or sets the tab size for all elements that have Tab Override enabled.0 represents the tab character.
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		<th>Argument</th>
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>size</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-            
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-                    
-                
-                    
-                
-                </td>
-            
-            
-            
-            
-            <td class="description last">the tab size</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="taboverride.js.html">taboverride.js</a>, <a href="taboverride.js.html#line731">line 731</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    the tab size or the tabOverride object
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">number</span>
-|
-
-<span class="param-type">Object</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="untabKey"><span class="type-signature">&lt;static> </span>untabKey<span class="signature">(keyCode, <span class="optional">modifierKeyNames</span>)</span><span class="type-signature"> &rarr; {string|Object}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Gets or sets the untab key combination.
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		<th>Argument</th>
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>keyCode</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-            
-            
-                <td class="attributes">
-                
-                    
-                
-                    
-                
-                </td>
-            
-            
-            
-            
-            <td class="description last">the key code of the key to use for untab</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>modifierKeyNames</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string[]</span>
-
-
-            
-            </td>
-            
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-                    
-                
-                    
-                
-                </td>
-            
-            
-            
-            
-            <td class="description last">the modifier key names - valid names are                                            'alt', 'ctrl', 'meta', and 'shift'</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="taboverride.js.html">taboverride.js</a>, <a href="taboverride.js.html#line795">line 795</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    the current untab key combination or the                                            tabOverride object
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">string</span>
-|
-
-<span class="param-type">Object</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        </dl>
-    
-    
+            </dl>
     
     
     

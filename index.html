@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <meta name="description" content="Tab Override is a lightweight script that allows tabs to be entered in textarea elements" />
         <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css" />
         <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/demo.css" />
@@ -34,14 +34,15 @@ You can select multiple lines to shift them left and right.</textarea>
                     <label for="tab_override_enabled">Enable Tab Override</label>
                 </div>
                 <div id="settings">
+                    <h4>Settings</h4>
                     <div>
                         <label for="tab_override_tab_size">Tab Size:</label>
-                        <input id="tab_override_tab_size" type="text" maxlength="2" size="2" value="4" />
-                        <span class="description">(blank = Tab)</span>
+                        <input id="tab_override_tab_size" type="text" maxlength="2" size="2" value="" />
+                        <span class="description">(spaces, blank/0 = Tab)</span>
                     </div>
                     <div>
                         <input id="tab_override_auto_indent" type="checkbox" checked value="1" />
-                        <label for="tab_override_auto_indent">Enable Auto Indent</label>
+                        <label for="tab_override_auto_indent">Auto Indent</label>
                     </div>
                     <div>
                         <input id="tab_override_alt_keys" type="checkbox" value="1" />
@@ -49,10 +50,34 @@ You can select multiple lines to shift them left and right.</textarea>
                         <span class="description">(<code>Cmd</code> key on Mac)</span>
                     </div>
                 </div>
+                <div id="extensions">
+                    <h4>Extensions</h4>
+                    <div>
+                        <label for="tab_override_delay">Delay:</label>
+                        <input id="tab_override_delay" type="text" size="3" value="0" />ms
+                    </div>
+                    <div>
+                        <input id="tab_override_escape" type="checkbox" value="1" />
+                        <label for="tab_override_escape">Escape</label>
+                    </div>
+                    <div>
+                        <input id="tab_override_style" type="checkbox" value="1" />
+                        <label for="tab_override_style">Style</label>
+                        <div>
+                            <label for="tab_override_hard_tab_size">Hard Tab Size:</label>
+                            <input id="tab_override_hard_tab_size" type="text" size="3" value="4" />
+                        </div>
+                        <div class="description">
+                            The style extension adds CSS classes to textareas
+                            that have Tab Override enabled. This demo uses a
+                            basic dark theme as an example.
+                        </div>
+                    </div>
+                </div>
                 <p id="docs">
                     For full documentation, please see the project
                     <a href="https://github.com/wjbryant/taboverride/blob/master/README.md">README</a>
-                    or the <a href="docs/TABOVERRIDE.html">JSDocs</a>.
+                    or the <a href="docs/tabOverride.html">JSDocs</a>.
                 </p>
             </section>
         </div>
@@ -64,7 +89,10 @@ You can select multiple lines to shift them left and right.</textarea>
                 <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
             </footer>
         </div>
-        <script src="js/lib/taboverride.min.js?3.2.2"></script>
-        <script src="js/demo.js?1.0.0"></script>
+        <script src="js/lib/taboverride-4.0.0.min.js"></script>
+        <script src="js/lib/taboverride.delay-0.1.0.js"></script>
+        <script src="js/lib/taboverride.escape-0.1.0.js"></script>
+        <script src="js/lib/taboverride.style-0.1.0.js"></script>
+        <script src="js/demo.js"></script>
     </body>
 </html>
