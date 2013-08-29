@@ -30,14 +30,13 @@
     // update the tab size setting when the number changes
     inputTabSize.onchange = function () {
         var value = this.value,
-            newTabSize = parseInt(value, 10),
             tabSize;
 
-        tabOverride.tabSize(newTabSize);
+        tabOverride.tabSize(parseInt(value, 10));
         tabSize = tabOverride.tabSize();
 
         // don't display a non-accepted value
-        if (value && tabSize !== newTabSize) {
+        if (value && value !== tabSize.toString()) {
             this.value = tabSize || '';
         }
     };
