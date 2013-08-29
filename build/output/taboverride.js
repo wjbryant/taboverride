@@ -1,10 +1,10 @@
-/*! taboverride v4.0.0 | https://github.com/wjbryant/taboverride
+/*! taboverride v4.0.1 | https://github.com/wjbryant/taboverride
 Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
 
 /**
  * @fileOverview taboverride
  * @author       Bill Bryant
- * @version      4.0.0
+ * @version      4.0.1
  */
 
 /*jslint browser: true */
@@ -732,13 +732,14 @@ Copyright (c) 2013 Bill Bryant | http://opensource.org/licenses/mit */
         var i;
 
         if (arguments.length) {
-            if (!size) { // size is 0 (or falsy)
-                aTab = '\t';
-            } else if (typeof size === 'number' && size > 0) {
+            if (size && typeof size === 'number' && size > 0) {
                 aTab = '';
                 for (i = 0; i < size; i += 1) {
                     aTab += ' ';
                 }
+            } else {
+                // size is falsy (0), not a number, or a negative number
+                aTab = '\t';
             }
             return this;
         }

@@ -702,13 +702,14 @@ function (tabOverride) {
         var i;
 
         if (arguments.length) {
-            if (!size) { // size is 0 (or falsy)
-                aTab = '\t';
-            } else if (typeof size === 'number' && size > 0) {
+            if (size && typeof size === 'number' && size > 0) {
                 aTab = '';
                 for (i = 0; i < size; i += 1) {
                     aTab += ' ';
                 }
+            } else {
+                // size is falsy (0), not a number, or a negative number
+                aTab = '\t';
             }
             return this;
         }

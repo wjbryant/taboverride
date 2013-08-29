@@ -93,22 +93,26 @@
 
     module('tabSize()');
 
-    test('invalid arguments', 2, function () {
-        tabOverride.tabSize(-1);
-        strictEqual(tabOverride.tabSize(), 0, 'negative number');
-
-        tabOverride.tabSize('4');
-        strictEqual(tabOverride.tabSize(), 0, 'string');
-    });
-
     test('number arguments correctly set', 2, function () {
         tabOverride.tabSize(4);
-        strictEqual(tabOverride.tabSize(), 4, 'tabSize was set to 4');
+        strictEqual(tabOverride.tabSize(), 4, '4 should set tab size to 4');
 
         tabOverride.tabSize(0);
-        strictEqual(tabOverride.tabSize(), 0, 'tabSize was set to 0');
+        strictEqual(tabOverride.tabSize(), 0, '0 should set tab size to 0');
     });
 
+    test('invalid arguments', 2, function () {
+        // invalid arguments set tab size to 0
+
+        tabOverride.tabSize(2); // intial value
+        tabOverride.tabSize(-1);
+        strictEqual(tabOverride.tabSize(), 0, 'negative number argument should set tab size to 0');
+
+        tabOverride.tabSize(2); // initial value
+        tabOverride.tabSize('4');
+        strictEqual(tabOverride.tabSize(), 0, 'string argument should set tab size to 0');
+    });
+    
     testReturnValue(tabOverride.tabSize);
 
 
