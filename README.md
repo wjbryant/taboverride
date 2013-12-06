@@ -25,6 +25,9 @@ Download the latest release from the [releases page](https://github.com/wjbryant
 Load either `taboverride.js` or `taboverride.min.js` in your project. These files
 can be found in the `build/output` directory.
 
+This project is also hosted on the jsDelivr CDN. See http://www.jsdelivr.com/#!taboverride
+for more information.
+
 ### Library Wrappers
 
 If you are using jQuery, you can also include the
