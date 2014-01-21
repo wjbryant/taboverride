@@ -22,6 +22,8 @@ input[type="checkbox"] { cursor: pointer; }
 #tab_override_hard_tab_size { text-align: right; }
 
 .description,
-.description code { color: #636363; }
+.description code { color: #707070; }
+
+div.description { margin-top: 0.5em; }
 
 #docs { margin-top: 2em; }
