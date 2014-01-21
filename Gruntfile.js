@@ -60,14 +60,13 @@ module.exports = function (grunt) {
             },
             dist: {
                 options: {
-                    sourceMap: 'build/output/taboverride.min.js.map',
-                    sourceMappingURL: 'taboverride.min.js.map',
-                    sourceMapPrefix: 2
+                    sourceMap: true,
+                    sourceMapName: 'build/output/taboverride.min.js.map'
                 },
                 files: {
                     // the min file is moved to the build/output directory via a custom task
                     // this is to ensure the "file" field is set correctly in the source map
-                    'taboverride.min.js': ['build/output/taboverride.js']
+                    'build/output/taboverride.min.js': ['build/output/taboverride.js']
                 }
             }
         }
@@ -78,13 +77,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-qunit');
     grunt.loadNpmTasks('grunt-contrib-uglify');
-
-    grunt.registerTask('moveMinJSFile', 'Moves the minified JS file to the build/output directory.', function () {
-        grunt.task.requires(['uglify']);
-
-        grunt.file.copy('taboverride.min.js', 'build/output/taboverride.min.js');
-        grunt.file['delete']('taboverride.min.js');
-    });
 
     grunt.registerTask('generateBowerManifest', 'Generates the bower.json file.', function () {
         grunt.config.requires(['pkg']);
@@ -130,12 +122,12 @@ module.exports = function (grunt) {
 
     // umd
     grunt.registerTask('default', [
-        'clean:output', 'concat:umd', 'jshint', 'qunit', 'uglify', 'moveMinJSFile',
+        'clean:output', 'concat:umd', 'jshint', 'qunit', 'uglify',
         'generateBowerManifest', 'clean:docs', 'generateAPIDocs'
     ]);
 
     // cjs, amd, and globals tasks - just concat, lint, and minify, no testing or docs
-    grunt.registerTask('cjs', ['clean:output', 'concat:cjs', 'jshint', 'uglify', 'moveMinJSFile']);
-    grunt.registerTask('amd', ['clean:output', 'concat:amd', 'jshint', 'uglify', 'moveMinJSFile']);
-    grunt.registerTask('globals', ['clean:output', 'concat:globals', 'jshint', 'uglify', 'moveMinJSFile']);
+    grunt.registerTask('cjs', ['clean:output', 'concat:cjs', 'jshint', 'uglify']);
+    grunt.registerTask('amd', ['clean:output', 'concat:amd', 'jshint', 'uglify']);
+    grunt.registerTask('globals', ['clean:output', 'concat:globals', 'jshint', 'uglify']);
 };
