@@ -1,7 +1,7 @@
 # Tab Override Changelog
 
-## 4.0.1
-* Invalid arguments to `tabSize()` should set tab size to 0
+## 4.0.1 (2014-01-21)
+* Invalid arguments to `tabSize()` set tab size to 0
 
 ## 4.0.0 (2013-08-27)
 * Changed namespace from `TABOVERRIDE` to `tabOverride`
