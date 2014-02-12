@@ -12,13 +12,13 @@ module.exports = function (grunt) {
         },
         concat: {
             options: {
-                banner: '/*! <%= pkg.name %> v<%= pkg.version %> | <%= pkg.homepage %>\r\n' +
-                    'Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %> | <%= pkg.licenses[0].url %> */\r\n\r\n' +
+                banner: '/*! <%= pkg.name %> v<%= pkg.version %> | <%= pkg.homepage %>\n' +
+                    '(c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %> | <%= pkg.licenses[0].url %> */\n\n' +
                     '/**\r\n' +
-                    ' * @fileOverview <%= pkg.name %>\r\n' +
-                    ' * @author       <%= pkg.author.name %>\r\n' +
-                    ' * @version      <%= pkg.version %>\r\n' +
-                    ' */\r\n\r\n',
+                    ' * @fileOverview <%= pkg.name %>\n' +
+                    ' * @author       <%= pkg.author.name %>\n' +
+                    ' * @version      <%= pkg.version %>\n' +
+                    ' */\n\n',
                 separator: ''
             },
             umd: {
@@ -81,13 +81,21 @@ module.exports = function (grunt) {
     grunt.registerTask('generateBowerManifest', 'Generates the bower.json file.', function () {
         grunt.config.requires(['pkg']);
 
-        var contents = grunt.template.process('{\r\n' +
-                '    "name": "<%= pkg.name %>",\r\n' +
-                '    "version": "<%= pkg.version %>",\r\n' +
-                '    "main": "./build/output/taboverride.js"\r\n' +
-                '}\r\n');
+        var contents = grunt.template.process('{\n' +
+                '    "name": "<%= pkg.name %>",\n' +
+                '    "version": "<%= pkg.version %>",\n' +
+                '    "main": "./build/output/taboverride.js"\n' +
+                '}\n');
 
-        grunt.file.write('bower.json', contents);
+        grunt.file.write('bower.json', grunt.util.normalizelf(contents));
+    });
+
+    grunt.registerTask('normalizeLineEndings', 'Normalizes the line endings in the output file using the system default.', function () {
+        var filePath = 'build/output/taboverride.js',
+            contents = grunt.file.read(filePath),
+            normalizedContents = grunt.util.normalizelf(contents);
+
+        grunt.file.write(filePath, normalizedContents);
     });
 
     grunt.registerTask('generateAPIDocs', 'Generates API documentation using JSDoc 3.', function () {
@@ -122,12 +130,12 @@ module.exports = function (grunt) {
 
     // umd
     grunt.registerTask('default', [
-        'clean:output', 'concat:umd', 'jshint', 'qunit', 'uglify',
-        'generateBowerManifest', 'clean:docs', 'generateAPIDocs'
+        'clean:output', 'concat:umd', 'normalizeLineEndings', 'jshint', 'qunit',
+        'uglify', 'generateBowerManifest', 'clean:docs', 'generateAPIDocs'
     ]);
 
     // cjs, amd, and globals tasks - just concat, lint, and minify, no testing or docs
-    grunt.registerTask('cjs', ['clean:output', 'concat:cjs', 'jshint', 'uglify']);
-    grunt.registerTask('amd', ['clean:output', 'concat:amd', 'jshint', 'uglify']);
-    grunt.registerTask('globals', ['clean:output', 'concat:globals', 'jshint', 'uglify']);
+    grunt.registerTask('cjs', ['clean:output', 'concat:cjs', 'normalizeLineEndings', 'jshint', 'uglify']);
+    grunt.registerTask('amd', ['clean:output', 'concat:amd', 'normalizeLineEndings', 'jshint', 'uglify']);
+    grunt.registerTask('globals', ['clean:output', 'concat:globals', 'normalizeLineEndings', 'jshint', 'uglify']);
 };
