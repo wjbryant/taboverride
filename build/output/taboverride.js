@@ -1,5 +1,5 @@
 /*! taboverride v4.0.2 | https://github.com/wjbryant/taboverride
-Copyright (c) 2014 Bill Bryant | http://opensource.org/licenses/mit */
+(c) 2014 Bill Bryant | http://opensource.org/licenses/mit */
 
 /**
  * @fileOverview taboverride

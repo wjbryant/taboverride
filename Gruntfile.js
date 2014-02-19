@@ -102,7 +102,7 @@ module.exports = function (grunt) {
         //grunt.task.requires(['concat:umd']);
 
         var done = this.async(),
-            jsdoc = 'node_modules/jsdoc/jsdoc',
+            jsdoc = 'node_modules/.bin/jsdoc',
             cmd = jsdoc,
             args = [];
 

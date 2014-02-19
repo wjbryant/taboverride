@@ -32,7 +32,7 @@
         "grunt-contrib-qunit": "~0.4.0",
         "grunt-contrib-clean": "~0.5.0",
         "grunt-contrib-concat": "~0.3.0",
-        "grunt-contrib-uglify": "~0.3.1",
-        "jsdoc": "git://github.com/jsdoc3/jsdoc.git#v3.2.2"
+        "grunt-contrib-uglify": "~0.3.2",
+        "jsdoc": "~3.3.0-alpha4"
     }
 }
