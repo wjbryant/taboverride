@@ -25,8 +25,8 @@
     
     <section>
         <article>
-            <pre class="prettyprint source"><code>/*! taboverride v4.0.2 | https://github.com/wjbryant/taboverride
-Copyright (c) 2014 Bill Bryant | http://opensource.org/licenses/mit */
+            <pre class="prettyprint source linenums"><code>/*! taboverride v4.0.2 | https://github.com/wjbryant/taboverride
+(c) 2014 Bill Bryant | http://opensource.org/licenses/mit */
 
 /**
  * @fileOverview taboverride
@@ -46,7 +46,7 @@ Copyright (c) 2014 Bill Bryant | http://opensource.org/licenses/mit */
     if (typeof exports === 'object') {
         // Node.js/CommonJS
         factory(exports);
-    } else if (typeof define === 'function' && define.amd) {
+    } else if (typeof define === 'function' &amp;&amp; define.amd) {
         // AMD - register as an anonymous module
         // files must be concatenated using an AMD-aware tool such as r.js
         define(['exports'], factory);
@@ -149,7 +149,7 @@ Copyright (c) 2014 Bill Bryant | http://opensource.org/licenses/mit */
      * @private
      */
     function tabKeyComboPressed(keyCode, e) {
-        return keyCode === tabKey && isValidModifierKeyCombo(tabModifierKeys, e);
+        return keyCode === tabKey &amp;&amp; isValidModifierKeyCombo(tabModifierKeys, e);
     }
 
     /**
@@ -162,7 +162,7 @@ Copyright (c) 2014 Bill Bryant | http://opensource.org/licenses/mit */
      * @private
      */
     function untabKeyComboPressed(keyCode, e) {
-        return keyCode === untabKey && isValidModifierKeyCombo(untabModifierKeys, e);
+        return keyCode === untabKey &amp;&amp; isValidModifierKeyCombo(untabModifierKeys, e);
     }
 
     /**
@@ -186,7 +186,7 @@ Copyright (c) 2014 Bill Bryant | http://opensource.org/licenses/mit */
 
                     modifierKeys.length = 0; // clear the array
 
-                    if (modifierKeyNames && modifierKeyNames.length) {
+                    if (modifierKeyNames &amp;&amp; modifierKeyNames.length) {
                         for (i = 0; i &lt; modifierKeyNames.length; i += 1) {
                             modifierKeys.push(modifierKeyNames[i] + 'Key');
                         }
@@ -242,8 +242,8 @@ Copyright (c) 2014 Bill Bryant | http://opensource.org/licenses/mit */
             CHARACTER = 'character'; // string constant used for the Range.move methods
 
         // don't do any unnecessary work
-        if ((target.nodeName && target.nodeName.toLowerCase() !== 'textarea') ||
-                (key !== tabKey && key !== untabKey && (key !== 13 || !autoIndent))) {
+        if ((target.nodeName &amp;&amp; target.nodeName.toLowerCase() !== 'textarea') ||
+                (key !== tabKey &amp;&amp; key !== untabKey &amp;&amp; (key !== 13 || !autoIndent))) {
             return;
         }
 
@@ -297,7 +297,7 @@ Copyright (c) 2014 Bill Bryant | http://opensource.org/licenses/mit */
             preTab = 0;
 
             // multi-line selection
-            if (selStart !== selEnd && sel.indexOf('\n') !== -1) {
+            if (selStart !== selEnd &amp;&amp; sel.indexOf('\n') !== -1) {
                 // for multiple lines, only insert / remove tabs from the beginning of each line
 
                 // find the start of the first selected line
@@ -499,7 +499,7 @@ Copyright (c) 2014 Bill Bryant | http://opensource.org/licenses/mit */
         var key = e.keyCode;
 
         if (tabKeyComboPressed(key, e) || untabKeyComboPressed(key, e) ||
-                (key === 13 && autoIndent && !inWhitespace)) {
+                (key === 13 &amp;&amp; autoIndent &amp;&amp; !inWhitespace)) {
 
             if (e.preventDefault) {
                 e.preventDefault();
@@ -682,7 +682,7 @@ Copyright (c) 2014 Bill Bryant | http://opensource.org/licenses/mit */
      * @return {Object}         the tabOverride object
      */
     tabOverride.addExtension = function (hook, func) {
-        if (hook && typeof hook === 'string' && typeof func === 'function') {
+        if (hook &amp;&amp; typeof hook === 'string' &amp;&amp; typeof func === 'function') {
             if (!hooks[hook]) {
                 hooks[hook] = [];
             }
@@ -737,7 +737,7 @@ Copyright (c) 2014 Bill Bryant | http://opensource.org/licenses/mit */
 
             for (i = 0; i &lt; numElems; i += 1) {
                 elem = elemsArr[i];
-                if (elem && elem.nodeName && elem.nodeName.toLowerCase() === 'textarea') {
+                if (elem &amp;&amp; elem.nodeName &amp;&amp; elem.nodeName.toLowerCase() === 'textarea') {
                     executeExtensions('set', [elem, enableFlag]);
                     elem.setAttribute('data-taboverride-enabled', attrValue);
                     setListeners(elem);
@@ -759,7 +759,7 @@ Copyright (c) 2014 Bill Bryant | http://opensource.org/licenses/mit */
         var i;
 
         if (arguments.length) {
-            if (size && typeof size === 'number' && size > 0) {
+            if (size &amp;&amp; typeof size === 'number' &amp;&amp; size > 0) {
                 aTab = '';
                 for (i = 0; i &lt; size; i += 1) {
                     aTab += ' ';
@@ -843,7 +843,7 @@ Copyright (c) 2014 Bill Bryant | http://opensource.org/licenses/mit */
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Tue Jan 21 2014 12:21:15 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha4</a> on Wed Feb 19 2014 15:02:42 GMT-0500 (Eastern Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
