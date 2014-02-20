@@ -79,6 +79,16 @@ continue to function properly.
 This script is also compatible with [CommonJS module](http://wiki.commonjs.org/wiki/Modules)
 systems.
 
+### WordPress Plugin
+
+The Tab Override WordPress plugin is available at http://wordpress.org/plugins/tab-override/.
+
+### MediaWiki Extension
+
+A MediaWiki extension is also available at http://www.mediawiki.org/wiki/Extension:Tab_Override.
+
+*Note: This extension is no longer maintained.*
+
 ## Usage
 
 Unless using a module loader, this script creates a single global variable
