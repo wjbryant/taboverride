@@ -14,7 +14,7 @@ module.exports = function (grunt) {
             options: {
                 banner: '/*! <%= pkg.name %> v<%= pkg.version %> | <%= pkg.homepage %>\n' +
                     '(c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %> | <%= pkg.licenses[0].url %> */\n\n' +
-                    '/**\r\n' +
+                    '/**\n' +
                     ' * @fileOverview <%= pkg.name %>\n' +
                     ' * @author       <%= pkg.author.name %>\n' +
                     ' * @version      <%= pkg.version %>\n' +
