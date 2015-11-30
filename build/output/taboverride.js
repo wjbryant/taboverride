@@ -1,10 +1,10 @@
-/*! taboverride v4.0.2 | https://github.com/wjbryant/taboverride
-(c) 2014 Bill Bryant | http://opensource.org/licenses/mit */
+/*! taboverride v4.0.3 | https://github.com/wjbryant/taboverride
+(c) 2015 Bill Bryant | http://opensource.org/licenses/mit */
 
 /**
  * @fileOverview taboverride
  * @author       Bill Bryant
- * @version      4.0.2
+ * @version      4.0.3
  */
 
 /*jslint browser: true */

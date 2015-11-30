@@ -56,7 +56,7 @@ module.exports = function (grunt) {
             options: {
                 compress: true,
                 mangle: true,
-                preserveComments: 'some'
+                preserveComments: /^!/
             },
             dist: {
                 options: {
@@ -64,9 +64,24 @@ module.exports = function (grunt) {
                     sourceMapName: 'build/output/taboverride.min.js.map'
                 },
                 files: {
-                    // the min file is moved to the build/output directory via a custom task
-                    // this is to ensure the "file" field is set correctly in the source map
                     'build/output/taboverride.min.js': ['build/output/taboverride.js']
+                }
+            }
+        },
+        replace: {
+            // replace literal tab character with \t in minified file until
+            // https://github.com/mishoo/UglifyJS2/pull/370 is merged
+            dist: {
+                options: {
+                    patterns: [
+                        {
+                            match: /\t/g,
+                            replacement: '\\t'
+                        }
+                    ]
+                },
+                files: {
+                    './': ['build/output/taboverride.min.js']
                 }
             }
         }
@@ -77,6 +92,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-qunit');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-replace');
 
     grunt.registerTask('generateBowerManifest', 'Generates the bower.json file.', function () {
         grunt.config.requires(['pkg']);
@@ -128,14 +144,15 @@ module.exports = function (grunt) {
         );
     });
 
-    // umd
+    // umd with tests and docs
     grunt.registerTask('default', [
         'clean:output', 'concat:umd', 'normalizeLineEndings', 'jshint', 'qunit',
-        'uglify', 'generateBowerManifest', 'clean:docs', 'generateAPIDocs'
+        'uglify', 'replace', 'generateBowerManifest', 'clean:docs', 'generateAPIDocs'
     ]);
 
-    // cjs, amd, and globals tasks - just concat, lint, and minify, no testing or docs
-    grunt.registerTask('cjs', ['clean:output', 'concat:cjs', 'normalizeLineEndings', 'jshint', 'uglify']);
-    grunt.registerTask('amd', ['clean:output', 'concat:amd', 'normalizeLineEndings', 'jshint', 'uglify']);
-    grunt.registerTask('globals', ['clean:output', 'concat:globals', 'normalizeLineEndings', 'jshint', 'uglify']);
+    // umd, cjs, amd, and globals tasks - just concat, lint, and minify, no testing or docs
+    grunt.registerTask('umd', ['clean:output', 'concat:umd', 'normalizeLineEndings', 'jshint', 'uglify', 'replace']);
+    grunt.registerTask('cjs', ['clean:output', 'concat:cjs', 'normalizeLineEndings', 'jshint', 'uglify', 'replace']);
+    grunt.registerTask('amd', ['clean:output', 'concat:amd', 'normalizeLineEndings', 'jshint', 'uglify', 'replace']);
+    grunt.registerTask('globals', ['clean:output', 'concat:globals', 'normalizeLineEndings', 'jshint', 'uglify', 'replace']);
 };
